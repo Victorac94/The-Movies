@@ -1,0 +1,108 @@
+.MCI {
+  min-height: calc(100vh - 350px);
+  position: absolute;
+  top: 350px;
+  left: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 10px 15px;
+  background-color: white;
+  font-family: "Open Sans", sans-serif;
+  transition: transform 0.4s cubic-bezier(.46,1.27,.67,.98);
+  will-change: transform;
+}
+
+.MCI__expanding.transition {
+  transition: transform 0.4s ease-out;
+}
+
+.MCI__expanded {
+  top: 180px;
+}
+
+.MCI__title {
+  margin-top: 5px;
+  margin-bottom: 15px;
+  font-weight: bold;
+  font-size: 20px;
+  color: #424141;
+}
+
+.MCI__rate {
+  margin: 0;
+}
+
+.MCI__rate__expanded {
+  position: absolute;
+  top: 15px;
+  right: 0;
+  /* The real value of 'right:' is calculated in calculateCardInfoPosition.js to get it centered*/
+}
+
+.MCI__rate__number {
+  position: relative;
+  bottom: 5px;
+  font-size: 18px;
+}
+
+.MCI__runtime {
+  display: inline-block;
+  width: 110px;
+  color: #868383;
+  font-family: sans-serif;
+  font-size: 18px;
+}
+
+.MCI .icon-clock {
+  position: relative;
+  top: 2px;
+  margin-right: 8px
+}
+
+.MCI__release {
+  color: #868383;
+  margin: 15px 0;
+  font-family: sans-serif;
+  font-size: 18px;
+}
+
+.MCI__expanded .MCI__release {
+  margin-top: 20px;
+}
+
+.icon-star,
+.icon-star-half-o,
+.icon-star-o {
+  color: #FFDD00;
+  font-size: 24px;
+  margin-right: 8px;
+}
+
+.icon-calendar {
+  font-size: 20px;
+  margin-right: 13px;
+  position: relative;
+  top: 2px;
+}
+
+.MCI__overview {
+  text-align: left;
+  margin: 35px 0;
+  font-family: 'Roboto', sans-serif;
+  font-size: 16px;
+}
+
+.MCI__overview__title {
+  color: #616161;
+  font-weight: 500;
+}
+
+.MCI__overview__body {
+  color: #646464;
+}
+
+.MCI__trailer {
+  margin-bottom: 30px;
+}

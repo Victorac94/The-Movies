@@ -1,0 +1,8 @@
+.movie-card-info__tags__tag {
+  display: inline-block;
+  margin: 7px;
+  padding: 4px 15px;
+  background-color: #7AEF8A;
+  color: #3B3B3B;
+  border-radius: 6px;
+}

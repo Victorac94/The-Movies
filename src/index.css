@@ -1,14 +1,30 @@
+/*
+  Throughout the different stylesheets if we want to animate a change in
+  width, height, position, etc... we use transforms (scale, translate...)
+  because that is MUCH MORE efficient in an animation than changing its
+  height, width or position (top, right, bottom, left).
+
+  I also use the css property 'will-change: ' (along with 'transform' or 'opacity')
+  so that the browser makes the appropriate optimizations to manipulate a component
+  more efficiently. Although it is adviced to use this property as a last resource
+  because it might cause performance issues if used too many times.
+
+  For more info check this: https://aerotwist.com/blog/pixels-are-expensive/
+  That page's blog is a good resource for best practices.
+*/
+
+* {
+  box-sizing: border-box;
+}
+
 body {
+  min-height: 100vh;
   margin: 0;
   padding: 0;
+  background: white;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
     "Ubuntu", "Cantarell", "Fira Sans", "Droid Sans", "Helvetica Neue",
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-}
-
-code {
-  font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
-    monospace;
 }

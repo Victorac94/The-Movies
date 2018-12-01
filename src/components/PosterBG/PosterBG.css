@@ -1,0 +1,36 @@
+.poster-bg {
+  position: relative;
+  width: 100vw;
+  height: 350px;
+  background: #191a1f;
+  transition: transform 0.4s ease-out;
+  will-change: transform;
+}
+
+.poster-bg .background-img {
+  position: absolute;
+  top: 0;
+  left: calc((100% - 622px) / 2);
+  height: 350px;
+  transform-origin: top;
+  transition: transform 0.4s ease-out;
+}
+
+.poster-bg .foregroundBG {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 350px;
+  background: rgba(34, 34, 34, 0.6);
+}
+
+.poster-bg-onDetails .background-img {
+  transform-origin: top;
+  transform: scale(1.1);
+  transition: transform 0.4s ease-out;
+}
+
+.foregroundBG_hidden {
+  opacity: 0;
+}
