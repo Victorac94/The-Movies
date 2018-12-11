@@ -1,0 +1,24 @@
+.icon-star,
+.icon-star-half-o,
+.icon-star-o {
+  color: #FFDD00;
+  font-size: 16px;
+  margin-right: 8px;
+  position: relative;
+  top: 2px;
+}
+
+.rate {
+  position: relative;
+  z-index: 10;
+}
+
+.DetailsCard__body .icon-star,
+.DetailsCard__body .icon-star-half-o,
+.DetailsCard__body .icon-star-o {
+  font-size: 22px
+}
+
+.DetailsCard__body .rate {
+  font-size: 22px;
+}

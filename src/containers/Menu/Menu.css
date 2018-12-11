@@ -1,7 +1,5 @@
 .menu__button {
-  position: absolute;
-  top: 10px;
-  right: 10px;
+  position: relative;
   width: 55px;
   padding: 10px;
   z-index: 10;
@@ -44,7 +42,7 @@
   color: white;
   font-family: "Open Sans", sans-serif;
   background: #41a4f5;
-  padding: 25px 20px;
+  padding: 20px;
   transition: transform 0.4s ease-out;
 }
 
@@ -52,16 +50,33 @@
   transform: translateX(-300px);
 }
 
+.menu__first_list {
+  margin-top: 80px;
+  padding-left: 20px;
+}
+
+.menu__first_list li {
+  list-style-type: none;
+  text-align: left;
+  margin-bottom: 5px;
+}
+
+.menu__first_list li a {
+  text-decoration: none;
+  font-size: 18px;
+  color: white;
+}
+
 .tmdb_logo {
   position: absolute;
-  top: 25px;
+  top: 20px;
   left: 20px;
-  width: 125px;
+  width: 120px;
 }
 
 .tmdb_attribution {
   position: absolute;
   bottom: 10px;
   margin-right: 20px;
-  font-size: 15px;
+  font-size: 14px;
 }

@@ -85,7 +85,7 @@ const tags = (props) => {
 
   for (let i = 0; i < props.tags.length; i++) {
     let tag = genres.find(el => {
-      return el.id === props.tags[i];
+      return el.id === props.tags[i].id;
     })
     tag = <Tag key={i} name={tag} />;
     tags.push(tag);

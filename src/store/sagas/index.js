@@ -2,9 +2,9 @@
 import { takeEvery } from 'redux-saga/effects';
 
 import * as actionTypes from '../actions/actionTypes';
-import { fetchNowPlaying, fetchMovieDetails } from './fetchMoviesSaga';
+import { fetchData, fetchDetails } from './fetchDataSaga';
 
 export function* watchMovies() {
-  yield takeEvery(actionTypes.FETCH_NOW_PLAYING, fetchNowPlaying);
-  yield takeEvery(actionTypes.FETCH_MOVIE_DETAILS, fetchMovieDetails)
+  yield takeEvery(actionTypes.FETCH_DATA, fetchData);
+  yield takeEvery(actionTypes.FETCH_DETAILS, fetchDetails)
 }

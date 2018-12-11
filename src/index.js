@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { BrowserRouter } from 'react-router-dom';
 import { createStore, applyMiddleware, compose, combineReducers } from 'redux';
 import { Provider } from 'react-redux';
 import createSagaMiddleware from 'redux-saga';
@@ -8,21 +9,23 @@ import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
 import { watchMovies } from './store/sagas/index';
-import moviesReducer from './store/reducers/moviesReducer';
+import dataReducer from './store/reducers/dataReducer';
+import generalReducer from './store/reducers/generalReducer';
 
 // Si estamos en development mode entonces habilitamos la extension de chrome, sino usamos 'compose'
 // process.env hace referencia a las variables de entorno de React
-const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose : null;
+const composeEnhancers = process.env.NODE_ENV === 'development' ? window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__ || compose : null || compose;
 
-// const rootReducer = combineReducers({
-//   moviesReducer: moviesReducer
-// })
+const rootReducer = combineReducers({
+  dataReducer: dataReducer,
+  generalReducer: generalReducer
+})
 
 // Creamos el Saga Middleware
 const sagaMiddleware = createSagaMiddleware();
 
 // Añadimos el sagaMiddleware  al store
-const store = createStore(moviesReducer, composeEnhancers(
+const store = createStore(rootReducer, composeEnhancers(
   applyMiddleware(sagaMiddleware)
 ));
 
@@ -32,7 +35,9 @@ sagaMiddleware.run(watchMovies);
 
 const app = (
   <Provider store={store}>
-    <App />
+    <BrowserRouter basename={process.env.PUBLIC_URL}>
+      <App />
+    </BrowserRouter>
   </Provider>
 );
 
