@@ -2,12 +2,14 @@ import axios from 'axios';
 import { put } from 'redux-saga/effects';
 
 import * as fetchMovies from '../actions/fetchDataAction';
+import * as generalActions from '../actions/generalActions';
 
 export function* fetchData(payload) {
   try {
     const response = yield axios.get(`https://api.themoviedb.org/3/${payload.mode}/${payload.genre}?api_key=6095dab7d845691ab95df77d0a908452`);
     console.log(response.data.results);
     yield put(fetchMovies.fetchDataSucceed(response.data.results));
+    yield put(generalActions.loadTitle(payload.genre))
   }
   catch {
     console.log("Error fetching Data");

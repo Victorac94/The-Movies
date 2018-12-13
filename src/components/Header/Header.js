@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { withRouter } from 'react-router-dom';
 
 import './Header.css';
 import * as actions from '../../store/actions/generalActions';
@@ -17,14 +18,14 @@ class Header extends Component {
   };
 
   render() {
+console.log(this.props)
 
-    const title = "Now Playing";
     return (
       <div className="Header">
         <span
         className={this.props.generalState.inDetails ? "Header__goBack icon-angle-left" : "Header__goBack icon-angle-left hidden"}
         onClick={this.props.onHideDetails}></span>
-        <p className="Header__title">{title}</p>
+        <p className="Header__title">{this.props.generalState.title}</p>
         <div
         className={this.state.menuIsShowing ? "menu__button close-button" : "menu__button"}
         onClick={this.toggleMenu}>
@@ -50,4 +51,4 @@ const mapDispatchToProps = dispatch => {
   }
 }
 
-export default connect(mapStateToProps, mapDispatchToProps)(Header);
+export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));

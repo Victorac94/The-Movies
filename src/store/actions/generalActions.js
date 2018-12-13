@@ -11,3 +11,10 @@ export const goBack = () => {
     type: actionTypes.PAGE_GO_BACK
   }
 }
+
+export const loadTitle = (genre) => {
+  return {
+    type: actionTypes.LOAD_TITLE,
+    genre: genre
+  }
+}

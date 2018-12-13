@@ -14,15 +14,24 @@ class Menu extends Component {
         <ul className="menu__first_list">
           <li>
             <Link to="/movie/top_rated"
-              onClick={() => this.props.onFetchData("movie", "top_rated")}>Top Rated</Link>
+              onClick={() => {
+                this.props.onFetchData("movie", "top_rated");
+                this.props.toggleMenu();
+              }}>Top Rated</Link>
           </li>
           <li>
             <Link to="/movie/now_playing"
-              onClick={() => this.props.onFetchData("movie", "now_playing")}>Now Playing</Link>
+              onClick={() => {
+                this.props.onFetchData("movie", "now_playing");
+                this.props.toggleMenu();
+              }}>Now Playing</Link>
           </li>
           <li>
             <Link to="/movie/popular"
-              onClick={() => this.props.onFetchData("movie", "popular")}>Popular</Link>
+              onClick={() => {
+                this.props.onFetchData("movie", "popular");
+                this.props.toggleMenu();
+              }}>Popular</Link>
           </li>
         </ul>
         <p className="tmdb_attribution">

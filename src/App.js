@@ -3,7 +3,6 @@ import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 
 import './App.css';
 import Header from './components/Header/Header';
-// import NowPlaying from './containers/movies/NowPlaying';
 import Grid from './containers/Grid/Grid';
 
 class App extends Component {
