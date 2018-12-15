@@ -9,7 +9,7 @@ const card = (props) => {
   if (title.length > 14) {
     title = title.slice(0, 14) + "...";
   }
-
+console.log("Rendering Card.js");
   return (
     <div className="Card" onClick={props.showDetails} data-id={props.info.id}>
       <img

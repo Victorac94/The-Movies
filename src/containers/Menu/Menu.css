@@ -35,13 +35,13 @@
 
 .menu__box {
   width: 300px;
-  height: 100%;
+  height: 100vh;
   position: fixed;
   top: 0;
   left: 100%;
   color: white;
   font-family: "Open Sans", sans-serif;
-  background: #41a4f5;
+  background: linear-gradient(135deg, #363a3e, #292d2f);
   padding: 20px;
   transition: transform 0.4s ease-out;
 }
@@ -50,26 +50,36 @@
   transform: translateX(-300px);
 }
 
-.menu__first_list {
+.menu__movies_list {
   margin-top: 80px;
-  padding-left: 20px;
+  padding-left: 0;
 }
 
-.menu__first_list li {
+.menu__movies_list li {
   list-style-type: none;
   text-align: left;
   margin-bottom: 5px;
 }
 
-.menu__first_list li a {
+.menu__movies_list li:before {
+  content: "- ";
+}
+
+.menu__movies_list li a {
   text-decoration: none;
-  font-size: 18px;
+  font-size: 17px;
   color: white;
+}
+
+.menu__list_title {
+  display: inline-block;
+  font-size: 20px;
+  margin-bottom: 20px;
 }
 
 .tmdb_logo {
   position: absolute;
-  top: 20px;
+  top: 10px;
   left: 20px;
   width: 120px;
 }
@@ -77,6 +87,8 @@
 .tmdb_attribution {
   position: absolute;
   bottom: 10px;
+  text-align: left;
+  margin-bottom: 0;
   margin-right: 20px;
   font-size: 14px;
 }

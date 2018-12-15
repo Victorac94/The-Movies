@@ -4,3 +4,11 @@
   position: relative;
   min-height: 100vh;
 }
+
+/* Tablets, Ipads (landscape) */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  .App {
+    width: 80vw;
+    margin: auto;
+  }
+}

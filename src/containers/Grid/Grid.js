@@ -51,7 +51,6 @@ class Grid extends Component {
     calculateCardPosition(poster, cardInfo);
 
     document.querySelector(".Grid").style.overflow = "hidden";
-    poster.style.zIndex = "100";
   }
 
   hideDetails = () => {
@@ -63,12 +62,11 @@ class Grid extends Component {
 
     document.querySelector(".Grid").style.overflow = "";
     currCard.classList.remove("currentCard");
-    poster.style.zIndex = "";
   }
 
   render () {
     let cards = null
-console.log("rendering");
+console.log("rendering grid");
     if (this.props.dataState.data) {
       const nowPlaying = this.props.dataState.data;
       cards = nowPlaying.map((el, i) => {

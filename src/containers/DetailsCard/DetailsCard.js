@@ -19,7 +19,6 @@ class DetailsCard extends Component {
 
   loadDetailsCard = (inDetails) => {
     if (inDetails) {
-      console.log("inside if()");
       const poster = document.querySelector(".currentCard img");
       const posterRect = poster.getBoundingClientRect();
       const winWidth = window.innerWidth;
@@ -31,7 +30,6 @@ class DetailsCard extends Component {
       this.detailsCard.style.transform = "scale(1)";
       this.detailsCard.style.opacity = "1";
     } else {
-      console.log("inside else");
       this.detailsCard.style.transform = "scale(0)";
       this.detailsCard.style.opacity = "0";
     }
@@ -73,6 +71,7 @@ class DetailsCard extends Component {
 console.log("rendering detailsCard")
     let data = null;
     let cast = null;
+    let trailerKey = null;
 
     if (this.state.data) {
       if (this.state.data.credits.cast) {
@@ -88,12 +87,16 @@ console.log("rendering detailsCard")
         }
       }
 
+      if (this.state.data.videos.results.length) {
+        trailerKey = this.state.data.videos.results[0].key;
+      }
+
       data = (
         <div className="DetailsCard__body">
           <div className="DetailsCard__body__main">
-            <h2 className="DetailsCard__body__title">{this.state.data.title}</h2>
+            <h2 className="DetailsCard__body__movie_title">{this.state.data.title}</h2>
             <Rate rate={this.state.data.vote_average} />
-            <div className="DetailsCard__body__runtime-date">
+            <div className="DetailsCard__body__runtime-release">
               <span className="DetailsCard__body__runtime">
                 <span className="icon-clock"></span>
                 <span>
@@ -110,18 +113,31 @@ console.log("rendering detailsCard")
             <Tags tags={this.state.data.genres}/>
           </div>
           <div className="DetailsCard__body__overview">
-            <p className="DetailsCard__body__overview__title">
+            <p className="DetailsCard__body__title">
               Overview
             </p>
-            <p>
+            <p className="DetailsCard__body__overview_p">
               {this.state.data.overview}
             </p>
           </div>
           <div className="DetailsCard__body__cast">
-            <p className="DetailsCard__body__cast__title">Cast</p>
+            <p className="DetailsCard__body__title">Cast</p>
             <div className="DetailsCard__body__cast__list">
               {cast}
             </div>
+          </div>
+          <div className="DetailsCard__body__trailer">
+            <p className="DetailsCard__body__title">Trailer</p>
+            {trailerKey ? (
+              <iframe
+              className="iframeTrailer"
+              src={`https://www.youtube-nocookie.com/embed/${trailerKey}`}
+              frameBorder="0"
+              title={this.state.data.title + "'s trailer"}
+              allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+              allowFullScreen></iframe>
+            )
+          : null}
           </div>
         </div>
       )
