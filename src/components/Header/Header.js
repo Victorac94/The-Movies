@@ -22,7 +22,10 @@ class Header extends Component {
       <div className="Header">
         <span
         className={this.props.generalState.inDetails ? "Header__goBack icon-angle-left" : "Header__goBack icon-angle-left hidden"}
-        onClick={this.props.onHideDetails}></span>
+        onClick={() => {
+          this.props.onHideDetails();
+          this.props.goBack();
+        }}></span>
         <p className="Header__title">{this.props.generalState.title}</p>
         <div
         className={this.state.menuIsShowing ? "menu__button close-button" : "menu__button"}
@@ -31,7 +34,11 @@ class Header extends Component {
           <span></span>
           <span></span>
         </div>
-        <Menu toggleMenu={this.toggleMenu} menuIsShowing={this.state.menuIsShowing}/>
+        <Menu
+          toggleMenu={this.toggleMenu}
+          menuIsShowing={this.state.menuIsShowing}
+          goBack={this.props.goBack}
+          />
       </div>
     )
   }

@@ -20,6 +20,7 @@ class Menu extends Component {
                 this.props.onFetchData("movie", "top_rated");
                 this.props.toggleMenu();
                 this.props.onHideDetails();
+                this.props.goBack();
               }}>Top Rated</Link>
           </li>
           <li>
@@ -28,6 +29,7 @@ class Menu extends Component {
                 this.props.onFetchData("movie", "now_playing");
                 this.props.toggleMenu();
                 this.props.onHideDetails();
+                this.props.goBack();
               }}>Now Playing</Link>
           </li>
           <li>
@@ -36,6 +38,7 @@ class Menu extends Component {
                 this.props.onFetchData("movie", "popular");
                 this.props.toggleMenu();
                 this.props.onHideDetails();
+                this.props.goBack();
               }}>Popular</Link>
           </li>
         </ul>

@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import fastdom from 'fastdom';
 
 import './DetailsCard.css';
 import Tags from '../../components/Tags/Tags';
@@ -19,19 +20,29 @@ class DetailsCard extends Component {
 
   loadDetailsCard = (inDetails) => {
     if (inDetails) {
-      const poster = document.querySelector(".currentCard img");
-      const posterRect = poster.getBoundingClientRect();
-      const winWidth = window.innerWidth;
-      const scale = (winWidth / 2) / posterRect.width;
+      let poster = document.querySelector(".currentCard img");
+      let posterRect;
+      let winWidth;
+      let scale;
 
-      this.posterBG.style.height = posterRect.height * scale + 100 + 'px';
-      poster.style.borderBottomLeftRadius = "5px";
-      poster.style.borderBottomRightRadius = "5px";
-      this.detailsCard.style.transform = "scale(1)";
-      this.detailsCard.style.opacity = "1";
+      fastdom.measure(() => {
+        posterRect = poster.getBoundingClientRect();
+        winWidth = window.innerWidth;
+        scale = (winWidth / 2) / posterRect.width;
+      });
+
+      fastdom.mutate(() => {
+        this.posterBG.style.height = posterRect.height * scale + 100 + 'px';
+        poster.style.borderBottomLeftRadius = "5px";
+        poster.style.borderBottomRightRadius = "5px";
+        this.detailsCard.style.transform = "scale(1)";
+        this.detailsCard.style.opacity = "1";
+      });
     } else {
-      this.detailsCard.style.transform = "scale(0)";
-      this.detailsCard.style.opacity = "0";
+      fastdom.mutate(() => {
+        this.detailsCard.style.transform = "scale(0)";
+        this.detailsCard.style.opacity = "0";
+      })
     }
   }
 
@@ -74,6 +85,7 @@ console.log("rendering detailsCard")
     let trailerKey = null;
 
     if (this.state.data) {
+      // Load cast
       if (this.state.data.credits.cast) {
         const data = this.state.data.credits.cast;
         let length = data.length > 10 ? 10 : data.length;
@@ -87,6 +99,7 @@ console.log("rendering detailsCard")
         }
       }
 
+      // Load trailer
       if (this.state.data.videos.results.length) {
         trailerKey = this.state.data.videos.results[0].key;
       }

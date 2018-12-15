@@ -14,6 +14,7 @@
 }
 
 .transition {
+  will-change: transform;
   transition: transform 0.4s ease-out;
 }
 

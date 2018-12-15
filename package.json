@@ -4,8 +4,8 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "animate-css-grid": "^1.0.4",
     "axios": "^0.18.0",
+    "fastdom": "^1.0.8",
     "gh-pages": "^2.0.1",
     "react": "^16.6.3",
     "react-dom": "^16.6.3",
