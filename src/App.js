@@ -107,7 +107,10 @@ class App extends Component {
         <DetailsCard />
         <Switch>
           <Route path="/:mode/:genre?" render={() => (
-            <Grid {...this.props} showDetails={(e, mode) => this.showDetails(e, mode)}/>
+            <Grid {...this.props}
+              showDetails={(e, mode) => this.showDetails(e, mode)}
+              menuIsShowing={this.state.menuIsShowing}
+              toggleMenu={this.toggleMenu}/>
           )} />
           <Redirect to="/movie/now_playing" />
         </Switch>

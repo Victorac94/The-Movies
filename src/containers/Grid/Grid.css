@@ -10,6 +10,11 @@
   overflow: auto;
 }
 
+.grid__search_box {
+  width: 90%;
+  margin: 20px auto;
+}
+
 @media (min-width: 481px) and (max-width: 767px) and (orientation: landscape) {
   .Grid {
     grid-template-columns: auto auto auto;

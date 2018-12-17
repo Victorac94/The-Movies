@@ -10,7 +10,7 @@ import * as actions from '../../store/actions/generalActions';
 class Menu extends Component {
   searchTerm = (e) => {
     e.preventDefault();
-    const input = document.querySelector(".menu__box__search_input");
+    const input = document.querySelector(".menu__box__search_box input");
     this.props.history.replace(`/search?query=${input.value}`);
     this.props.onFetchSearch(input.value);
     this.showNormalView();
