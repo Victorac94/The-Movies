@@ -16,11 +16,32 @@
   font-size: 21px;
 }
 
+.Backdrop {
+  width: 100vw;
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  background: rgba(0, 0, 0, 0.7);
+  opacity: 0;
+  animation: animateBD 0.4s forwards
+}
+
+@keyframes animateBD {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
 .icon-angle-left {
   color: white;
   font-size: 35px;
   position: relative;
   top: 2px;
+  z-index: -10;
 }
 
 .hidden {

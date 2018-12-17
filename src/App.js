@@ -12,6 +12,36 @@ import * as generalActions from './store/actions/generalActions';
 import * as fetchData from './store/actions/fetchDataAction';
 
 class App extends Component {
+  state = {
+    menuIsShowing: false
+  }
+
+  toggleMenu = () => {
+
+    // If we want to show the menu
+    if (!this.state.menuIsShowing) {
+      this.props.history.push("#menu");
+    }
+    // If we want to hide the menu
+    else {
+      let inDetails = this.props.generalState.inDetails;
+
+      if (inDetails) {
+        // This has to be 'replace', because if we use 'push' there'll be
+        // two '#details' in a row in the history array, thus making the
+        // user to press the back button twice to hide Details if the user
+        // opened the 'menu' while in 'details' view.
+        this.props.history.replace("#details");
+      } else {
+        this.props.history.push("#");
+      }
+    }
+
+    this.setState(prevState => {
+      return {menuIsShowing: !prevState.menuIsShowing}
+    })
+  };
+
   showDetails = (e, mode) => {
     if (e.currentTarget.classList.contains("currentCard")) return;
 
@@ -27,6 +57,7 @@ class App extends Component {
     }
 
     currCard.classList.add("currentCard");
+    this.props.history.push("#details");
 
     this.props.onShowDetails();
     calculateCardPosition(poster, cardInfo);
@@ -40,18 +71,45 @@ class App extends Component {
 
       resetCardPosition(poster, cardInfo);
       currCard.classList.remove("currentCard");
+      this.props.history.push("#");
+      this.props.onHideDetails();
     }
+  }
+
+  onHashChange = (e) => {
+    if (e.oldURL) {
+      console.log(e.oldURL);
+      //We can only have one # in the URL (either 'details' or 'menu')
+      var oldURL = e.oldURL.split('#')[1];
+
+      if (oldURL === 'details') {
+        this.hideDetails();
+      } else if (oldURL === 'menu') {
+        this.toggleMenu();
+      }
+    }
+  }
+
+  componentDidMount () {
+    window.addEventListener("hashchange", (e) => this.onHashChange(e), false);
+    console.log(this.props);
   }
 
   render() {
     return (
       <div className="App">
-        <Header goBack={this.hideDetails}/>
+        <Header
+        title={this.props.generalState.title}
+          menuIsShowing={this.state.menuIsShowing}
+          toggleMenu={this.toggleMenu}
+          goBack={this.hideDetails}
+          inDetails={this.props.generalState.inDetails}/>
         <DetailsCard />
         <Switch>
           <Route path="/:mode/:genre?" render={() => (
             <Grid {...this.props} showDetails={(e, mode) => this.showDetails(e, mode)}/>
           )} />
+          <Redirect to="/movie/now_playing" />
         </Switch>
       </div>
     )
@@ -60,14 +118,16 @@ class App extends Component {
 
 const mapStateToProps = state => {
   return {
-    dataState: state.dataReducer
+    dataState: state.dataReducer,
+    generalState: state.generalReducer
   }
 }
 
 const mapDispatchToProps = dispatch => {
   return {
     onFetchDetails: (mode, id) => dispatch(fetchData.fetchDetails(mode, id)),
-    onShowDetails: () => dispatch(generalActions.showDetails())
+    onShowDetails: () => dispatch(generalActions.showDetails()),
+    onHideDetails: () => dispatch(generalActions.goBack())
   }
 }
 

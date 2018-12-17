@@ -1,6 +1,6 @@
 import fastdom from 'fastdom';
 
-export const calculateCardPosition = (poster, cardInfo) => {
+export const calculateCardPosition = (poster) => {
   let winWidth;
   let posterInitial;
   let posterWidth;

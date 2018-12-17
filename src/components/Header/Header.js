@@ -1,59 +1,35 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import React from 'react';
 
 import './Header.css';
-import * as actions from '../../store/actions/generalActions';
 import Menu from '../../containers/Menu/Menu';
 
-class Header extends Component {
-  state = {
-    menuIsShowing: false
-  };
-
-  toggleMenu = () => {
-    this.setState(prevState => {
-      return {menuIsShowing: !prevState.menuIsShowing}
-    })
-  };
-
-  render() {
+const header = (props) => {
     return (
       <div className="Header">
+        {props.menuIsShowing ? (
+          <div className="Backdrop"></div>
+        )
+        : null }
         <span
-        className={this.props.generalState.inDetails ? "Header__goBack icon-angle-left" : "Header__goBack icon-angle-left hidden"}
+        className={props.inDetails ? "Header__goBack icon-angle-left" : "Header__goBack icon-angle-left hidden"}
         onClick={() => {
-          this.props.onHideDetails();
-          this.props.goBack();
+          props.goBack();
         }}></span>
-        <p className="Header__title">{this.props.generalState.title}</p>
+        <p className="Header__title">{props.title}</p>
         <div
-        className={this.state.menuIsShowing ? "menu__button close-button" : "menu__button"}
-        onClick={this.toggleMenu}>
+        className={props.menuIsShowing ? "menu__button close-button" : "menu__button"}
+        onClick={props.toggleMenu}>
           <span></span>
           <span></span>
           <span></span>
         </div>
         <Menu
-          toggleMenu={this.toggleMenu}
-          menuIsShowing={this.state.menuIsShowing}
-          goBack={this.props.goBack}
+          toggleMenu={props.toggleMenu}
+          menuIsShowing={props.menuIsShowing}
+          goBack={props.goBack}
           />
       </div>
     )
-  }
 }
 
-const mapStateToProps = state => {
-  return {
-    generalState: state.generalReducer
-  }
-}
-
-const mapDispatchToProps = dispatch => {
-  return {
-    onHideDetails: () => dispatch(actions.goBack())
-  }
-}
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Header));
+export default header;

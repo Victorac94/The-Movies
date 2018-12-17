@@ -11,10 +11,16 @@ class Menu extends Component {
   searchTerm = (e) => {
     e.preventDefault();
     const input = document.querySelector(".menu__box__search_input");
-    this.props.history.push("/search");
+    this.props.history.replace(`/search?query=${input.value}`);
     this.props.onFetchSearch(input.value);
-    this.props.toggleMenu();
+    this.showNormalView();
     input.blur();
+  }
+
+  showNormalView = () => {
+    this.props.toggleMenu();
+    this.props.onHideDetails();
+    this.props.goBack();
   }
 
   render() {
@@ -33,27 +39,21 @@ class Menu extends Component {
             <Link to="/movie/top_rated"
               onClick={() => {
                 this.props.onFetchData("movie", "top_rated");
-                this.props.toggleMenu();
-                this.props.onHideDetails();
-                this.props.goBack();
+                this.showNormalView();
               }}>Top Rated</Link>
           </li>
           <li>
             <Link to="/movie/now_playing"
               onClick={() => {
                 this.props.onFetchData("movie", "now_playing");
-                this.props.toggleMenu();
-                this.props.onHideDetails();
-                this.props.goBack();
+                this.showNormalView();
               }}>Now Playing</Link>
           </li>
           <li>
             <Link to="/movie/popular"
               onClick={() => {
                 this.props.onFetchData("movie", "popular");
-                this.props.toggleMenu();
-                this.props.onHideDetails();
-                this.props.goBack();
+                this.showNormalView();
               }}>Popular</Link>
           </li>
         </ul>

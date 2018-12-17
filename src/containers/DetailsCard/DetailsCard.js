@@ -47,24 +47,11 @@ class DetailsCard extends Component {
   }
 
   static getDerivedStateFromProps (nextProps, prevState) {
-    const posterBG = document.querySelector(".DetailsCard__posterBG");
-
-    if (posterBG) {
-      function loadBG () {
-        posterBG.style.backgroundImage = `url("https://image.tmdb.org/t/p/w780${nextProps.dataState.details.backdrop_path}")`;
-      }
-      function deleteBG () {
-        posterBG.style.backgroundImage = "none";
-      }
-
-      if (nextProps.generalState.inDetails && nextProps.dataState.newDetails) {
-        loadBG();
-        return ({data: nextProps.dataState.details});
-      }
-      else if (!nextProps.generalState.inDetails) {
-        deleteBG();
-        return ({data: null});
-      }
+    if (nextProps.generalState.inDetails && nextProps.dataState.newDetails) {
+      return ({data: nextProps.dataState.details});
+    }
+    else if (!nextProps.generalState.inDetails) {
+      return ({data: null});
     }
     return null;
   }
@@ -92,9 +79,20 @@ class DetailsCard extends Component {
   }
 
   render () {
-console.log("rendering detailsCard")
+    console.log("rendering detailsCard")
+
+    const posterBG = document.querySelector(".DetailsCard__posterBG");
     let data = null;
     let trailerKey = null;
+
+    if (posterBG) {
+      if (this.props.generalState.inDetails && this.props.dataState.newDetails) {
+        posterBG.style.backgroundImage = `url("https://image.tmdb.org/t/p/w780${this.state.data.backdrop_path}")`;
+      }
+      else if (!this.props.generalState.inDetails) {
+        posterBG.style.backgroundImage = "none";
+      }
+    }
 
     if (this.state.data) {
       let cast = null;
@@ -163,7 +161,7 @@ console.log("rendering detailsCard")
               allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
               allowFullScreen></iframe>
             )
-          : null}
+            : null}
           </div>
         </div>
       )
