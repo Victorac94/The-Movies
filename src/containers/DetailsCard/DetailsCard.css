@@ -4,7 +4,7 @@
   position: absolute;
   top: 50px;
   left: 0;
-  padding-bottom: 30px;
+  padding-bottom: 60px;
   background: #1b1f2b;
   opacity: 0;
   transform: scale(0);
@@ -94,8 +94,6 @@
 }
 
 .iframeTrailer {
-  /* width: 320px;
-  height: 180px; */
   width: 88vw;
   height: 49.5vw;
   background-color: #282828;

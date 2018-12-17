@@ -8,10 +8,25 @@ import * as fetchData from '../../store/actions/fetchDataAction';
 import * as actions from '../../store/actions/generalActions';
 
 class Menu extends Component {
+  searchTerm = (e) => {
+    e.preventDefault();
+    const input = document.querySelector(".menu__box__search_input");
+    this.props.history.push("/search");
+    this.props.onFetchSearch(input.value);
+    this.props.toggleMenu();
+    input.blur();
+  }
+
   render() {
     return (
       <div className={this.props.menuIsShowing ? "menu__box is-showing" : "menu__box"}>
         <img src={tmdb_logo} className="tmdb_logo" alt="TheMovieDatabase logo" />
+        <div className="menu__box__search_box">
+          <form onSubmit={this.searchTerm}>
+            <input className="menu__box__search_input" type="text" placeholder="Search..." />
+            <button className="menu__box__search_button">Search</button>
+          </form>
+        </div>
         <ul className="menu__movies_list">
           <span className="menu__list_title">Movies</span>
           <li>
@@ -53,6 +68,7 @@ class Menu extends Component {
 const mapDispatchToProps = dispatch => {
   return {
     onFetchData: (mode, genre) => dispatch(fetchData.fetchData(mode, genre)),
+    onFetchSearch: (query) => dispatch(fetchData.fetchSearch(query)),
     onHideDetails: () => dispatch(actions.goBack())
   }
 }

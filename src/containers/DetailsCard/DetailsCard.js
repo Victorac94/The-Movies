@@ -50,23 +50,36 @@ class DetailsCard extends Component {
     const posterBG = document.querySelector(".DetailsCard__posterBG");
 
     if (posterBG) {
-      function loadData () {
+      function loadBG () {
         posterBG.style.backgroundImage = `url("https://image.tmdb.org/t/p/w780${nextProps.dataState.details.backdrop_path}")`;
       }
-      function deleteData () {
+      function deleteBG () {
         posterBG.style.backgroundImage = "none";
       }
 
       if (nextProps.generalState.inDetails && nextProps.dataState.newDetails) {
-        loadData();
+        loadBG();
         return ({data: nextProps.dataState.details});
       }
       else if (!nextProps.generalState.inDetails) {
-        deleteData();
+        deleteBG();
         return ({data: null});
       }
     }
     return null;
+  }
+
+  shouldComponentUpdate (nextProps) {
+    if (this.props.dataState.newDetails === false && nextProps.dataState.newDetails === true) {
+      return true;
+    }
+    if (this.props.dataState.fetchingDetails === false && nextProps.dataState.fetchingDetails === true) {
+      return true;
+    }
+    if (this.props.generalState.inDetails !== nextProps.generalState.inDetails) {
+      return true;
+    }
+    return false;
   }
 
   componentDidUpdate () {
@@ -81,10 +94,10 @@ class DetailsCard extends Component {
   render () {
 console.log("rendering detailsCard")
     let data = null;
-    let cast = null;
     let trailerKey = null;
 
     if (this.state.data) {
+      let cast = null;
       // Load cast
       if (this.state.data.credits.cast) {
         const data = this.state.data.credits.cast;

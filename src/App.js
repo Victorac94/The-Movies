@@ -34,11 +34,13 @@ class App extends Component {
 
   hideDetails = () => {
     const currCard = document.querySelector(".currentCard");
-    const poster = currCard.querySelector("img");
-    const cardInfo = currCard.querySelector(".Card__Info");
+    if (currCard) {
+      const poster = currCard.querySelector("img");
+      const cardInfo = currCard.querySelector(".Card__Info");
 
-    resetCardPosition(poster, cardInfo);
-    currCard.classList.remove("currentCard");
+      resetCardPosition(poster, cardInfo);
+      currCard.classList.remove("currentCard");
+    }
   }
 
   render() {
@@ -47,10 +49,9 @@ class App extends Component {
         <Header goBack={this.hideDetails}/>
         <DetailsCard />
         <Switch>
-          <Route path="/:mode/:genre" render={() => (
+          <Route path="/:mode/:genre?" render={() => (
             <Grid {...this.props} showDetails={(e, mode) => this.showDetails(e, mode)}/>
           )} />
-          <Redirect to="/movie/now_playing" />
         </Switch>
       </div>
     )

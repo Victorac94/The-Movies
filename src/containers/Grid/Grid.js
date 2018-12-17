@@ -12,14 +12,12 @@ class Grid extends Component {
     const genre = this.props.match.params.genre;
 
     this.props.onFetchData(mode, genre);
-    console.log("didmount");
   }
 
   shouldComponentUpdate(nextProps, nextState) {
-    console.log("shouldupdate");
-    // Only re-render if user changes URL
+    console.log("shouldupdate grid");
 
-    if (!this.props.dataState.data || this.props.generalState.title !== nextProps.generalState.title) {
+    if (this.props.dataState.newData === false && nextProps.dataState.newData === true) {
       return true;
     }
     return false;
@@ -32,11 +30,12 @@ class Grid extends Component {
     if (this.props.dataState.data) {
       const nowPlaying = this.props.dataState.data;
       cards = nowPlaying.map((el, i) => {
+        const mode = el.media_type === "tv" ? "tv" : this.props.match.params.mode;
         return (
           <Card
             key={i}
             info={el}
-            showDetails={(e) => this.props.showDetails(e, this.props.match.params.mode)}
+            showDetails={(e) => this.props.showDetails(e, mode)}
             />
         )
       })

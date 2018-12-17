@@ -8,7 +8,7 @@ import createSagaMiddleware from 'redux-saga';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import { watchMovies } from './store/sagas/index';
+import { watchActions } from './store/sagas/index';
 import dataReducer from './store/reducers/dataReducer';
 import generalReducer from './store/reducers/generalReducer';
 
@@ -31,7 +31,7 @@ const store = createStore(rootReducer, composeEnhancers(
 
 // Corremos en el sagaMiddleware el saga que hemos creado e importado.
 // Estos sagas son los que ejecutan otros sagas cuando ciertas acciones son despachadas en la aplicación.
-sagaMiddleware.run(watchMovies);
+sagaMiddleware.run(watchActions);
 
 const app = (
   <Provider store={store}>

@@ -3,6 +3,7 @@
   overflow-x: hidden;
   position: relative;
   min-height: 100vh;
+  background-color: #212533;
 }
 
 /* Tablets, Ipads (landscape) */

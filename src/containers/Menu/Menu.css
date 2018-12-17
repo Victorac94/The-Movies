@@ -50,8 +50,39 @@
   transform: translateX(-300px);
 }
 
+.menu__box__search_box {
+  margin-top: 60px;
+  width: 100%;
+  display: flex;
+}
+
+.menu__box__search_input {
+  width: 75%;
+  padding: 6px;
+  font-size: 15px;
+  border: none;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  color: #4a4a4a;
+}
+
+.menu__box__search_input:focus {
+  outline-color: #1592f9;
+}
+
+.menu__box__search_button {
+  width: 25%;
+  padding: 6px;
+  font-size: 15px;
+  border: none;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  color: white;
+  background-color: #f16d2d;
+}
+
 .menu__movies_list {
-  margin-top: 80px;
+  margin-top: 30px;
   padding-left: 0;
 }
 
@@ -63,6 +94,7 @@
 
 .menu__movies_list li:before {
   content: "- ";
+  color: #f16d2d;
 }
 
 .menu__movies_list li a {
@@ -73,8 +105,11 @@
 
 .menu__list_title {
   display: inline-block;
+  width: 70%;
   font-size: 20px;
+  padding-bottom: 5px;
   margin-bottom: 20px;
+  border-bottom: 1px solid #d25f27;
 }
 
 .tmdb_logo {

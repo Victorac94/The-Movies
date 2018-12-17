@@ -19,6 +19,9 @@ const loadTitle = (state, action) => {
     case 'popular':
       title = "Popular";
       break;
+    case 'search':
+      title = "Search Results"
+      break;
     default:
       title = "The Movies";
   }

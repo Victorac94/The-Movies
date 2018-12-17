@@ -5,8 +5,7 @@ export const fetchData = (mode, genre) => {
   return {
     type: actionTypes.FETCH_DATA,
     mode: mode,
-    genre: genre,
-    error: false
+    genre: genre
   }
 }
 
@@ -19,8 +18,7 @@ export const fetchDataSucceed = (data) => {
 
 export const fetchDataFailed = () => {
   return {
-    type: actionTypes.FETCH_DATA_FAILED,
-    error: true
+    type: actionTypes.FETCH_DATA_FAILED
   }
 }
 
@@ -29,8 +27,7 @@ export const fetchDetails = (mode, id) => {
   return {
     type: actionTypes.FETCH_DETAILS,
     mode: mode,
-    id: id,
-    error: false
+    id: id
   }
 }
 
@@ -43,7 +40,26 @@ export const fetchDetailsSucceed = (data) => {
 
 export const fetchDetailsFailed = () => {
   return {
-    type: actionTypes.FETCH_DETAILS_FAILED,
-    error: true
+    type: actionTypes.FETCH_DETAILS_FAILED
+  }
+}
+
+export const fetchSearch = (data) => {
+  return {
+    type: actionTypes.FETCH_SEARCH,
+    data: data
+  }
+}
+
+export const fetchSearchSucceed = (data) => {
+  return {
+    type: actionTypes.FETCH_SEARCH_SUCCEED,
+    data: data
+  }
+}
+
+export const fetchSearchFailed = () => {
+  return {
+    type: actionTypes.FETCH_SEARCH_FAILED
   }
 }
