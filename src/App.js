@@ -47,7 +47,6 @@ class App extends Component {
 
     const currCard = e.currentTarget;
     const poster = currCard.querySelector(".Card__Poster");
-    const cardInfo = currCard.querySelector(".Card__Info");
     const dataState = this.props.dataState;
 
     // Only fetch movie details if user is clicking
@@ -59,8 +58,8 @@ class App extends Component {
     currCard.classList.add("currentCard");
     this.props.history.push("#details");
 
-    this.props.onShowDetails();
-    calculateCardPosition(poster, cardInfo);
+    this.props.onShowDetails(mode);
+    calculateCardPosition(poster);
   }
 
   hideDetails = () => {
@@ -99,7 +98,7 @@ class App extends Component {
     return (
       <div className="App">
         <Header
-        title={this.props.generalState.title}
+          title={this.props.generalState.title}
           menuIsShowing={this.state.menuIsShowing}
           toggleMenu={this.toggleMenu}
           goBack={this.hideDetails}
@@ -129,7 +128,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onFetchDetails: (mode, id) => dispatch(fetchData.fetchDetails(mode, id)),
-    onShowDetails: () => dispatch(generalActions.showDetails()),
+    onShowDetails: (media) => dispatch(generalActions.showDetails(media)),
     onHideDetails: () => dispatch(generalActions.goBack())
   }
 }

@@ -3,8 +3,9 @@ import { connect } from 'react-redux';
 import fastdom from 'fastdom';
 
 import './DetailsCard.css';
-import Tags from '../../components/Tags/Tags';
-import Rate from '../../components/Rate/Rate';
+import MovieDetails from '../../components/DetailsCardType/MovieDetails/MovieDetails';
+import TvDetails from '../../components/DetailsCardType/TvDetails/TvDetails';
+import PersonDetails from '../../components/DetailsCardType/PersonDetails/PersonDetails';
 import Cast from '../../components/Cast/Cast';
 
 class DetailsCard extends Component {
@@ -99,72 +100,46 @@ class DetailsCard extends Component {
       // Load cast
       if (this.state.data.credits.cast) {
         const data = this.state.data.credits.cast;
-        let length = data.length > 10 ? 10 : data.length;
+        let length = data.length > 20 ? 20 : data.length;
         cast = [];
 
         for (let i = 0; i < length; i++) {
-          const person = (
-            <Cast key={data[i].name + i} pic={data[i].profile_path} name={data[i].name} />
-          );
-          cast.push(person);
+          if (data[i].title) {
+            const elem = (
+              <Cast key={data[i].title + i}
+                pic={data[i].poster_path}
+                name={data[i].title} />
+            );
+            cast.push(elem);
+          } else {
+            const elem = (
+              <Cast key={data[i].name + i}
+                pic={data[i].profile_path || data[i].poster_path}
+                name={data[i].name} />
+            );
+            cast.push(elem);
+          }
         }
       }
 
       // Load trailer
-      if (this.state.data.videos.results.length) {
+      if (this.state.data.videos.results) {
         trailerKey = this.state.data.videos.results[0].key;
       }
 
-      data = (
-        <div className="DetailsCard__body">
-          <div className="DetailsCard__body__main">
-            <h2 className="DetailsCard__body__movie_title">{this.state.data.title}</h2>
-            <Rate rate={this.state.data.vote_average} />
-            <div className="DetailsCard__body__runtime-release">
-              <span className="DetailsCard__body__runtime">
-                <span className="icon-clock"></span>
-                <span>
-                  {this.state.data.runtime} min
-                </span>
-              </span>
-              <span className="DetailsCard__body__release">
-                <span className="icon-calendar"></span>
-                <span>
-                  {this.state.data.release_date}
-                </span>
-              </span>
-            </div>
-            <Tags tags={this.state.data.genres}/>
-          </div>
-          <div className="DetailsCard__body__overview">
-            <p className="DetailsCard__body__title">
-              Overview
-            </p>
-            <p className="DetailsCard__body__overview_p">
-              {this.state.data.overview}
-            </p>
-          </div>
-          <div className="DetailsCard__body__cast">
-            <p className="DetailsCard__body__title">Cast</p>
-            <div className="DetailsCard__body__cast__list">
-              {cast}
-            </div>
-          </div>
-          <div className="DetailsCard__body__trailer">
-            <p className="DetailsCard__body__title">Trailer</p>
-            {trailerKey ? (
-              <iframe
-              className="iframeTrailer"
-              src={`https://www.youtube-nocookie.com/embed/${trailerKey}`}
-              frameBorder="0"
-              title={this.state.data.title + "'s trailer"}
-              allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
-              allowFullScreen></iframe>
-            )
-            : null}
-          </div>
-        </div>
-      )
+      switch (this.props.generalState.media) {
+        case 'movie':
+          data = <MovieDetails data={this.state.data} cast={cast} trailerKey={trailerKey}/>;
+          break;
+        case 'tv':
+          data = <TvDetails data={this.state.data} cast={cast} trailerKey={trailerKey}/>;
+          break;
+        case 'person':
+          data = <PersonDetails data={this.state.data} cast={cast}/>;
+          break;
+        default:
+          data = null;
+      }
     }
 
     return (

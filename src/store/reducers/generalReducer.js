@@ -3,6 +3,7 @@ import { updateObject } from '../../shared/utility';
 
 const initialState = {
   inDetails: false,
+  media: null,
   title: "The Movies"
 };
 
@@ -29,7 +30,7 @@ const loadTitle = (state, action) => {
 }
 
 const showDetails = (state, action) => {
-  return updateObject(state, {inDetails: true})
+  return updateObject(state, {inDetails: true, media: action.media})
 };
 
 const goBack = (state, action) => {

@@ -1,8 +1,9 @@
 import * as actionTypes from './actionTypes';
 
-export const showDetails = () => {
+export const showDetails = (media) => {
   return {
-    type: actionTypes.SHOW_DETAILS
+    type: actionTypes.SHOW_DETAILS,
+    media: media
   }
 }
 

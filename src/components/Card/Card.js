@@ -12,7 +12,10 @@ const card = (props) => {
   }
 console.log("Rendering Card.js");
   return (
-    <div className="Card" onClick={props.showDetails} data-id={props.info.id}>
+    <div
+      className="Card"
+      onClick={props.showDetails}
+      data-id={props.info.id}>
       <img
         className="Card__Poster"
         src={"https://image.tmdb.org/t/p/w342" + picture}

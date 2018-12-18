@@ -19,14 +19,7 @@ class Grid extends Component {
     input.blur();
   }
 
-  componentDidMount() {
-    const mode = this.props.match.params.mode;
-    const genre = this.props.match.params.genre;
-
-    this.props.onFetchData(mode, genre);
-  }
-
-  shouldComponentUpdate(nextProps, nextState) {
+  shouldComponentUpdate (nextProps, nextState) {
     console.log("shouldupdate grid");
 
     if (this.props.dataState.newData === false && nextProps.dataState.newData === true) {
@@ -37,6 +30,20 @@ class Grid extends Component {
       }
     }
     return false;
+  }
+
+  componentDidMount () {
+    const mode = this.props.match.params.mode;
+    const genre = this.props.match.params.genre;
+
+    this.props.onFetchData(mode, genre);
+  }
+
+  componentDidUpdate () {
+    const input = document.querySelector(".Grid input");
+    if (input) {
+      input.focus();
+    }
   }
 
   render () {
@@ -68,7 +75,7 @@ class Grid extends Component {
       }
 
       cards = nowPlaying.map((el, i) => {
-        const mode = el.media_type === "tv" ? "tv" : this.props.match.params.mode;
+        const mode = el.media_type ? el.media_type : this.props.match.params.mode;
         return (
           <Card
             key={i}
