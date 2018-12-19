@@ -1,0 +1,97 @@
+.Home {
+  margin-top: 50px;
+  color: white;
+  padding: 10px 30px;
+  display: grid;
+  grid-column-gap: 30px;
+  grid-template-areas:
+    'title title'
+    'search search'
+    'movies tv'
+}
+
+.Home__title {
+  font-size: 45px;
+  font-family: sans-serif;
+  grid-area: title;
+}
+
+.Home__search_box {
+  margin: 10px auto 20px auto;
+  width: 100%;
+  display: flex;
+  grid-area: search;
+}
+
+.Home__search_box form {
+  width: 100%;
+}
+
+.Home__search_input {
+  width: 75%;
+  padding: 6px;
+  font-size: 15px;
+  border: none;
+  border-top-left-radius: 5px;
+  border-bottom-left-radius: 5px;
+  color: #4a4a4a;
+}
+
+.Home__search_input:focus {
+  outline-color: #1592f9;
+}
+
+.Home__search_button {
+  width: 25%;
+  padding: 6px;
+  font-size: 15px;
+  border: none;
+  border-top-right-radius: 5px;
+  border-bottom-right-radius: 5px;
+  color: white;
+  background-color: #f16d2d;
+}
+
+.menu__list__title {
+  display: inline-block;
+  width: 100%;
+  font-size: 20px;
+  padding-bottom: 5px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #d25f27;
+}
+
+.menu__movies__list {
+  grid-area: movies;
+}
+
+.menu__tv__list {
+  grid-area: tv;
+}
+
+.menu__movies__list,
+.menu__tv__list {
+  margin-top: 30px;
+  padding-left: 0;
+}
+
+.menu__movies__list li,
+.menu__tv__list li {
+  list-style-type: none;
+  text-align: left;
+  margin-bottom: 5px;
+  margin-left: 5px;
+}
+
+.menu__movies__list li:before,
+.menu__tv__list li:before {
+  content: "- ";
+  color: #f16d2d;
+}
+
+.menu__movies__list li a,
+.menu__tv__list li a {
+  text-decoration: none;
+  font-size: 17px;
+  color: white;
+}

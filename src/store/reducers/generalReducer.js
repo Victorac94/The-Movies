@@ -4,7 +4,7 @@ import { updateObject } from '../../shared/utility';
 const initialState = {
   inDetails: false,
   media: null,
-  title: "The Movies"
+  title: "Home"
 };
 
 const loadTitle = (state, action) => {
@@ -21,10 +21,11 @@ const loadTitle = (state, action) => {
       title = "Popular";
       break;
     case 'search':
-      title = "Search Results"
+      title = "Search Results";
       break;
     default:
-      title = "The Movies";
+      title = "Home";
+      break;
   }
   return updateObject(state, {title: title});
 }

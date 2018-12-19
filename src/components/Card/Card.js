@@ -5,7 +5,7 @@ import Rate from '../Rate/Rate';
 
 const card = (props) => {
   let title = props.info.title || props.info.name;
-  let picture = props.info.poster_path || props.info.profile_path
+  let picture = props.info.poster_path || props.info.profile_path;
 
   if (title.length > 14 ) {
     title = title.slice(0, 14) + "...";

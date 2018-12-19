@@ -35,7 +35,7 @@ const tvDetails = (props) => {
         </p>
       </div>
       <div className="DetailsCard__body__cast">
-        <p className="DetailsCard__body__title">Cast ({props.cast.length})</p>
+        <p className="DetailsCard__body__title">Cast ({props.cast.length ? props.cast.length : null})</p>
         <div className="DetailsCard__body__cast__list">
           {props.cast}
         </div>
@@ -51,7 +51,8 @@ const tvDetails = (props) => {
           allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
           allowFullScreen></iframe>
         )
-        : null}
+        : <div className="iframeTrailer">No Trailer available</div>
+      }
       </div>
     </div>
   )

@@ -4,6 +4,7 @@ import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 
 import './App.css';
 import Header from './components/Header/Header';
+import Home from './containers/Home/Home';
 import Grid from './containers/Grid/Grid';
 import DetailsCard from './containers/DetailsCard/DetailsCard';
 import { calculateCardPosition } from './shared/calculateCardPosition';
@@ -17,7 +18,7 @@ class App extends Component {
   }
 
   toggleMenu = () => {
-
+console.log("toggleMenu()");
     // If we want to show the menu
     if (!this.state.menuIsShowing) {
       this.props.history.push("#menu");
@@ -76,6 +77,7 @@ class App extends Component {
   }
 
   onHashChange = (e) => {
+    console.log("onHashChange");
     if (e.oldURL) {
       console.log(e.oldURL);
       //We can only have one # in the URL (either 'details' or 'menu')
@@ -105,13 +107,14 @@ class App extends Component {
           inDetails={this.props.generalState.inDetails}/>
         <DetailsCard />
         <Switch>
+          <Route path="/" exact component={Home} />
           <Route path="/:mode/:genre?" render={() => (
             <Grid {...this.props}
               showDetails={(e, mode) => this.showDetails(e, mode)}
               menuIsShowing={this.state.menuIsShowing}
               toggleMenu={this.toggleMenu}/>
           )} />
-          <Redirect to="/movie/now_playing" />
+          <Redirect to="/" />
         </Switch>
       </div>
     )

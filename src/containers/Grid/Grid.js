@@ -10,6 +10,7 @@ class Grid extends Component {
   searchTerm = (e) => {
     e.preventDefault();
     const input = document.querySelector(".grid__search_box input");
+    // this.props.location.search(`query=${input.value}`);
     this.props.history.replace(`/search?query=${input.value}`);
     this.props.onFetchSearch(input.value);
 
@@ -103,9 +104,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return {
     onFetchData: (mode, genre) => dispatch(fetchData.fetchData(mode, genre)),
-    onFetchSearch: (query) => dispatch(fetchData.fetchSearch(query)),
-    // onFetchDetails: (mode, id) => dispatch(fetchData.fetchDetails(mode, id)),
-    // onShowDetails: () => dispatch(generalActions.showDetails())
+    onFetchSearch: (query) => dispatch(fetchData.fetchSearch(query))
   }
 }
 

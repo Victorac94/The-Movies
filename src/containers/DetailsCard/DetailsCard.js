@@ -98,7 +98,7 @@ class DetailsCard extends Component {
     if (this.state.data) {
       let cast = null;
       // Load cast
-      if (this.state.data.credits.cast) {
+      if (this.state.data.credits.cast.length) {
         const data = this.state.data.credits.cast;
         let length = data.length > 20 ? 20 : data.length;
         cast = [];
@@ -123,7 +123,7 @@ class DetailsCard extends Component {
       }
 
       // Load trailer
-      if (this.state.data.videos.results) {
+      if (this.state.data.videos.results.length) {
         trailerKey = this.state.data.videos.results[0].key;
       }
 

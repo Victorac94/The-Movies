@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 import './Header.css';
 import Menu from '../../containers/Menu/Menu';
@@ -10,11 +11,15 @@ const header = (props) => {
           <div className="Backdrop"></div>
         )
         : null }
-        <span
-        className={props.inDetails ? "Header__goBack icon-angle-left" : "Header__goBack icon-angle-left hidden"}
-        onClick={() => {
-          props.goBack();
-        }}></span>
+        {props.inDetails ? (
+          <span
+          className={props.inDetails ? "Header__goBack icon-angle-left" : "Header__goBack icon-angle-left hidden"}
+          onClick={() => {
+            props.goBack();
+          }}></span>
+        )
+        : <Link to="/"><span className="icon-home"></span></Link>
+        }
         <p className="Header__title">{props.title}</p>
         <div
         className={props.menuIsShowing ? "menu__button close-button" : "menu__button"}
