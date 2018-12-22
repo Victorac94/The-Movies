@@ -81,23 +81,29 @@
   background-color: #f16d2d;
 }
 
-.menu__movies_list {
+.menu__lists {
+  height: 75vh;
+  overflow: auto;
+}
+
+.menu__list {
   margin-top: 30px;
   padding-left: 0;
 }
 
-.menu__movies_list li {
+.menu__list li {
   list-style-type: none;
   text-align: left;
   margin-bottom: 5px;
+  margin-left: 30px;
 }
 
-.menu__movies_list li:before {
+.menu__list li:before {
   content: "- ";
   color: #f16d2d;
 }
 
-.menu__movies_list li a {
+.menu__list li a {
   text-decoration: none;
   font-size: 17px;
   color: white;

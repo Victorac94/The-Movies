@@ -47,7 +47,6 @@ console.log("toggleMenu()");
     if (e.currentTarget.classList.contains("currentCard")) return;
 
     const currCard = e.currentTarget;
-    const poster = currCard.querySelector(".Card__Poster");
     const dataState = this.props.dataState;
 
     // Only fetch movie details if user is clicking
@@ -60,7 +59,7 @@ console.log("toggleMenu()");
     this.props.history.push("#details");
 
     this.props.onShowDetails(mode);
-    calculateCardPosition(poster);
+    calculateCardPosition();
   }
 
   hideDetails = () => {
@@ -93,6 +92,11 @@ console.log("toggleMenu()");
 
   componentDidMount () {
     window.addEventListener("hashchange", (e) => this.onHashChange(e), false);
+    window.addEventListener("resize", () => {
+      if (this.props.generalState.inDetails) {
+        calculateCardPosition();
+      }
+    })
     console.log(this.props);
   }
 

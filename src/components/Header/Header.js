@@ -18,7 +18,7 @@ const header = (props) => {
             props.goBack();
           }}></span>
         )
-        : <Link to="/"><span className="icon-home"></span></Link>
+        : <Link to="/" style={{textDecoration: "none"}}><span className="icon-home"></span></Link>
         }
         <p className="Header__title">{props.title}</p>
         <div

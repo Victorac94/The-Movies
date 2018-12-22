@@ -123,7 +123,7 @@ class DetailsCard extends Component {
       }
 
       // Load trailer
-      if (this.state.data.videos.results.length) {
+      if (this.state.data.videos.results && this.state.data.videos.results.length !== 0) {
         trailerKey = this.state.data.videos.results[0].key;
       }
 

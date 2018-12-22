@@ -7,7 +7,7 @@
   grid-template-columns: auto auto;
   grid-gap: 10px;
   background-color: #212533;
-  overflow: auto;
+  overflow-y: auto;
 }
 
 .grid__search_box {

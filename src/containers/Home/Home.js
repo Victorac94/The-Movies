@@ -37,7 +37,7 @@ class Home extends Component {
           </li>
         </ul>
         <ul className="menu__tv__list">
-          <span className="menu__list__title">TV</span>
+          <span className="menu__list__title">TV Shows</span>
           <li>
             <Link to="/tv/top_rated">Top Rated</Link>
           </li>
@@ -55,7 +55,6 @@ class Home extends Component {
 
 const mapDispatchToProps = dispatch => {
   return {
-    // onFetchData: (mode, genre) => dispatch(fetchData.fetchData(mode, genre)),
     onFetchSearch: (query) => dispatch(fetchData.fetchSearch(query)),
   }
 }

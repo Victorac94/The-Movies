@@ -33,30 +33,56 @@ class Menu extends Component {
             <button className="menu__box__search_button">Search</button>
           </form>
         </div>
-        <ul className="menu__movies_list">
-          <span className="menu__list_title">Movies</span>
-          <li>
-            <Link to="/movie/top_rated"
-              onClick={() => {
-                this.props.onFetchData("movie", "top_rated");
-                this.showNormalView();
-              }}>Top Rated</Link>
-          </li>
-          <li>
-            <Link to="/movie/now_playing"
-              onClick={() => {
-                this.props.onFetchData("movie", "now_playing");
-                this.showNormalView();
-              }}>Now Playing</Link>
-          </li>
-          <li>
-            <Link to="/movie/popular"
-              onClick={() => {
-                this.props.onFetchData("movie", "popular");
-                this.showNormalView();
-              }}>Popular</Link>
-          </li>
-        </ul>
+        <div className="menu__lists">
+          <ul className="menu__list">
+            <span className="menu__list_title">Movies</span>
+            <li>
+              <Link to="/movie/top_rated"
+                onClick={() => {
+                  this.props.onFetchData("movie", "top_rated");
+                  this.showNormalView();
+                }}>Top Rated</Link>
+            </li>
+            <li>
+              <Link to="/movie/now_playing"
+                onClick={() => {
+                  this.props.onFetchData("movie", "now_playing");
+                  this.showNormalView();
+                }}>Now Playing</Link>
+            </li>
+            <li>
+              <Link to="/movie/popular"
+                onClick={() => {
+                  this.props.onFetchData("movie", "popular");
+                  this.showNormalView();
+                }}>Popular</Link>
+            </li>
+          </ul>
+          <ul className="menu__list">
+            <span className="menu__list_title">TV Shows</span>
+            <li>
+              <Link to="/tv/top_rated"
+                onClick={() => {
+                  this.props.onFetchData("tv", "top_rated");
+                  this.showNormalView();
+                }}>Top Rated</Link>
+            </li>
+            <li>
+              <Link to="/tv/on_the_air"
+                onClick={() => {
+                  this.props.onFetchData("tv", "on_the_air");
+                  this.showNormalView();
+                }}>On Air</Link>
+            </li>
+            <li>
+              <Link to="/tv/popular"
+                onClick={() => {
+                  this.props.onFetchData("tv", "popular");
+                  this.showNormalView();
+                }}>Popular</Link>
+            </li>
+          </ul>
+        </div>
         <p className="tmdb_attribution">
           This product uses the TMDb API but is not endorsed or certified by TMDb.
         </p>
