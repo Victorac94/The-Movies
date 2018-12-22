@@ -82,7 +82,9 @@
 }
 
 .menu__lists {
+  width: 77%;
   height: 75vh;
+  margin: auto;
   overflow: auto;
 }
 
@@ -91,11 +93,19 @@
   padding-left: 0;
 }
 
+.menu__list_title {
+  display: inline-block;
+  width: 100%;
+  font-size: 20px;
+  padding-bottom: 5px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid #d25f27;
+}
+
 .menu__list li {
   list-style-type: none;
   text-align: left;
   margin-bottom: 5px;
-  margin-left: 30px;
 }
 
 .menu__list li:before {
@@ -107,15 +117,6 @@
   text-decoration: none;
   font-size: 17px;
   color: white;
-}
-
-.menu__list_title {
-  display: inline-block;
-  width: 70%;
-  font-size: 20px;
-  padding-bottom: 5px;
-  margin-bottom: 20px;
-  border-bottom: 1px solid #d25f27;
 }
 
 .tmdb_logo {

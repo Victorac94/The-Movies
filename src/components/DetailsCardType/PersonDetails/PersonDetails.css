@@ -54,6 +54,15 @@
   grid-area: overview;
 }
 
+.DetailsCard__body__overview_p {
+  height: 275px;
+  overflow: hidden;
+}
+
+.ShowFullBio {
+  height: auto;
+}
+
 .DetailsCard__body__cast__list {
   width: 100vw;
   transform: translateX(-20px);

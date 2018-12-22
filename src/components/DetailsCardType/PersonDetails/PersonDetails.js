@@ -4,6 +4,7 @@ import './PersonDetails.css';
 
 const personDetails = (props) => {
   // <Tags tags={props.data.genres}/>
+  let bio = props.data.biography;
   return (
     <div className="DetailsCard__body">
       <div className="DetailsCard__body__main">
@@ -13,8 +14,10 @@ const personDetails = (props) => {
         <p className="DetailsCard__body__title">
           Biography
         </p>
-        <p className="DetailsCard__body__overview_p">
-          {props.data.biography}
+        <p className="DetailsCard__body__overview_p" onClick={() => {
+          document.querySelector(".DetailsCard__body__overview_p").classList.toggle("ShowFullBio");
+        }}>
+          {bio}
         </p>
       </div>
       <div className="DetailsCard__body__cast">
