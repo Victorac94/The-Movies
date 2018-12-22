@@ -94,7 +94,7 @@ console.log("toggleMenu()");
     window.addEventListener("hashchange", (e) => this.onHashChange(e), false);
     window.addEventListener("resize", () => {
       if (this.props.generalState.inDetails) {
-        calculateCardPosition();
+        calculateCardPosition(true);
       }
     })
     console.log(this.props);

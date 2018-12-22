@@ -9,12 +9,12 @@ export const resetCardPosition = (poster, cardInfo) => {
     cardInfo.style.transform = "";
   })
 
-  const listener = () => {
+  const listener1 = () => {
     fastdom.mutate(() => {
       poster.style.zIndex = "";
     });
-    poster.removeEventListener("transitionend", listener);
+    poster.removeEventListener("transitionend", listener1);
   }
 
-  poster.addEventListener("transitionend", listener);
+  poster.addEventListener("transitionend", listener1);
 }

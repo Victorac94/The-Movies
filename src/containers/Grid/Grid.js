@@ -34,10 +34,12 @@ class Grid extends Component {
   }
 
   componentDidMount () {
-    const mode = this.props.match.params.mode;
-    const genre = this.props.match.params.genre;
+    if (!this.props.dataState.fetchingData) {
+      const mode = this.props.match.params.mode;
+      const genre = this.props.match.params.genre;
 
-    this.props.onFetchData(mode, genre);
+      this.props.onFetchData(mode, genre);
+    }
   }
 
   componentDidUpdate () {

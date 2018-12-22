@@ -8,7 +8,7 @@ import * as fetchData from '../../store/actions/fetchDataAction';
 class Home extends Component {
   searchTerm = (e) => {
     e.preventDefault();
-    const input = document.querySelector(".menu__box__search_box input");
+    const input = document.querySelector(".Home__search_input");
     this.props.history.replace(`/search?query=${input.value}`);
     this.props.onFetchSearch(input.value);
     input.blur();

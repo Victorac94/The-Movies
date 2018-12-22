@@ -1,51 +1,39 @@
 import fastdom from 'fastdom';
 
-export const calculateCardPosition = () => {
+export const calculateCardPosition = (resize) => {
   const poster = document.querySelector(".currentCard .Card__Poster");
+  const posterBG = document.querySelector(".DetailsCard__posterBG");
   let winWidth;
   let posterInitial;
-  let posterWidth;
-  let posterScale;
+  let posterFinalPosX;
   let posterX;
   let posterY;
+  let scroll = 0;
+
+  if (resize) {
+    const d = posterBG.getBoundingClientRect();
+    scroll = 50 - d.top; // 50px from top of viewport minus px scrolled vertically in DetailsCard
+    poster.classList.remove("transition");
+    poster.style.opacity = "0";
+    poster.style.transform = "";
+  }
 
   fastdom.measure(() => {
     winWidth = window.innerWidth;
     posterInitial = poster.getBoundingClientRect();
-    posterWidth = posterInitial.width;
-    posterScale = (winWidth / 2) / posterWidth;
-    posterX = (winWidth / 4) - posterInitial.left;
-    posterY = (100 * posterScale) - posterInitial.y;
+    posterFinalPosX = (winWidth / 2) - (posterInitial.width / 2);
+    posterX = posterFinalPosX - posterInitial.left;
+    posterY = 75 - posterInitial.y - scroll;
   });
 
   fastdom.mutate(() => {
     document.querySelector(".Grid").style.overflow = "hidden";
+    poster.style.opacity = "1";
     poster.classList.add("transition");
     poster.style.zIndex = "100";
-    poster.style.transform = `translate(${posterX}px, ${posterY}px) scale(${posterScale})`;
+    poster.style.borderBottomLeftRadius = "5px";
+    poster.style.borderBottomRightRadius = "5px";
+    poster.style.transform = `translate(${posterX}px, ${posterY}px)`;
+    posterBG.style.height = posterInitial.height + 50 + "px";
   });
-
-  // const winWidth = window.innerWidth;
-  //
-  // // First
-  // const posterInitial = poster.getBoundingClientRect();
-  //
-  // // Invert
-  // const posterWidth = posterInitial.width;
-  //
-  // // Scale the poster to half the screen's width;
-  // const posterScale = (winWidth / 2) / posterWidth;
-  // // Horizontally transform the poster to horizontally center it on the screen
-  // const posterX = (winWidth / 4) - posterInitial.left;
-  // // Place the poster ~100px from the top of the screen
-  // // (50px from bottom of the header)
-  // const posterY = (100 * posterScale) - posterInitial.y;
-  //
-  // // Play
-  // poster.classList.add("transition");
-  //
-  // requestAnimationFrame(() => {
-  //   poster.style.zIndex = "100";
-  //   poster.style.transform = `translate(${posterX}px, ${posterY}px) scale(${posterScale})`;
-  // })
 }

@@ -21,21 +21,7 @@ class DetailsCard extends Component {
 
   loadDetailsCard = (inDetails) => {
     if (inDetails) {
-      let poster = document.querySelector(".currentCard img");
-      let posterRect;
-      let winWidth;
-      let scale;
-
-      fastdom.measure(() => {
-        posterRect = poster.getBoundingClientRect();
-        winWidth = window.innerWidth;
-        scale = (winWidth / 2) / posterRect.width;
-      });
-
       fastdom.mutate(() => {
-        this.posterBG.style.height = posterRect.height * scale + 100 + 'px';
-        poster.style.borderBottomLeftRadius = "5px";
-        poster.style.borderBottomRightRadius = "5px";
         this.detailsCard.style.transform = "scale(1)";
         this.detailsCard.style.opacity = "1";
       });
@@ -43,7 +29,7 @@ class DetailsCard extends Component {
       fastdom.mutate(() => {
         this.detailsCard.style.transform = "scale(0)";
         this.detailsCard.style.opacity = "0";
-      })
+      });
     }
   }
 

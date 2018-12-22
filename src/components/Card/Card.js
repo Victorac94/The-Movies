@@ -22,7 +22,10 @@ console.log("Rendering Card.js");
         alt={props.info.title || props.info.name} />
       <div className="Card__Info">
         <p className="Card__Info__title">{title}</p>
-        <Rate rate={props.info.vote_average} />
+        {props.info.media_type !== "person" ? (
+          <Rate rate={props.info.vote_average} />
+        )
+        : <span className="Card__Person">Person</span>}
       </div>
     </div>
   )

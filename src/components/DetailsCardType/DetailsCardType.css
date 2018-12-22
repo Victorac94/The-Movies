@@ -22,12 +22,12 @@
   grid-area: main;
 }
 
-.DetailsCard__body__movie_title,
+.DetailsCard__body__main_title,
 .DetailsCard__body__title {
   font-weight: 500;
 }
 
-.DetailsCard__body__title {
+.DetailsCard__body__header {
   text-align: left;
   margin: 20px 0;
   margin-top: 40px;
@@ -54,6 +54,15 @@
   grid-area: overview;
 }
 
+.DetailsCard__body__overview_p {
+  max-height: 275px;
+  overflow: hidden;
+}
+
+.ShowFullBioOverview {
+  max-height: initial;
+}
+
 .DetailsCard__body__cast__list {
   width: 100vw;
   transform: translateX(-20px);
@@ -76,7 +85,6 @@
   width: 88vw;
   height: 49.5vw;
   background-color: #282828;
-  text-align: center;
 }
 
 /* Low Resolution Tablets, Mobiles (Landscape) */

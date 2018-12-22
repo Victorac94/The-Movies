@@ -27,13 +27,13 @@ class Menu extends Component {
     return (
       <div className={this.props.menuIsShowing ? "menu__box is-showing" : "menu__box"}>
         <img src={tmdb_logo} className="tmdb_logo" alt="TheMovieDatabase logo" />
-        <div className="menu__box__search_box">
-          <form onSubmit={this.searchTerm}>
-            <input className="menu__box__search_input" type="text" placeholder="Search..." />
-            <button className="menu__box__search_button">Search</button>
-          </form>
-        </div>
         <div className="menu__lists">
+          <div className="menu__box__search_box">
+            <form onSubmit={this.searchTerm}>
+              <input className="menu__box__search_input" type="text" placeholder="Search..." />
+              <button className="menu__box__search_button">Search</button>
+            </form>
+          </div>
           <ul className="menu__list">
             <span className="menu__list_title">Movies</span>
             <li>
@@ -82,10 +82,10 @@ class Menu extends Component {
                 }}>Popular</Link>
             </li>
           </ul>
-        </div>
-        <p className="tmdb_attribution">
+          <p className="tmdb_attribution">
           This product uses the TMDb API but is not endorsed or certified by TMDb.
-        </p>
+          </p>
+        </div>
       </div>
     )
   }

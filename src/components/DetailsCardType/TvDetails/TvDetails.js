@@ -1,6 +1,6 @@
 import React from 'react';
 
-import './TvDetails.css';
+import '../DetailsCardType.css';
 import Tags from '../../Tags/Tags';
 import Rate from '../../Rate/Rate';
 
@@ -8,7 +8,7 @@ const tvDetails = (props) => {
   return (
     <div className="DetailsCard__body">
       <div className="DetailsCard__body__main">
-        <h2 className="DetailsCard__body__movie_title">{props.data.name}</h2>
+        <h2 className="DetailsCard__body__main_title">{props.data.name}</h2>
         <Rate rate={props.data.vote_average} />
         <div className="DetailsCard__body__runtime-release">
           <span className="DetailsCard__body__runtime">
@@ -27,21 +27,23 @@ const tvDetails = (props) => {
         <Tags tags={props.data.genres}/>
       </div>
       <div className="DetailsCard__body__overview">
-        <p className="DetailsCard__body__title">
+        <p className="DetailsCard__body__header">
           Overview
         </p>
-        <p className="DetailsCard__body__overview_p">
+        <p className="DetailsCard__body__overview_p" onClick={() => {
+          document.querySelector(".DetailsCard__body__overview_p").classList.toggle("ShowFullBioOverview");
+        }}>
           {props.data.overview}
         </p>
       </div>
       <div className="DetailsCard__body__cast">
-        <p className="DetailsCard__body__title">Cast ({props.cast.length ? props.cast.length : null})</p>
+        <p className="DetailsCard__body__header">Cast {props.cast ? `(${props.cast.length})` : null}</p>
         <div className="DetailsCard__body__cast__list">
-          {props.cast}
+          {props.cast ? props.cast : "No Cast Available"}
         </div>
       </div>
       <div className="DetailsCard__body__trailer">
-        <p className="DetailsCard__body__title">Trailer</p>
+        <p className="DetailsCard__body__header">Trailer</p>
         {props.trailerKey ? (
           <iframe
           className="iframeTrailer"
