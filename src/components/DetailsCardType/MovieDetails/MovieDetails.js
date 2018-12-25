@@ -8,6 +8,10 @@ const movieDetails = (props) => {
   return (
     <div className="DetailsCard__body">
       <div className="DetailsCard__body__main">
+        <img
+          className="DetailsCard__body__main__desktop_poster"
+          src={"https://image.tmdb.org/t/p/w342" + props.data.poster_path}
+          alt={props.data.name} />
         <h2 className="DetailsCard__body__main_title">{props.data.title}</h2>
         <Rate rate={props.data.vote_average} />
         <div className="DetailsCard__body__runtime-release">

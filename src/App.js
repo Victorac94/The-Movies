@@ -6,6 +6,7 @@ import './App.css';
 import Header from './components/Header/Header';
 import Home from './containers/Home/Home';
 import Grid from './containers/Grid/Grid';
+import DesktopMenu from './containers/DesktopMenu/DesktopMenu';
 import DetailsCard from './containers/DetailsCard/DetailsCard';
 import { calculateCardPosition } from './shared/calculateCardPosition';
 import { resetCardPosition } from './shared/resetCardPosition';
@@ -62,7 +63,7 @@ console.log("toggleMenu()");
     calculateCardPosition();
   }
 
-  hideDetails = () => {
+  hideDetails = (e) => {
     const currCard = document.querySelector(".currentCard");
     if (currCard) {
       const poster = currCard.querySelector("img");
@@ -109,6 +110,7 @@ console.log("toggleMenu()");
           toggleMenu={this.toggleMenu}
           goBack={this.hideDetails}
           inDetails={this.props.generalState.inDetails}/>
+        <DesktopMenu />
         <DetailsCard />
         <Switch>
           <Route path="/" exact component={Home} />
@@ -120,6 +122,15 @@ console.log("toggleMenu()");
           )} />
           <Redirect to="/" />
         </Switch>
+        {this.props.generalState.inDetails ? (
+          <div className="Backdrop_desktop" onClick={this.hideDetails}>
+            <div className="Backdrop_desktop_close">
+              <span></span>
+              <span></span>
+            </div>
+          </div>
+        )
+        : null }
       </div>
     )
   }

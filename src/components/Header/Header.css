@@ -5,15 +5,50 @@
   background-color: #5385d9;
   background: linear-gradient(#f16d2d, #d25f27);
   position: fixed;
-  z-index: 200;
   display: flex;
   align-items: center;
   justify-content: space-between;
+  z-index: 200;
 }
 
 .Header__title {
   color: white;
   font-size: 21px;
+}
+
+.menu__button {
+  position: relative;
+  width: 55px;
+  padding: 10px;
+  z-index: 100;
+}
+
+.menu__button span {
+  display: block;
+  width: 35px;
+  border: 2px solid white;
+  border-radius: 4px;
+  background-color: white;
+  transform-origin: left;
+  transition: transform 0.4s ease-out;
+  will-change: transform;
+}
+
+.menu__button span:nth-child(2) {
+  margin: 6px 0;
+  transition: opacity 0.4s ease-out;
+}
+
+.menu__button.close-button span:first-child {
+  transform: rotateZ(36deg);
+}
+
+.menu__button.close-button span:last-child {
+  transform: rotateZ(-36deg);
+}
+
+.menu__button.close-button span:nth-child(2) {
+  opacity: 0;
 }
 
 .Backdrop {
@@ -22,7 +57,7 @@
   position: fixed;
   top: 0;
   left: 0;
-  background: rgba(0, 0, 0, 0.7);
+  background: rgba(0, 0, 0, 0.8);
   opacity: 0;
   animation: animateBD 0.4s forwards
 }
@@ -50,8 +85,8 @@ a .icon-home {
 }
 
 /* Tablets, Ipads (landscape) */
-@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+@media (min-width: 1025px) and (orientation: landscape) {
   .Header {
-    width: 80vw;
+    display: none;
   }
 }

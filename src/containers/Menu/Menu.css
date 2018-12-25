@@ -15,41 +15,6 @@
   transform: translateX(-300px);
 }
 
-.menu__button {
-  position: relative;
-  width: 55px;
-  padding: 10px;
-  z-index: 10;
-}
-
-.menu__button span {
-  display: block;
-  width: 35px;
-  border: 2px solid white;
-  border-radius: 4px;
-  background-color: white;
-  transform-origin: left;
-  transition: transform 0.4s ease-out;
-  will-change: transform;
-}
-
-.menu__button span:nth-child(2) {
-  margin: 6px 0;
-  transition: opacity 0.4s ease-out;
-}
-
-.menu__button.close-button span:first-child {
-  transform: rotateZ(36deg);
-}
-
-.menu__button.close-button span:last-child {
-  transform: rotateZ(-36deg);
-}
-
-.menu__button.close-button span:nth-child(2) {
-  opacity: 0;
-}
-
 .menu__box__search_box {
   width: 100%;
   display: flex;
@@ -79,6 +44,10 @@
   border-bottom-right-radius: 5px;
   color: white;
   background-color: #f16d2d;
+}
+
+.menu__app_title {
+  display: none;
 }
 
 .menu__lists {
@@ -134,16 +103,33 @@
   left: 20px;
   text-align: left;
   margin-right: 20px;
-  font-size: 14px;
+  font-size: 12px;
 }
 
-@media (min-width: 481px) and (max-width: 767px) and (orientation: landscape),
-(min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+@media (min-width: 481px) and (max-width: 767px) and (orientation: landscape) {
   .menu__lists {
     height: 75vh;
   }
   .tmdb_attribution {
     position: initial;
     text-align: justify;
+  }
+}
+
+@media (min-width: 1025px) and (orientation: landscape) {
+  .menu__box {
+    width: 20vw;
+    min-width: 300px;
+    height: 100vh;
+    left: 0;
+    background: linear-gradient(135deg, #161c22, #0c1116);
+  }
+  .menu__app_title {
+    display: block;
+    margin-top: 60px;
+    font-size: 40px;
+  }
+  .menu__lists {
+    margin-top: 20px;
   }
 }

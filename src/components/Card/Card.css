@@ -1,7 +1,9 @@
 .Card {
   color: white;
-  background-color: #3C4461;
+  background-color: #272a3b;
   border-radius: 5px;
+  transition: transform 0.3s ease-out;
+  position: relative;
 }
 
 .Card__Poster {
@@ -13,6 +15,14 @@
   position: relative;
 }
 
+.currentCard .Card__Poster {
+  max-width: 50vw;
+}
+
+.Card:hover {
+  cursor: pointer;
+}
+
 .transition {
   will-change: transform;
   transition: transform 0.4s ease-out;
@@ -22,11 +32,11 @@
   margin: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
+  justify-content: space-around;
   position: relative;
   height: 90px;
   width: 100%;
-  padding: 15px 10px;
+  padding: 5px 10px;
 }
 
 .Card__Info p {
@@ -38,10 +48,27 @@
 
 .Card__Info__title {
   font-weight: 500;
+  overflow: hidden;
+  white-space: pre-line;
+  text-overflow: ellipsis;
 }
 
-.Card__Person {
+.Card_Person {
+  background-color: #c6a131;
+}
+
+.Card_Person_Name {
   font-family: "Open Sans", sans-serif;
+  font-weight: 400;
   font-size: 20px;
-  color: #e7af07;
+  color: #10161B;
+}
+
+@media (min-width: 1025px) and (orientation: landscape) {
+  .Card:not(.currentCard):hover {
+    box-shadow: 0px 0px 11px 3px rgba(10,10,10,0.65);
+    transform: scale(1.04);
+    transform-origin: center;
+    z-index: 50;
+  }
 }

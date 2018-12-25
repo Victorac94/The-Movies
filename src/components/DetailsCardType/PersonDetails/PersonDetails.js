@@ -7,6 +7,10 @@ const personDetails = (props) => {
   return (
     <div className="DetailsCard__body">
       <div className="DetailsCard__body__main">
+        <img
+          className="DetailsCard__body__main__desktop_poster"
+          src={"https://image.tmdb.org/t/p/w342" + props.data.profile_path}
+          alt={props.data.name} />
         <h2 className="DetailsCard__body__main_title">{props.data.name}</h2>
         <Tags tags={[{"id": props.data.known_for_department}]}/>
       </div>

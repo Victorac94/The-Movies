@@ -19,11 +19,12 @@ class DetailsCard extends Component {
     this.posterBG = null
   }
 
-  loadDetailsCard = (inDetails) => {
+  toggleDetailsCard = (inDetails) => {
     if (inDetails) {
       fastdom.mutate(() => {
         this.detailsCard.style.transform = "scale(1)";
         this.detailsCard.style.opacity = "1";
+        document.querySelector(".currentCard").click();
       });
     } else {
       fastdom.mutate(() => {
@@ -57,7 +58,7 @@ class DetailsCard extends Component {
   }
 
   componentDidUpdate () {
-    this.loadDetailsCard(this.props.generalState.inDetails);
+    this.toggleDetailsCard(this.props.generalState.inDetails);
   }
 
   componentDidMount () {

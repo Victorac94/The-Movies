@@ -1,0 +1,38 @@
+.DesktopMenu {
+  display: none;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 20vw;
+  min-width: 300px;
+  height: 100vh;
+  padding: 20px;
+  color: white;
+  font-family: "Open Sans", sans-serif;
+  transition: transform 0.4s ease-out;
+  /* background: linear-gradient(135deg, #161c22, #0c1116); */
+  background-color: #0d1116;
+}
+
+@media (min-width: 1025px) and (orientation: landscape) {
+  .DesktopMenu {
+    display: block;
+  }
+  .menu__app_title {
+    display: block;
+    margin-top: 60px;
+    font-size: 40px;
+    color: white !important;
+  }
+  .menu__app_title:hover {
+    cursor: pointer;
+  }
+  .menu__lists {
+    height: initial;
+    margin-top: 20px;
+  }
+  .tmdb_attribution {
+    background-color: #0d1116;
+    text-align: center;
+  }
+}

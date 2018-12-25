@@ -62,6 +62,7 @@ class Grid extends Component {
       }
       cards = (
         <div className="grid__search_box">
+          <p>Search</p>
           <form onSubmit={this.searchTerm}>
             <input className="menu__box__search_input" type="text" placeholder="Search..." />
             <button className="menu__box__search_button">Search</button>

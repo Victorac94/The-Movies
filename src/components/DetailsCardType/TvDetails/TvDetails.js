@@ -8,6 +8,10 @@ const tvDetails = (props) => {
   return (
     <div className="DetailsCard__body">
       <div className="DetailsCard__body__main">
+        <img
+          className="DetailsCard__body__main__desktop_poster"
+          src={"https://image.tmdb.org/t/p/w342" + props.data.poster_path}
+          alt={props.data.name} />
         <h2 className="DetailsCard__body__main_title">{props.data.name}</h2>
         <Rate rate={props.data.vote_average} />
         <div className="DetailsCard__body__runtime-release">
@@ -46,12 +50,12 @@ const tvDetails = (props) => {
         <p className="DetailsCard__body__header">Trailer</p>
         {props.trailerKey ? (
           <iframe
-          className="iframeTrailer"
-          src={`https://www.youtube-nocookie.com/embed/${props.trailerKey}`}
-          frameBorder="0"
-          title={props.data.title + "'s trailer"}
-          allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
-          allowFullScreen></iframe>
+            className="iframeTrailer"
+            src={`https://www.youtube-nocookie.com/embed/${props.trailerKey}`}
+            frameBorder="0"
+            title={props.data.title + "'s trailer"}
+            allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
+            allowFullScreen></iframe>
         )
         : <div className="iframeTrailer">No Trailer available</div>
       }

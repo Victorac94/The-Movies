@@ -24,9 +24,7 @@
 }
 
 .poster-bg-onDetails .background-img {
-  /* transform-origin: top; */
   transform: scale(1.1);
-  /* transition: transform 0.4s ease-out; */
 }
 
 .foregroundBG_hidden {

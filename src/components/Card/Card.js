@@ -7,13 +7,13 @@ const card = (props) => {
   let title = props.info.title || props.info.name;
   let picture = props.info.poster_path || props.info.profile_path;
 
-  if (title.length > 14 ) {
-    title = title.slice(0, 14) + "...";
-  }
+  // if (title.length > 14 ) {
+  //   title = title.slice(0, 14) + "...";
+  // }
 console.log("Rendering Card.js");
   return (
     <div
-      className="Card"
+      className={props.info.media_type !== "person" ? "Card" : "Card Card_Person"}
       onClick={props.showDetails}
       data-id={props.info.id}>
       <img
@@ -25,7 +25,7 @@ console.log("Rendering Card.js");
         {props.info.media_type !== "person" ? (
           <Rate rate={props.info.vote_average} />
         )
-        : <span className="Card__Person">Person</span>}
+        : <span className="Card_Person_Name">Person</span>}
       </div>
     </div>
   )
