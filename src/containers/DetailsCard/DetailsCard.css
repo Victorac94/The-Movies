@@ -1,7 +1,8 @@
 .DetailsCard {
   width: 100%;
   min-height: calc(100vh - 50px);
-  position: fixed;
+  /* Needs to be position: absolute in order for the scroll to work on mobile-tablet */
+  position: absolute;
   top: 50px;
   left: 0;
   padding-bottom: 60px;
@@ -24,6 +25,8 @@
 /* Tablets, Ipads (landscape) */
 @media (min-width: 1025px) and (orientation: landscape) {
   .DetailsCard {
+    /* Needs to be position: fixed in order for the scroll to work on desktop */
+    position: fixed;
     width: 1000px;
     height: 600px;
     border-radius: 6px;

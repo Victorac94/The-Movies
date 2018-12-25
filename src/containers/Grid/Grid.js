@@ -57,9 +57,9 @@ class Grid extends Component {
 
     // If redux state doesn't have any data while being on '/search' then show a search box
     if (this.props.dataState.data === null && this.props.location.pathname === "/search") {
-      if (grid) {
-        grid.style.display = "block";
-      }
+      // if (grid) {
+      //   grid.style.display = "block";
+      // }
       cards = (
         <div className="grid__search_box">
           <p>Search</p>

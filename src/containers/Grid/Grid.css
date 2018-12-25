@@ -3,7 +3,10 @@
   margin-top: 50px;
   width: 100%;
   max-height: calc(100vh - 50px);
-  display: grid;
+  /* we set it to 'display: block' so that in case there is no data to show while in 'search'
+  the 'search box' appears at it's full width right from the start. We set it to
+  'display: grid' in render() of Grid.js if there's any data to show on the grid */
+  display: block;
   grid-template-columns: repeat(2, minmax(min-content, max-content));
   grid-gap: 10px;
   background-color: #1B1F2B;
