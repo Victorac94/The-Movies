@@ -1,7 +1,7 @@
 .DetailsCard {
   width: 100%;
   min-height: calc(100vh - 50px);
-  position: absolute;
+  position: fixed;
   top: 50px;
   left: 0;
   padding-bottom: 60px;
@@ -24,11 +24,11 @@
 /* Tablets, Ipads (landscape) */
 @media (min-width: 1025px) and (orientation: landscape) {
   .DetailsCard {
+    width: 1000px;
+    height: 600px;
     border-radius: 6px;
     top: calc(50vh - 300px);
     left: calc(50vw - 500px);
-    width: 1000px;
-    height: 600px;
   }
   .DetailsCard__posterBG {
     width: 100%;
