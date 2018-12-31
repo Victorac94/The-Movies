@@ -20,6 +20,18 @@ class Grid extends Component {
     input.blur();
   }
 
+  fetchHelperFunction = (page) => {
+    const mode = this.props.match.params.mode;
+    const genre = this.props.match.params.genre;
+    const genreCopy = genre;
+
+    if (parseInt(genreCopy, 10)) {
+      this.props.onFetchDiscover(mode, genreCopy, page);
+    } else {
+      this.props.onFetchData(mode, genre, page);
+    }
+  }
+
   shouldComponentUpdate (nextProps, nextState) {
     console.log("shouldupdate grid");
 
@@ -33,12 +45,10 @@ class Grid extends Component {
     return false;
   }
 
+
   componentDidMount () {
     if (!this.props.dataState.fetchingData) {
-      const mode = this.props.match.params.mode;
-      const genre = this.props.match.params.genre;
-
-      this.props.onFetchData(mode, genre);
+      this.fetchHelperFunction(1);
     }
   }
 
@@ -92,6 +102,12 @@ class Grid extends Component {
     return (
       <div className="Grid">
         {cards}
+        <span></span>
+        <span></span>
+        <span
+          className="Grid__next"
+          onClick={() => this.fetchHelperFunction(this.props.generalState.page + 1)}
+          >Next</span>
       </div>
     )
   }
@@ -106,8 +122,9 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
-    onFetchData: (mode, genre) => dispatch(fetchData.fetchData(mode, genre)),
-    onFetchSearch: (query) => dispatch(fetchData.fetchSearch(query))
+    onFetchData: (mode, genre, page) => dispatch(fetchData.fetchData(mode, genre, page)),
+    onFetchSearch: (query) => dispatch(fetchData.fetchSearch(query)),
+    onFetchDiscover: (mode, genre, page) => dispatch(fetchData.fetchDiscover(mode, genre, page))
   }
 }
 

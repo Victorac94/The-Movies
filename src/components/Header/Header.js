@@ -8,7 +8,7 @@ const header = (props) => {
     return (
       <div className="Header">
         {props.menuIsShowing ? (
-          <div className="Backdrop"></div>
+          <div className="Backdrop" onClick={props.toggleMenu}></div>
         )
         : null }
         {props.inDetails ? (

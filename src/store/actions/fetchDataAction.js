@@ -1,11 +1,12 @@
 import * as actionTypes from './actionTypes';
 
 // NOW PLAYING
-export const fetchData = (mode, genre) => {
+export const fetchData = (mode, genre, page) => {
   return {
     type: actionTypes.FETCH_DATA,
     mode: mode,
-    genre: genre
+    genre: genre,
+    page: page
   }
 }
 
@@ -44,6 +45,8 @@ export const fetchDetailsFailed = () => {
   }
 }
 
+// SEARCH
+
 export const fetchSearch = (data) => {
   return {
     type: actionTypes.FETCH_SEARCH,
@@ -61,5 +64,29 @@ export const fetchSearchSucceed = (data) => {
 export const fetchSearchFailed = () => {
   return {
     type: actionTypes.FETCH_SEARCH_FAILED
+  }
+}
+
+// DISCOVER
+
+export const fetchDiscover = (mode, genre, page) => {
+  return {
+    type: actionTypes.FETCH_DISCOVER,
+    mode: mode,
+    genre: genre,
+    page: page
+  }
+}
+
+export const fetchDiscoverSucceed = (data) => {
+  return {
+    type: actionTypes.FETCH_DISCOVER_SUCCEED,
+    data: data
+  }
+}
+
+export const fetchDiscoverFailed = (mode, genre) => {
+  return {
+    type: actionTypes.FETCH_DISCOVER_FAILED
   }
 }

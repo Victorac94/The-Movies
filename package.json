@@ -1,7 +1,7 @@
 {
   "name": "the-movies",
   "homepage": "https://victorac94.github.io/The-Movies",
-  "version": "0.2.0",
+  "version": "1.0.0",
   "author": "Víctor Antúnez",
   "private": true,
   "dependencies": {

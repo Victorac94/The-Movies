@@ -98,7 +98,9 @@ console.log("toggleMenu()");
         calculateCardPosition(true);
       }
     })
-    console.log(this.props);
+    const params = this.props.location.pathname.split("/");
+    params.shift();
+    this.props.onSetPath(params);
   }
 
   render() {
@@ -147,7 +149,8 @@ const mapDispatchToProps = dispatch => {
   return {
     onFetchDetails: (mode, id) => dispatch(fetchData.fetchDetails(mode, id)),
     onShowDetails: (media) => dispatch(generalActions.showDetails(media)),
-    onHideDetails: () => dispatch(generalActions.goBack())
+    onHideDetails: () => dispatch(generalActions.goBack()),
+    onSetPath: (params) => dispatch(generalActions.setPath(params))
   }
 }
 

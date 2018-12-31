@@ -28,3 +28,21 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
 }
+
+@media (min-width: 1025px) and (orientation: landscape) {
+  ::-webkit-scrollbar {
+    width: 10px;
+    height: 10px;
+  }
+  ::-webkit-scrollbar-track {
+    background-color: #151c24;
+  }
+  ::-webkit-scrollbar-thumb {
+    background-color: #2f3742;
+    border-radius: 4px;
+  }
+  ::-webkit-scrollbar-thumb:hover {
+    background-color: #474d59;
+    border-radius: 4px;
+  }
+}

@@ -1,9 +1,29 @@
 import * as actionTypes from './actionTypes';
 
+export const setPath = (params) => {
+  return {
+    type: actionTypes.SET_PATH,
+    params: params
+  }
+}
+
+export const resetPage = () => {
+  return {
+    type: actionTypes.RESET_PAGE
+  }
+}
+
 export const showDetails = (media) => {
   return {
     type: actionTypes.SHOW_DETAILS,
     media: media
+  }
+}
+
+export const loadTitle = (genre) => {
+  return {
+    type: actionTypes.LOAD_TITLE,
+    genre: genre
   }
 }
 
@@ -13,9 +33,9 @@ export const goBack = () => {
   }
 }
 
-export const loadTitle = (genre) => {
+export const nextPage = (page) => {
   return {
-    type: actionTypes.LOAD_TITLE,
-    genre: genre
+    type: actionTypes.NEXT_PAGE,
+    page: page
   }
 }

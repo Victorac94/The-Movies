@@ -25,6 +25,18 @@
   margin-bottom: 30px;
 }
 
+.Grid__next,
+.Grid__prev {
+  color: white;
+  padding: 5px;
+  background-color: #242937;
+}
+
+.Grid__next:hover,
+.Grid__prev:hover {
+  cursor: pointer;
+}
+
 @media (min-width: 481px) and (max-width: 767px) and (orientation: landscape) {
   .Grid {
     grid-template-columns: repeat(3, minmax(min-content, max-content));
