@@ -96,10 +96,10 @@ console.log("toggleMenu()");
   }
 
   componentDidMount () {
-    this.winWidth = window.innerWidth;
+    // this.winWidth = window.innerWidth;
     window.addEventListener("hashchange", (e) => this.onHashChange(e), false);
     window.addEventListener("resize", () => {
-      const newWinWidth = window.innerWidth;
+      // const newWinWidth = window.innerWidth;
       if (this.props.generalState.inDetails) {
         calculateCardPosition(true);
       }

@@ -132,6 +132,9 @@ class DetailsCard extends Component {
     return (
       <div className="DetailsCard">
         <div className="DetailsCard__posterBG"></div>
+        {this.props.dataState.fetchingDetails ? (
+          <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+        ) : null}
         {data}
       </div>
     )

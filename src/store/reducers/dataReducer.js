@@ -14,7 +14,7 @@ const initialState = {
 // TRENDING
 
 const fetchTrending = (state, action) => {
-  return updateObject(state, {fetchingData: true, newData: false, error: false});
+  return updateObject(state, {data: null, fetchingData: true, newData: false, error: false});
 }
 
 const fetchTrendingSucceed = (state, action) => {
@@ -28,7 +28,7 @@ const fetchTrendingFailed = (state, action) => {
 // DATA
 
 const fetchData = (state, action) => {
-  return updateObject(state, {fetchingData: true, newData: false, error: false});
+  return updateObject(state, {data: null, fetchingData: true, newData: false, error: false});
 }
 
 const fetchDataSucceed = (state, action) => {
@@ -57,7 +57,7 @@ const fetchDetailsFailed = (state) => {
 // SEARCH
 
 const fetchSearch = (state, action) => {
-  return updateObject(state, {fetchingData: true, newData: false, error: false});
+  return updateObject(state, {data: null, fetchingData: true, newData: false, error: false});
 }
 
 const fetchSearchSucceed = (state, action) => {
@@ -71,7 +71,7 @@ const fetchSearchFailed = (state) => {
 // DISCOVER
 
 const fetchDiscover = (state, action) => {
-  return updateObject(state, {fetchingData: true, newData: false, error: false});
+  return updateObject(state, {data: null, fetchingData: true, newData: false, error: false});
 }
 
 const fetchDiscoverSucceed = (state, action) => {

@@ -9,7 +9,7 @@ import Card from '../../components/Card/Card';
 class Grid extends Component {
   searchTerm = (e) => {
     e.preventDefault();
-    const input = document.querySelector(".grid__search_box input");
+    const input = e.target.firstElementChild;
     // this.props.location.search(`query=${input.value}`);
     this.props.history.replace(`/search?query=${input.value}`);
     this.props.onFetchSearch(input.value);
@@ -43,6 +43,8 @@ class Grid extends Component {
       if (this.props.location.pathname === "/search") {
         return true;
       }
+    } else if (nextProps.dataState.fetchingData === true) {
+      return true;
     }
     return false;
   }
@@ -65,7 +67,23 @@ class Grid extends Component {
     console.log("rendering grid");
 
     const grid = document.querySelector(".Grid");
+    let homeHTML = null;
     let cards = null;
+
+    if (this.props.location.pathname === "/") {
+      homeHTML = (
+        <div className="Home">
+          <h1 className="Home__title">The Movies</h1>
+            <div className="Home__search_box">
+              <form onSubmit={this.searchTerm}>
+                <input className="Home__search_input" type="text" placeholder="Search..." />
+                <button className="Home__search_button">Search</button>
+              </form>
+            </div>
+          <h2 className="Home__trending">Trending Movies</h2>
+        </div>
+      );
+    }
 
     // If redux state doesn't have any data while being on '/search' then show a search box
     if (this.props.dataState.data === null && this.props.location.pathname === "/search") {
@@ -84,13 +102,13 @@ class Grid extends Component {
     }
     // If redux state has data then show the data through the cards
     else if (this.props.dataState.data) {
-      const nowPlaying = this.props.dataState.data;
+      const data = this.props.dataState.data;
 
       if (grid) {
         grid.style.display = "grid";
       }
 
-      cards = nowPlaying.map((el, i) => {
+      cards = data.map((el, i) => {
         const mode = el.media_type ? el.media_type : this.props.match.params.mode || "movie";
         return (
           <Card
@@ -102,28 +120,20 @@ class Grid extends Component {
       })
     }
     return (
-      <div className="Grid">
-        {this.props.location.pathname === "/" ? (
-          <div className="Home">
-            <h1 className="Home__title">The Movies</h1>
-              <div className="Home__search_box">
-                <form onSubmit={this.searchTerm}>
-                  <input className="Home__search_input" type="text" placeholder="Search..." />
-                  <button className="Home__search_button">Search</button>
-                </form>
-              </div>
-            <h2 className="Home__trending">Trending Movies</h2>
-          </div>
-        )
-        : null}
-        {cards}
-        <span></span>
-        <span></span>
-        <span
-          className="Grid__next"
-          onClick={() => this.fetchHelperFunction(this.props.generalState.page + 1)}
-          >Next</span>
+        <div className="Grid">
+          {this.props.dataState.fetchingData && !this.props.dataState.data ? (
+            <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+          ) : null}
+          {this.props.dataState.fetchingData ? null : homeHTML}
+          {this.props.dataState.fetchingData ? null : cards}
+          {this.props.dataState.fetchingData ? null : (
+            <span
+              className="Grid__next"
+              onClick={() => this.fetchHelperFunction(this.props.generalState.page + 1)}
+              >Next</span>
+          )}
       </div>
+
     )
   }
 }
