@@ -11,16 +11,28 @@ const initialState = {
   error: false
 };
 
+// TRENDING
+
+const fetchTrending = (state, action) => {
+  return updateObject(state, {fetchingData: true, newData: false, error: false});
+}
+
+const fetchTrendingSucceed = (state, action) => {
+  return updateObject(state, {data: action.data, fetchingData: false, newData: true});
+}
+
+const fetchTrendingFailed = (state, action) => {
+  return updateObject(state, {fetchingData: false, error: true});
+}
+
 // DATA
 
 const fetchData = (state, action) => {
-  const obj = {fetchingData: true, newData: false, error: false};
-  return updateObject(state, obj);
+  return updateObject(state, {fetchingData: true, newData: false, error: false});
 }
 
 const fetchDataSucceed = (state, action) => {
-  const obj = {data: action.data, fetchingData: false, newData: true, error: false};
-  return updateObject(state, obj);
+  return updateObject(state, {data: action.data, fetchingData: false, newData: true});
 }
 
 const fetchDataFailed = (state) => {
@@ -34,7 +46,7 @@ const fetchDetails = (state, action) => {
 }
 
 const fetchDetailsSucceed = (state, action) => {
-  const obj = {details: action.data, fetchingDetails: false, newDetails: true, error: false};
+  const obj = {details: action.data, fetchingDetails: false, newDetails: true};
   return updateObject(state, obj);
 }
 
@@ -49,7 +61,7 @@ const fetchSearch = (state, action) => {
 }
 
 const fetchSearchSucceed = (state, action) => {
-  return updateObject(state, {data: action.data, fetchingData: false, newData: true, error: false});
+  return updateObject(state, {data: action.data, fetchingData: false, newData: true});
 }
 
 const fetchSearchFailed = (state) => {
@@ -71,7 +83,7 @@ const fetchDiscoverSucceed = (state, action) => {
   // });
   // console.log(newData);
   // return updateObject(state, {data: newData, fetchingData: false, newData: true, error: false});
-  return updateObject(state, {data: action.data, fetchingData: false, newData: true, error: false});
+  return updateObject(state, {data: action.data, fetchingData: false, newData: true});
 }
 
 const fetchDiscoverFailed = (state) => {
@@ -82,6 +94,9 @@ const fetchDiscoverFailed = (state) => {
 
 const reducer = (state = initialState, action) => {
   switch(action.type) {
+    case actionTypes.FETCH_TRENDING: return fetchTrending(state, action);
+    case actionTypes.FETCH_TRENDING_SUCCEED: return fetchTrendingSucceed(state, action);
+    case actionTypes.FETCH_TRENDING_FAILED: return fetchTrendingFailed(state);
     case actionTypes.FETCH_DATA: return fetchData(state, action);
     case actionTypes.FETCH_DATA_SUCCEED: return fetchDataSucceed(state, action);
     case actionTypes.FETCH_DATA_FAILED: return fetchDataFailed(state);

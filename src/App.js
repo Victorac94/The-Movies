@@ -14,8 +14,12 @@ import * as generalActions from './store/actions/generalActions';
 import * as fetchData from './store/actions/fetchDataAction';
 
 class App extends Component {
-  state = {
-    menuIsShowing: false
+  constructor () {
+    super();
+    this.state = {
+      menuIsShowing: false
+    };
+    this.winWidth = null;
   }
 
   toggleMenu = () => {
@@ -92,11 +96,16 @@ console.log("toggleMenu()");
   }
 
   componentDidMount () {
+    this.winWidth = window.innerWidth;
     window.addEventListener("hashchange", (e) => this.onHashChange(e), false);
     window.addEventListener("resize", () => {
+      const newWinWidth = window.innerWidth;
       if (this.props.generalState.inDetails) {
         calculateCardPosition(true);
       }
+      // if (this.props.generalState.inDetails && this.winWidth !== newWinWidth) {
+      //   calculateCardPosition(true);
+      // }
     })
     const params = this.props.location.pathname.split("/");
     params.shift();
@@ -115,7 +124,12 @@ console.log("toggleMenu()");
         <DesktopMenu />
         <DetailsCard />
         <Switch>
-          <Route path="/" exact component={Home} />
+          <Route path="/" exact render={() => (
+            <Home {...this.props}
+              showDetails={(e, mode) => this.showDetails(e, mode)}
+              menuIsShowing={this.state.menuIsShowing}
+              toggleMenu={this.toggleMenu}/>
+          )} />
           <Route path="/:mode/:genre?" render={() => (
             <Grid {...this.props}
               showDetails={(e, mode) => this.showDetails(e, mode)}

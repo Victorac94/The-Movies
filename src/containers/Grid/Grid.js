@@ -27,6 +27,8 @@ class Grid extends Component {
 
     if (parseInt(genreCopy, 10)) {
       this.props.onFetchDiscover(mode, genreCopy, page);
+    } else if (this.props.match.path === "/") {
+      this.props.onFetchTrending(page);
     } else {
       this.props.onFetchData(mode, genre, page);
     }
@@ -53,10 +55,10 @@ class Grid extends Component {
   }
 
   componentDidUpdate () {
-    const input = document.querySelector(".Grid input");
-    if (input) {
-      input.focus();
-    }
+    // const input = document.querySelector(".Grid input");
+    // if (input) {
+    //   input.focus();
+    // }
   }
 
   render () {
@@ -89,7 +91,7 @@ class Grid extends Component {
       }
 
       cards = nowPlaying.map((el, i) => {
-        const mode = el.media_type ? el.media_type : this.props.match.params.mode;
+        const mode = el.media_type ? el.media_type : this.props.match.params.mode || "movie";
         return (
           <Card
             key={i}
@@ -101,6 +103,19 @@ class Grid extends Component {
     }
     return (
       <div className="Grid">
+        {this.props.location.pathname === "/" ? (
+          <div className="Home">
+            <h1 className="Home__title">The Movies</h1>
+              <div className="Home__search_box">
+                <form onSubmit={this.searchTerm}>
+                  <input className="Home__search_input" type="text" placeholder="Search..." />
+                  <button className="Home__search_button">Search</button>
+                </form>
+              </div>
+            <h2 className="Home__trending">Trending Movies</h2>
+          </div>
+        )
+        : null}
         {cards}
         <span></span>
         <span></span>
@@ -122,6 +137,7 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return {
+    onFetchTrending: (page) => dispatch(fetchData.fetchTrending(page)),
     onFetchData: (mode, genre, page) => dispatch(fetchData.fetchData(mode, genre, page)),
     onFetchSearch: (query) => dispatch(fetchData.fetchSearch(query)),
     onFetchDiscover: (mode, genre, page) => dispatch(fetchData.fetchDiscover(mode, genre, page))

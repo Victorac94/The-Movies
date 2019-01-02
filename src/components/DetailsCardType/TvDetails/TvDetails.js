@@ -29,6 +29,13 @@ const tvDetails = (props) => {
           </span>
         </div>
         <Tags tags={props.data.genres}/>
+        <div className="DetailsCard__body__main_secondary">
+          <p>Last air date: <span>{props.data.last_air_date}</span></p>
+          <p>Seasons: <span>{props.data.number_of_seasons}</span></p>
+          <p>Episodes: <span>{props.data.number_of_episodes}</span></p>
+          <p>Country: <span>{props.data.origin_country[0]}</span></p>
+          <p>Status: <span>{props.data.status}</span></p>
+        </div>
       </div>
       <div className="DetailsCard__body__overview">
         <p className="DetailsCard__body__header">
@@ -57,7 +64,7 @@ const tvDetails = (props) => {
             allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen></iframe>
         )
-        : <div className="iframeTrailer">No Trailer available</div>
+        : <div className="iframeTrailer"><span>No Trailer available</span></div>
       }
       </div>
     </div>

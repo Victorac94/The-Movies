@@ -10,11 +10,11 @@ export const decodeGenre = (id) => {
     case 'popular':
       genre = "Popular";
       break;
-    case 'search':
-      genre = "Search Results";
-      break;
     case 'on_the_air':
       genre = "On Air";
+      break;
+    case 'search':
+      genre = "Search Results";
       break;
     case '10759':
       genre = "Action & Adventure";
@@ -98,7 +98,7 @@ export const decodeGenre = (id) => {
       genre = "Western";
       break;
     default:
-      genre = 'The Movies';
+      genre = 'Home';
       break;
   }
   return genre;

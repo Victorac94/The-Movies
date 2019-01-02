@@ -18,6 +18,29 @@
   grid-area: main;
 }
 
+.DetailsCard__body__main_secondary {
+  margin-top: 10px;
+}
+
+.DetailsCard__body__main_secondary p {
+  display: inline-block;
+  margin: 20px 20px 0 0;
+  margin-right: 20px;
+  font-size: 17px;
+}
+
+.DetailsCard__body__main_secondary p:first-child {
+  display: block;
+}
+
+.DetailsCard__body__main_secondary span {
+  display: inline-block;
+  font-family: 'Open Sans', sans-serif;
+  font-size: 16px;
+  margin-left: 10px;
+  color: #ced3dd;
+}
+
 .DetailsCard__body__main__desktop_poster {
   display: none;
 }
@@ -35,6 +58,7 @@
 
 .DetailsCard__body__runtime-release {
   margin: 20px 0;
+  font-family: 'Open Sans', sans-serif;
 }
 
 .DetailsCard__body__runtime {
@@ -58,6 +82,7 @@
   margin: 0;
   max-height: 257px;
   overflow: hidden;
+  color: #ced3dd;
 }
 
 .ShowFullBioOverview {
@@ -84,8 +109,11 @@
   max-width: 500px;
   height: 49.5vw;
   max-height: 281px;
+  margin: auto;
   background-color: #141418;
-  line-height: 34vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
 /* Low Resolution Tablets, Mobiles (Landscape) */
@@ -108,6 +136,11 @@
   .DetailsCard__body__main {
     position: relative;
     top: -130px;
+  }
+  .DetailsCard__body__main_secondary {
+    align-self: flex-start;
+    margin-left: 20px;
+    text-align: left;
   }
   .DetailsCard__body__main__desktop_poster {
     display: block;

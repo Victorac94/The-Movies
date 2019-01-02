@@ -4,6 +4,21 @@ import { put } from 'redux-saga/effects';
 import * as fetchDataActions from '../actions/fetchDataAction';
 import * as generalActions from '../actions/generalActions';
 
+// TRENDING
+
+export function* fetchTrending(payload) {
+  try {
+    const response = yield axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=6095dab7d845691ab95df77d0a908452&page=${payload.page}`);
+    console.log(response.data.results);
+    yield put(fetchDataActions.fetchTrendingSucceed(response.data.results));
+    yield put(generalActions.nextPage(payload.page));
+    yield put(generalActions.loadTitle("Home"));
+  } catch {
+    console.log("Error fetching Trending");
+    yield put(fetchDataActions.fetchTrendingFailed());
+  }
+}
+
 // DATA
 
 export function* fetchData(payload) {

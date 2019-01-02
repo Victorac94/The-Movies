@@ -29,12 +29,15 @@
 .Grid__prev {
   color: white;
   padding: 5px;
+  border-radius: 6px;
   background-color: #242937;
+  grid-column: 1 / 3;
 }
 
 .Grid__next:hover,
 .Grid__prev:hover {
   cursor: pointer;
+  background-color: #292f3e;
 }
 
 @media (min-width: 481px) and (max-width: 767px) and (orientation: landscape) {
@@ -46,6 +49,9 @@
   .grid__search_box {
     width: 70%
   }
+  .Grid__next {
+    grid-column: 1 / 4;
+  }
 }
 
 @media (min-width: 768px) and (max-width: 1024px) {
@@ -55,18 +61,24 @@
   .grid__search_box {
     width: 60%;
   }
+  .Grid__next {
+    grid-column: 1 / 5;
+  }
 }
 
 @media (min-width: 1025px) {
   .Grid {
     margin-top: 0;
-    max-height: 100vh;
-    width: calc(100vw - 300px);
+    max-height: initial;
+    width: calc(100vw - 310px);
     grid-template-columns: repeat(4, minmax(min-content, max-content));
     margin-left: auto;
   }
   .grid__search_box {
-    width: 50%;
+    width: 60%;
+  }
+  .Grid__next {
+    grid-column: 1 / 6;
   }
 }
 

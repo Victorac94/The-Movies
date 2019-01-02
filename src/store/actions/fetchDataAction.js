@@ -1,6 +1,27 @@
 import * as actionTypes from './actionTypes';
 
-// NOW PLAYING
+// TRENDING
+export const fetchTrending = (page) => {
+  return {
+    type: actionTypes.FETCH_TRENDING,
+    page: page
+  }
+}
+
+export const fetchTrendingSucceed = (data) => {
+  return {
+    type: actionTypes.FETCH_TRENDING_SUCCEED,
+    data: data
+  }
+}
+
+export const fetchTrendingFailed = () => {
+  return {
+    type: actionTypes.FETCH_TRENDING_SUCCEED
+  }
+}
+
+// NOW PLAYING - TOP RATED - POPULAR
 export const fetchData = (mode, genre, page) => {
   return {
     type: actionTypes.FETCH_DATA,
