@@ -106,9 +106,9 @@
 
 .iframeTrailer {
   width: 88vw;
-  max-width: 500px;
+  /* max-width: 500px; */
   height: 49.5vw;
-  max-height: 281px;
+  /* max-height: 281px; */
   margin: auto;
   background-color: #141418;
   display: flex;
@@ -121,6 +121,14 @@
   .iframeTrailer {
     width: 70vw;
     height: 39.4vw;
+  }
+}
+
+/* Tablets, Ipads (landscape) */
+@media (min-width: 768px) and (max-width: 1024px) and (orientation: landscape) {
+  .iframeTrailer {
+    width: 80vw;
+    height: 45vw;
   }
 }
 
