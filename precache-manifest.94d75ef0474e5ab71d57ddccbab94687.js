@@ -4,19 +4,19 @@ self.__precacheManifest = [
     "url": "/The-Movies/static/js/runtime~main.c6516ac6.js"
   },
   {
-    "revision": "ad9ce0a6d2de82334ad7",
-    "url": "/The-Movies/static/js/main.ad9ce0a6.chunk.js"
+    "revision": "c724a6e8d5a781f5c0e8",
+    "url": "/The-Movies/static/js/main.c724a6e8.chunk.js"
   },
   {
     "revision": "4be75a8b4ad943285e65",
     "url": "/The-Movies/static/js/1.4be75a8b.chunk.js"
   },
   {
-    "revision": "ad9ce0a6d2de82334ad7",
-    "url": "/The-Movies/static/css/main.09c2ad94.chunk.css"
+    "revision": "c724a6e8d5a781f5c0e8",
+    "url": "/The-Movies/static/css/main.993f8be9.chunk.css"
   },
   {
-    "revision": "7118e330f90ca4e361237a10c782a167",
+    "revision": "d1fdf52af8aa8b25064a6e05d64b5894",
     "url": "/The-Movies/index.html"
   }
 ];
