@@ -39,18 +39,15 @@
   padding: 5px 10px;
 }
 
-.Card__Info p {
-  font-family: "Roboto", sans-serif;
-  margin: 0;
-  position: relative;
-  z-index: 10;
-}
-
 .Card__Info__title {
+  position: relative;
+  font-family: "Roboto", sans-serif;
   font-weight: 500;
+  margin: 0;
   overflow: hidden;
   white-space: pre-line;
   text-overflow: ellipsis;
+  z-index: 10;
 }
 
 .Card_Person {
@@ -70,5 +67,13 @@
     transform: scale(1.04);
     transform-origin: center;
     z-index: 50;
+  }
+}
+
+@media (min-width: 1920px) {
+  .Card__Info {
+    height: 110px;
+    padding: 10px 15px;
+    font-size: 22px;
   }
 }

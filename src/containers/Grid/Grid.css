@@ -112,7 +112,7 @@
     padding: 15px 40px;
   }
   .grid__search_box {
-    width: 70%
+    width: 70%;
   }
   .Grid__next {
     grid-column: 1 / 4;
@@ -135,7 +135,8 @@
   .Grid {
     margin-top: 0;
     max-height: initial;
-    width: calc(100vw - 310px);
+    max-width: calc(100vw - 310px);
+    width: calc(80vw - 10px);
     grid-template-columns: repeat(4, minmax(min-content, max-content));
     margin-left: auto;
   }

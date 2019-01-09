@@ -141,3 +141,23 @@
     width: 70%;
   }
 }
+
+@media (min-width: 1920px) {
+  .menu__box__search_input,
+  .menu__box__search_button {
+    font-size: 17px;
+  }
+  .menu__list {
+    margin-bottom: 50px;
+  }
+  .menu__list_title {
+    font-size: 25px;
+  }
+  .menu__list li a {
+    font-size: 21px;
+  }
+  .tmdb_logo {
+    top: 20px;
+    left: 25px;
+  }
+}

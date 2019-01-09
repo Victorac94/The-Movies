@@ -22,3 +22,11 @@
 .DetailsCard__body .rate {
   font-size: 22px;
 }
+
+@media (min-width: 1920px) {
+  .icon-star,
+  .icon-star-half-o,
+  .icon-star-o {
+    font-size: 20px;
+  }
+}

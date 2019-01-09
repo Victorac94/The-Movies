@@ -67,7 +67,8 @@
 
 @media (min-width: 1025px) {
   .Home__wrapper {
-    width: calc(100vw - 310px);
+    max-width: calc(100vw - 310px);
+    width: calc(80vw - 10px);
     height: 100vh;
     margin-left: auto;
     display: flex;

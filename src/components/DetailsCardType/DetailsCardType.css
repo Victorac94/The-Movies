@@ -70,7 +70,7 @@
   display: inline-block;
   position: relative;
   top: 2px;
-  margin-right: 5px;
+  margin-right: 10px;
 }
 
 .DetailsCard__body__overview {
@@ -135,7 +135,7 @@
 @media (min-width: 1025px) and (orientation: landscape) {
   .DetailsCard__body {
     grid-column-gap: 20px;
-    grid-template-columns: 250px 650px;
+    grid-template-columns: 27% calc(73% - 20px);
     grid-template-areas:
       'main overview'
       'main cast'
@@ -143,17 +143,17 @@
   }
   .DetailsCard__body__main {
     position: relative;
-    top: -130px;
+    top: -150px;
+  }
+  .DetailsCard__body__main__desktop_poster {
+    display: block;
+    width: 80%;
+    border-radius: 4px;
   }
   .DetailsCard__body__main_secondary {
     align-self: flex-start;
     margin-left: 20px;
     text-align: left;
-  }
-  .DetailsCard__body__main__desktop_poster {
-    display: block;
-    width: 70%;
-    border-radius: 4px;
   }
   .DetailsCard__body__cast__list {
     width: 100%;
@@ -162,7 +162,56 @@
   .iframeTrailer {
     max-width: none;
     max-height: none;
-    width: 650px;
-    height: 366px;
+    /* width: 650px;
+    height: 366px; */
+    width: 100%;
+    height: calc(48vw / 1.77);
+  }
+}
+
+@media (min-width: 1920px) {
+  .DetailsCard__body {
+    margin-right: 35px;
+  }
+  .DetailsCard__body__header {
+    font-size: 22px;
+  }
+  .DetailsCard__body__main {
+    padding: 0 30px;
+    top: -190px;
+  }
+  .DetailsCard__body__main_title {
+    margin: 30px 0;
+    font-size: 1.9em;
+  }
+  .DetailsCard__body__main__desktop_poster {
+    width: 90%;
+  }
+  .DetailsCard__body__main_secondary {
+    margin-top: 20px;
+  }
+  .DetailsCard__body__runtime-release {
+    margin: 30px 0;
+  }
+  .DetailsCard__body__overview_p,
+  .DetailsCard__body__main_secondary p,
+  .DetailsCard__body__main_secondary span,
+  .DetailsCard__body__runtime span,
+  .DetailsCard__body__release span {
+    font-size: 20px;
+  }
+  .DetailsCard__body__runtime .icon-clock,
+  .DetailsCard__body__release .icon-calendar {
+    font-size: 21px;
+  }
+  .seasons__label,
+  .episodes__label {
+    font-size: 19px;
+  }
+  #seasons,
+  #episodes,
+  .loadEpisodeButton {
+    margin-right: 10px;
+    font-size: 18px;
   }
 }

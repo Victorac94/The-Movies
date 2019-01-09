@@ -4,6 +4,12 @@
   padding: 4px 15px;
   background-color: #00D474;
   /* background-color: #54db67; */
-  color: #363636;
+  color: #323232;
   border-radius: 6px;
+}
+
+@media (min-width: 1920px) {
+  .movie-card-info__tags__tag {
+    font-size: 19px;
+  }
 }

@@ -26,3 +26,15 @@
   white-space: nowrap;
   text-overflow: ellipsis;
 }
+
+@media (min-width: 1920px) {
+  .Cast__picture {
+    width: 90px;
+    height: 135px;
+    border-radius: 5px;
+  }
+  .Cast__name {
+    width: 80px;
+    font-size: 16px;
+  }
+}
