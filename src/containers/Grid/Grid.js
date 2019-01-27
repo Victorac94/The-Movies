@@ -25,6 +25,8 @@ class Grid extends Component {
     const genre = this.props.match.params.genre;
     const genreCopy = genre;
 
+    if (page <= 0) return;
+
     if (parseInt(genreCopy, 10)) {
       this.props.onFetchDiscover(mode, genreCopy, page);
     } else if (this.props.match.path === "/") {
@@ -126,6 +128,12 @@ class Grid extends Component {
           ) : null}
           {this.props.dataState.fetchingData ? null : homeHTML}
           {this.props.dataState.fetchingData ? null : cards}
+          {this.props.dataState.fetchingData ? null : (
+            <span
+              className="Grid__prev"
+              onClick={() => this.fetchHelperFunction(this.props.generalState.page - 1)}
+              >Prev</span>
+          )}
           {this.props.dataState.fetchingData ? null : (
             <span
               className="Grid__next"
