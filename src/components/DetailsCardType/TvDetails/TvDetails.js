@@ -67,6 +67,18 @@ const tvDetails = (props) => {
         : <div className="iframeTrailer"><span>No Trailer available</span></div>
       }
       </div>
+      <div className="DetailsCard__body__recommend">
+        <p className="DetailsCard__body__header">Recommended {this.props.recommendations ? `(${this.props.recommendations.length})` : null}</p>
+        <div className="DetailsCard__body__recommend__list">
+          {this.props.recommendations ? this.props.recommendations : "No Recommendations Available"}
+        </div>
+      </div>
+      <div className="DetailsCard__body__similar">
+        <p className="DetailsCard__body__header">Similar {this.props.similar ? `(${this.props.similar.length})` : null}</p>
+        <div className="DetailsCard__body__similar__list">
+          {this.props.similar ? this.props.similar : "No Similarities Available"}
+        </div>
+      </div>
     </div>
   )
 }

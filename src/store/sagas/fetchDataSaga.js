@@ -39,7 +39,7 @@ export function* fetchData(payload) {
 
 export function* fetchDetails(payload) {
   try {
-    const response = yield axios.get(`https://api.themoviedb.org/3/${payload.mode}/${payload.id}?api_key=6095dab7d845691ab95df77d0a908452&append_to_response=videos,credits`);
+    const response = yield axios.get(`https://api.themoviedb.org/3/${payload.mode}/${payload.id}?api_key=6095dab7d845691ab95df77d0a908452&append_to_response=videos,credits,recommendations,similar`);
     console.log(response.data);
     yield put(fetchDataActions.fetchDetailsSucceed(response.data))
   }

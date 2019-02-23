@@ -84,6 +84,9 @@ class DetailsCard extends Component {
 
     if (this.state.data) {
       let cast = null;
+      let recommendations = null;
+      let similar = null;
+
       // Load cast
       if (this.state.data.credits.cast.length) {
         const data = this.state.data.credits.cast;
@@ -109,6 +112,56 @@ class DetailsCard extends Component {
         }
       }
 
+      // Load recommendations
+      if (this.state.data.recommendations.results) {
+        const data = this.state.data.recommendations.results;
+        let length = data.length > 20 ? 20 : data.length;
+        recommendations = [];
+
+        for (let i = 0; i < length; i++) {
+          if (data[i].title) {
+            const elem = (
+              <Cast key={data[i].title + i}
+                pic={data[i].poster_path}
+                name={data[i].title} />
+            );
+            recommendations.push(elem);
+          } else {
+            const elem = (
+              <Cast key={data[i].name + i}
+                pic={data[i].poster_path}
+                name={data[i].name} />
+            );
+            recommendations.push(elem);
+          }
+        }
+      }
+
+      // Load similar
+      if (this.state.data.similar.results) {
+        const data = this.state.data.similar.results;
+        let length = data.length > 20 ? 20 : data.length;
+        similar = [];
+
+        for (let i = 0; i < length; i++) {
+          if (data[i].title) {
+            const elem = (
+              <Cast key={data[i].title + i}
+                pic={data[i].poster_path}
+                name={data[i].title} />
+            );
+            similar.push(elem);
+          } else {
+            const elem = (
+              <Cast key={data[i].name + i}
+                pic={data[i].poster_path}
+                name={data[i].name} />
+            );
+            similar.push(elem);
+          }
+        }
+      }
+
       // Load trailer
       if (this.state.data.videos.results && this.state.data.videos.results.length !== 0) {
         trailerKey = this.state.data.videos.results[0].key;
@@ -116,10 +169,24 @@ class DetailsCard extends Component {
 
       switch (this.props.generalState.media) {
         case 'movie':
-          data = <MovieDetails data={this.state.data} cast={cast} trailerKey={trailerKey}/>;
+          data = (
+            <MovieDetails
+              data={this.state.data}
+              cast={cast}
+              recommendations={recommendations}
+              similar={similar}
+              trailerKey={trailerKey}/>
+          );
           break;
         case 'tv':
-          data = <TvDetails data={this.state.data} cast={cast} trailerKey={trailerKey}/>;
+          data = (
+            <TvDetails
+              data={this.state.data}
+              cast={cast}
+              recommendations={recommendations}
+              similar={similar}
+              trailerKey={trailerKey}/>
+          );
           break;
         case 'person':
           data = <PersonDetails data={this.state.data} cast={cast}/>;

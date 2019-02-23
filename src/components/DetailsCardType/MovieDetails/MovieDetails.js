@@ -60,6 +60,18 @@ const movieDetails = (props) => {
         : <div className="iframeTrailer">No Trailer available</div>
       }
       </div>
+      <div className="DetailsCard__body__recommend">
+        <p className="DetailsCard__body__header">Recommended {props.recommendations ? `(${props.recommendations.length})` : null}</p>
+        <div className="DetailsCard__body__recommend__list">
+          {props.recommendations ? props.recommendations : "No Recommendations Available"}
+        </div>
+      </div>
+      <div className="DetailsCard__body__similar">
+        <p className="DetailsCard__body__header">Similar {props.similar ? `(${props.similar.length})` : null}</p>
+        <div className="DetailsCard__body__similar__list">
+          {props.similar ? props.similar : "No Similarities Available"}
+        </div>
+      </div>
     </div>
   )
 }
