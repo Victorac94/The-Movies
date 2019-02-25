@@ -4,6 +4,7 @@ import { decodeGenre } from '../../shared/decodeGenre';
 
 const initialState = {
   inDetails: false,
+  loadingFromDetails: false,
   mode: null,
   genre: null,
   media: null,
@@ -26,12 +27,16 @@ const loadTitle = (state, action) => {
 }
 
 const showDetails = (state, action) => {
-  return updateObject(state, {inDetails: true, media: action.media});
+  return updateObject(state, {inDetails: true, media: action.media, loadingFromDetails: false});
 };
 
 const goBack = (state, action) => {
-  return updateObject(state, {inDetails: false});
+  return updateObject(state, {inDetails: false, loadingFromDetails: false});
 };
+
+const loadingFromDetails = (state, action) => {
+  return updateObject(state, {loadingFromDetails: true});
+}
 
 const nextPage = (state, action) => {
   return updateObject(state, {page: action.page});
@@ -44,6 +49,7 @@ const reducer = (state = initialState, action) => {
     case actionTypes.LOAD_TITLE: return loadTitle(state, action);
     case actionTypes.PAGE_GO_BACK: return goBack(state, action);
     case actionTypes.SHOW_DETAILS: return showDetails(state, action);
+    case actionTypes.LOADING_FROM_DETAILS: return loadingFromDetails(state, action);
     case actionTypes.NEXT_PAGE: return nextPage(state, action);
     default: return state;
   }

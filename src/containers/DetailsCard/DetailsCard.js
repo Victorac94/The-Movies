@@ -3,10 +3,13 @@ import { connect } from 'react-redux';
 import fastdom from 'fastdom';
 
 import './DetailsCard.css';
+import * as fetchData from '../../store/actions/fetchDataAction';
+import { showDetails, loadingFromDetails } from '../../store/actions/generalActions';
+import { resetCardPosition } from '../../shared/resetCardPosition';
 import MovieDetails from '../../components/DetailsCardType/MovieDetails/MovieDetails';
 import TvDetails from '../../components/DetailsCardType/TvDetails/TvDetails';
 import PersonDetails from '../../components/DetailsCardType/PersonDetails/PersonDetails';
-import Cast from '../../components/Cast/Cast';
+import Thumbnail from '../../components/Thumbnail/Thumbnail';
 
 class DetailsCard extends Component {
   constructor(props) {
@@ -16,7 +19,7 @@ class DetailsCard extends Component {
     };
 
     this.detailsCard = null;
-    this.posterBG = null
+    this.posterBG = null;
   }
 
   toggleDetailsCard = (inDetails) => {
@@ -32,6 +35,20 @@ class DetailsCard extends Component {
         this.detailsCard.style.opacity = "0";
       });
     }
+  }
+
+  searchInDetails = (e) => {
+    const oldPoster = document.querySelector(".currentCard .Card__Poster");
+    const cardInfo = document.querySelector(".DetailsCard");
+
+    resetCardPosition(oldPoster, cardInfo, true);
+    // oldPoster.parentNode.classList.remove("currentCard");
+    this.posterBG.style.backgroundImage = "none";
+
+    this.setState({data: null});
+    this.props.onChangeGeneralState(e.currentTarget.dataset.mode);
+    this.props.onSearchDetails(e.currentTarget.dataset.mode, e.currentTarget.dataset.id);
+    this.props.onLoadingFromDetails(true);
   }
 
   static getDerivedStateFromProps (nextProps, prevState) {
@@ -72,6 +89,7 @@ class DetailsCard extends Component {
     const posterBG = document.querySelector(".DetailsCard__posterBG");
     let data = null;
     let trailerKey = null;
+    let posterFromDetails = null;
 
     if (posterBG) {
       if (this.props.generalState.inDetails && this.props.dataState.newDetails) {
@@ -87,6 +105,12 @@ class DetailsCard extends Component {
       let recommendations = null;
       let similar = null;
 
+      if (this.props.generalState.loadingFromDetails && this.props.dataState.newDetails) {
+        this.props.dataState.details.poster_path ?
+          posterFromDetails = this.props.dataState.details.poster_path
+          : posterFromDetails = this.props.dataState.details.profile_path;
+      }
+
       // Load cast
       if (this.state.data.credits.cast.length) {
         const data = this.state.data.credits.cast;
@@ -96,16 +120,22 @@ class DetailsCard extends Component {
         for (let i = 0; i < length; i++) {
           if (data[i].title) {
             const elem = (
-              <Cast key={data[i].title + i}
+              <Thumbnail key={data[i].title + i}
                 pic={data[i].poster_path}
-                name={data[i].title} />
+                name={data[i].title}
+                searchDetails={this.searchInDetails}
+                mode="movie"
+                id={data[i].id} />
             );
             cast.push(elem);
           } else {
             const elem = (
-              <Cast key={data[i].name + i}
+              <Thumbnail key={data[i].name + i}
                 pic={data[i].profile_path || data[i].poster_path}
-                name={data[i].name} />
+                name={data[i].name}
+                searchDetails={this.searchInDetails}
+                mode={data[i].profile_path ? "person" : "tv"}
+                id={data[i].id} />
             );
             cast.push(elem);
           }
@@ -121,16 +151,22 @@ class DetailsCard extends Component {
         for (let i = 0; i < length; i++) {
           if (data[i].title) {
             const elem = (
-              <Cast key={data[i].title + i}
+              <Thumbnail key={data[i].title + i}
                 pic={data[i].poster_path}
-                name={data[i].title} />
+                name={data[i].title}
+                searchDetails={this.searchInDetails}
+                mode="movie"
+                id={data[i].id} />
             );
             recommendations.push(elem);
           } else {
             const elem = (
-              <Cast key={data[i].name + i}
+              <Thumbnail key={data[i].name + i}
                 pic={data[i].poster_path}
-                name={data[i].name} />
+                name={data[i].name}
+                searchDetails={this.searchInDetails}
+                mode="tv"
+                id={data[i].id} />
             );
             recommendations.push(elem);
           }
@@ -146,16 +182,22 @@ class DetailsCard extends Component {
         for (let i = 0; i < length; i++) {
           if (data[i].title) {
             const elem = (
-              <Cast key={data[i].title + i}
+              <Thumbnail key={data[i].title + i}
                 pic={data[i].poster_path}
-                name={data[i].title} />
+                name={data[i].title}
+                searchDetails={this.searchInDetails}
+                mode="movie"
+                id={data[i].id} />
             );
             similar.push(elem);
           } else {
             const elem = (
-              <Cast key={data[i].name + i}
+              <Thumbnail key={data[i].name + i}
                 pic={data[i].poster_path}
-                name={data[i].name} />
+                name={data[i].name}
+                searchDetails={this.searchInDetails}
+                mode="tv"
+                id={data[i].id} />
             );
             similar.push(elem);
           }
@@ -198,7 +240,12 @@ class DetailsCard extends Component {
 
     return (
       <div className="DetailsCard">
-        <div className="DetailsCard__posterBG"></div>
+        <div className="DetailsCard__posterBG">
+          <div className="DetailsCard__backdropBG"></div>
+          {this.props.generalState.loadingFromDetails && window.innerWidth < 1025 ?
+            <img className="DetailsCard__poster" src={"https://image.tmdb.org/t/p/w342" + posterFromDetails}/>
+            : null}
+        </div>
         {this.props.dataState.fetchingDetails ? (
           <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
         ) : null}
@@ -215,4 +262,12 @@ const mapStateToProps = state => {
   }
 }
 
-export default connect(mapStateToProps)(DetailsCard);
+const mapDispatchToProps = dispatch => {
+  return {
+    onSearchDetails: (mode, id) => dispatch(fetchData.fetchDetails(mode, id)),
+    onChangeGeneralState: (media) => dispatch(showDetails(media)),
+    onLoadingFromDetails: (bool) => dispatch(loadingFromDetails(bool))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(DetailsCard);

@@ -23,4 +23,5 @@ export const RESET_PAGE = 'RESET_PAGE';
 export const LOAD_TITLE = 'LOAD_TITLE';
 export const SHOW_DETAILS = 'SHOW_DETAILS';
 export const PAGE_GO_BACK = 'PAGE_GO_BACK';
+export const LOADING_FROM_DETAILS = 'LOADING_FROM_DETAILS';
 export const NEXT_PAGE = 'NEXT_PAGE';

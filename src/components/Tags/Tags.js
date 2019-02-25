@@ -115,16 +115,18 @@ const tags = (props) => {
   ];
   let tags = [];
 
-  for (let i = 0; i < props.tags.length; i++) {
-    let tag = genres.find(el => {
-      return el.id === props.tags[i].id;
-    });
-    if (tag) {
-      tag = <Tag key={i} name={tag} />;
-    } else {
-      tag = <Tag key={i} name={props.tags[i].id} />;
+  if (props.tags) {
+    for (let i = 0; i < props.tags.length; i++) {
+      let tag = genres.find(el => {
+        return el.id === props.tags[i].id;
+      });
+      if (tag) {
+        tag = <Tag key={i} name={tag} />;
+      } else {
+        tag = <Tag key={i} name={props.tags[i].id} />;
+      }
+      tags.push(tag);
     }
-    tags.push(tag);
   }
 
   return (

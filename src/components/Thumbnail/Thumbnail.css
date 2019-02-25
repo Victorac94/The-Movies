@@ -1,14 +1,14 @@
-.Cast {
+.Thumbnail__wrapper {
   display: inline-block;
   border-radius: 3px;
   margin-right: 20px;
 }
 
-.Cast:last-child {
+.Thumbnail__wrapper:last-child {
   border-right: 20px solid rgba(0,0,0,0);
 }
 
-.Cast__picture {
+.Thumbnail {
   width: 70px;
   min-height: 105px;
   margin-bottom: 10px;
@@ -18,7 +18,11 @@
   white-space: normal;
 }
 
-.Cast__name {
+.Thumbnail:hover {
+  cursor: pointer;
+}
+
+.Thumbnail__name {
   width: 70px;
   margin: 0;
   font-size: 14px;
@@ -28,12 +32,12 @@
 }
 
 @media (min-width: 1920px) {
-  .Cast__picture {
+  .Thumbnail {
     width: 90px;
     height: 135px;
     border-radius: 5px;
   }
-  .Cast__name {
+  .Thumbnail__name {
     width: 80px;
     font-size: 16px;
   }

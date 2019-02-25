@@ -33,6 +33,12 @@ export const goBack = () => {
   }
 }
 
+export const loadingFromDetails = (bool) => {
+  return {
+    type: actionTypes.LOADING_FROM_DETAILS
+  }
+}
+
 export const nextPage = (page) => {
   return {
     type: actionTypes.NEXT_PAGE,
