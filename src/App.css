@@ -51,3 +51,19 @@
   transform: rotateZ(45deg);
   margin-bottom: 18px;
 }
+
+/* 4k resolutions */
+@media (min-width: 3840px) {
+  .Backdrop_desktop_close {
+    top: 30px;
+    right: 30px;
+  }
+  .Backdrop_desktop_close span {
+    border-width: 3px;
+    border-radius: 3px;
+    width: 48px;
+  }
+  .Backdrop_desktop_close span:first-child {
+    margin-bottom: 27px;
+  }
+}

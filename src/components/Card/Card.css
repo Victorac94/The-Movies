@@ -77,3 +77,16 @@
     font-size: 22px;
   }
 }
+
+@media (min-width: 3840px) {
+  .Card {
+    border-radius: 20px;
+  }
+  .Card__Info {
+    font-size: 43px;
+    height: 180px;
+  }
+  .Card_Person_Name {
+    font-size: 45px;
+  }
+}

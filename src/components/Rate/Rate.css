@@ -15,12 +15,9 @@
 
 .DetailsCard__body .icon-star,
 .DetailsCard__body .icon-star-half-o,
-.DetailsCard__body .icon-star-o {
-  font-size: 22px
-}
-
+.DetailsCard__body .icon-star-o,
 .DetailsCard__body .rate {
-  font-size: 22px;
+  font-size: 22px
 }
 
 @media (min-width: 1920px) {
@@ -28,5 +25,19 @@
   .icon-star-half-o,
   .icon-star-o {
     font-size: 20px;
+  }
+}
+
+@media (min-width: 3840px) {
+  .icon-star,
+  .icon-star-half-o,
+  .icon-star-o {
+    font-size: 35px;
+  }
+  .DetailsCard__body .icon-star,
+  .DetailsCard__body .icon-star-half-o,
+  .DetailsCard__body .icon-star-o,
+  .DetailsCard__body .rate {
+    font-size: 40px
   }
 }

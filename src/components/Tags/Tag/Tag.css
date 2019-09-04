@@ -13,3 +13,12 @@
     font-size: 19px;
   }
 }
+
+@media (min-width: 3840px) {
+  .movie-card-info__tags__tag {
+    margin: 10px;
+    padding: 7px 20px;
+    font-size: 27px;
+    border-radius: 10px;
+  }
+}

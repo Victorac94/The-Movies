@@ -224,14 +224,36 @@
   .DetailsCard__body__release .icon-calendar {
     font-size: 21px;
   }
-  .seasons__label,
-  .episodes__label {
-    font-size: 19px;
+}
+
+@media (min-width: 3840px) {
+  .DetailsCard__body__header {
+    font-size: 40px;
   }
-  #seasons,
-  #episodes,
-  .loadEpisodeButton {
-    margin-right: 10px;
-    font-size: 18px;
+  .DetailsCard__body__main {
+    top: -430px;
+  }
+  .DetailsCard__body__main_title {
+    margin: 45px 0;
+    font-size: 3rem;
+  }
+  .DetailsCard__body__main__desktop_poster {
+    border-radius: 10px;
+  }
+  .DetailsCard__body__overview_p,
+  .DetailsCard__body__main_secondary p,
+  .DetailsCard__body__main_secondary span,
+  .DetailsCard__body__runtime span,
+  .DetailsCard__body__release span {
+    font-size: 34px;
+  }
+  .DetailsCard__body__runtime .icon-clock,
+  .DetailsCard__body__release .icon-calendar {
+    font-size: 27px;
+  }
+  .DetailsCard__body__cast__list,
+  .DetailsCard__body__recommend__list,
+  .DetailsCard__body__similar__list {
+    padding: 35px 35px 25px 35px;
   }
 }

@@ -169,3 +169,14 @@
     grid-template-columns: repeat(5, minmax(min-content, max-content));
   }
 }
+
+@media (min-width: 3840px) {
+  .Grid {
+    grid-gap: 20px;
+    grid-template-columns: repeat(5, minmax(calc(97% / 5), max-content));
+  }
+  .Grid__next,
+  .Grid__prev {
+    font-size: 30px
+  }
+}
