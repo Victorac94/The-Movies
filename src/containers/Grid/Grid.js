@@ -2,6 +2,9 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
+// this styles.css imports all the icons of the webpage
+import '../../assets/icons/styles.css';
+
 import './Grid.css';
 import * as fetchData from '../../store/actions/fetchDataAction';
 import Card from '../../components/Card/Card';
@@ -36,9 +39,7 @@ class Grid extends Component {
     }
   }
 
-  shouldComponentUpdate (nextProps, nextState) {
-    console.log("shouldupdate grid");
-
+  shouldComponentUpdate(nextProps, nextState) {
     if (this.props.dataState.newData === false && nextProps.dataState.newData === true) {
       return true;
     } else if (this.props.dataState.fetchingData === true && nextProps.dataState.fetchingData === false) {
@@ -52,22 +53,13 @@ class Grid extends Component {
   }
 
 
-  componentDidMount () {
+  componentDidMount() {
     if (!this.props.dataState.fetchingData) {
       this.fetchHelperFunction(1);
     }
   }
 
-  componentDidUpdate () {
-    // const input = document.querySelector(".Grid input");
-    // if (input) {
-    //   input.focus();
-    // }
-  }
-
-  render () {
-    console.log("rendering grid");
-
+  render() {
     const grid = document.querySelector(".Grid");
     let homeHTML = null;
     let cards = null;
@@ -76,12 +68,12 @@ class Grid extends Component {
       homeHTML = (
         <div className="Home">
           <h1 className="Home__title">The Movies</h1>
-            <div className="Home__search_box">
-              <form onSubmit={this.searchTerm}>
-                <input className="Home__search_input" type="text" placeholder="Search..." />
-                <button className="Home__search_button">Search</button>
-              </form>
-            </div>
+          <div className="Home__search_box">
+            <form onSubmit={this.searchTerm}>
+              <input className="Home__search_input" type="text" placeholder="Search..." />
+              <button className="Home__search_button">Search</button>
+            </form>
+          </div>
           <h2 className="Home__trending">Trending Movies</h2>
         </div>
       );
@@ -89,9 +81,6 @@ class Grid extends Component {
 
     // If redux state doesn't have any data while being on '/search' then show a search box
     if (this.props.dataState.data === null && this.props.location.pathname === "/search") {
-      // if (grid) {
-      //   grid.style.display = "block";
-      // }
       cards = (
         <div className="grid__search_box">
           <p>Search</p>
@@ -117,29 +106,29 @@ class Grid extends Component {
             key={i}
             info={el}
             showDetails={(e) => this.props.showDetails(e, mode)}
-            />
+          />
         )
       })
     }
     return (
-        <div className="Grid">
-          {this.props.dataState.fetchingData && !this.props.dataState.data ? (
-            <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-          ) : null}
-          {this.props.dataState.fetchingData ? null : homeHTML}
-          {this.props.dataState.fetchingData ? null : cards}
-          {this.props.dataState.fetchingData ? null : (
-            <span
-              className="Grid__prev"
-              onClick={() => this.fetchHelperFunction(this.props.generalState.page - 1)}
-              >Prev</span>
-          )}
-          {this.props.dataState.fetchingData ? null : (
-            <span
-              className="Grid__next"
-              onClick={() => this.fetchHelperFunction(this.props.generalState.page + 1)}
-              >Next</span>
-          )}
+      <div className="Grid">
+        {this.props.dataState.fetchingData && !this.props.dataState.data ? (
+          <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+        ) : null}
+        {this.props.dataState.fetchingData ? null : homeHTML}
+        {this.props.dataState.fetchingData ? null : cards}
+        {this.props.dataState.fetchingData ? null : (
+          <span
+            className="Grid__prev"
+            onClick={() => this.fetchHelperFunction(this.props.generalState.page - 1)}
+          >Prev</span>
+        )}
+        {this.props.dataState.fetchingData ? null : (
+          <span
+            className="Grid__next"
+            onClick={() => this.fetchHelperFunction(this.props.generalState.page + 1)}
+          >Next</span>
+        )}
       </div>
 
     )

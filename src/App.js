@@ -12,9 +12,10 @@ import { calculateCardPosition } from './shared/calculateCardPosition';
 import { resetCardPosition } from './shared/resetCardPosition';
 import * as generalActions from './store/actions/generalActions';
 import * as fetchData from './store/actions/fetchDataAction';
+import ErrorBoundary from './containers/ErrorBoundary/ErrorBoundary';
 
 class App extends Component {
-  constructor () {
+  constructor() {
     super();
     this.state = {
       menuIsShowing: false
@@ -23,7 +24,6 @@ class App extends Component {
   }
 
   toggleMenu = () => {
-console.log("toggleMenu()");
     // If we want to show the menu
     if (!this.state.menuIsShowing) {
       this.props.history.push("#menu");
@@ -44,7 +44,7 @@ console.log("toggleMenu()");
     }
 
     this.setState(prevState => {
-      return {menuIsShowing: !prevState.menuIsShowing}
+      return { menuIsShowing: !prevState.menuIsShowing }
     })
   };
 
@@ -81,9 +81,7 @@ console.log("toggleMenu()");
   }
 
   onHashChange = (e) => {
-    console.log("onHashChange");
     if (e.oldURL) {
-      console.log(e.oldURL);
       //We can only have one # in the URL (either 'details' or 'menu')
       var oldURL = e.oldURL.split('#')[1];
 
@@ -95,17 +93,12 @@ console.log("toggleMenu()");
     }
   }
 
-  componentDidMount () {
-    // this.winWidth = window.innerWidth;
+  componentDidMount() {
     window.addEventListener("hashchange", (e) => this.onHashChange(e), false);
     window.addEventListener("resize", () => {
-      // const newWinWidth = window.innerWidth;
       if (this.props.generalState.inDetails) {
         calculateCardPosition(true);
       }
-      // if (this.props.generalState.inDetails && this.winWidth !== newWinWidth) {
-      //   calculateCardPosition(true);
-      // }
     })
     const params = this.props.location.pathname.split("/");
     params.shift();
@@ -114,40 +107,42 @@ console.log("toggleMenu()");
 
   render() {
     return (
-      <div className="App">
-        <Header
-          title={this.props.generalState.title}
-          menuIsShowing={this.state.menuIsShowing}
-          toggleMenu={this.toggleMenu}
-          goBack={this.hideDetails}
-          inDetails={this.props.generalState.inDetails}/>
-        <DesktopMenu />
-        <DetailsCard />
-        <Switch>
-          <Route path="/" exact render={() => (
-            <Home {...this.props}
-              showDetails={(e, mode) => this.showDetails(e, mode)}
-              menuIsShowing={this.state.menuIsShowing}
-              toggleMenu={this.toggleMenu}/>
-          )} />
-          <Route path="/:mode/:genre?" render={() => (
-            <Grid {...this.props}
-              showDetails={(e, mode) => this.showDetails(e, mode)}
-              menuIsShowing={this.state.menuIsShowing}
-              toggleMenu={this.toggleMenu}/>
-          )} />
-          <Redirect to="/" />
-        </Switch>
-        {this.props.generalState.inDetails ? (
-          <div className="Backdrop_desktop" onClick={this.hideDetails}>
-            <div className="Backdrop_desktop_close">
-              <span></span>
-              <span></span>
+      <ErrorBoundary>
+        <div className="App">
+          <Header
+            title={this.props.generalState.title}
+            menuIsShowing={this.state.menuIsShowing}
+            toggleMenu={this.toggleMenu}
+            goBack={this.hideDetails}
+            inDetails={this.props.generalState.inDetails} />
+          <DesktopMenu />
+          <DetailsCard />
+          <Switch>
+            <Route path="/" exact render={() => (
+              <Home {...this.props}
+                showDetails={(e, mode) => this.showDetails(e, mode)}
+                menuIsShowing={this.state.menuIsShowing}
+                toggleMenu={this.toggleMenu} />
+            )} />
+            <Route path="/:mode/:genre?" render={() => (
+              <Grid {...this.props}
+                showDetails={(e, mode) => this.showDetails(e, mode)}
+                menuIsShowing={this.state.menuIsShowing}
+                toggleMenu={this.toggleMenu} />
+            )} />
+            <Redirect to="/" />
+          </Switch>
+          {this.props.generalState.inDetails ? (
+            <div className="Backdrop_desktop" onClick={this.hideDetails}>
+              <div className="Backdrop_desktop_close">
+                <span></span>
+                <span></span>
+              </div>
             </div>
-          </div>
-        )
-        : null }
-      </div>
+          )
+            : null}
+        </div>
+      </ErrorBoundary>
     )
   }
 }

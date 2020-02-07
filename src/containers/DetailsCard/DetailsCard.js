@@ -45,23 +45,23 @@ class DetailsCard extends Component {
     // oldPoster.parentNode.classList.remove("currentCard");
     this.posterBG.style.backgroundImage = "none";
 
-    this.setState({data: null});
+    this.setState({ data: null });
     this.props.onChangeGeneralState(e.currentTarget.dataset.mode);
     this.props.onSearchDetails(e.currentTarget.dataset.mode, e.currentTarget.dataset.id);
     this.props.onLoadingFromDetails(true);
   }
 
-  static getDerivedStateFromProps (nextProps, prevState) {
+  static getDerivedStateFromProps(nextProps, prevState) {
     if (nextProps.generalState.inDetails && nextProps.dataState.newDetails) {
-      return ({data: nextProps.dataState.details});
+      return ({ data: nextProps.dataState.details });
     }
     else if (!nextProps.generalState.inDetails) {
-      return ({data: null});
+      return ({ data: null });
     }
     return null;
   }
 
-  shouldComponentUpdate (nextProps) {
+  shouldComponentUpdate(nextProps) {
     if (this.props.dataState.newDetails === false && nextProps.dataState.newDetails === true) {
       return true;
     }
@@ -74,18 +74,16 @@ class DetailsCard extends Component {
     return false;
   }
 
-  componentDidUpdate () {
+  componentDidUpdate() {
     this.toggleDetailsCard(this.props.generalState.inDetails);
   }
 
-  componentDidMount () {
+  componentDidMount() {
     this.detailsCard = document.querySelector(".DetailsCard");
     this.posterBG = document.querySelector(".DetailsCard__posterBG");
   }
 
-  render () {
-    console.log("rendering detailsCard")
-
+  render() {
     const posterBG = document.querySelector(".DetailsCard__posterBG");
     let data = null;
     let trailerKey = null;
@@ -217,7 +215,7 @@ class DetailsCard extends Component {
               cast={cast}
               recommendations={recommendations}
               similar={similar}
-              trailerKey={trailerKey}/>
+              trailerKey={trailerKey} />
           );
           break;
         case 'tv':
@@ -227,11 +225,11 @@ class DetailsCard extends Component {
               cast={cast}
               recommendations={recommendations}
               similar={similar}
-              trailerKey={trailerKey}/>
+              trailerKey={trailerKey} />
           );
           break;
         case 'person':
-          data = <PersonDetails data={this.state.data} cast={cast}/>;
+          data = <PersonDetails data={this.state.data} cast={cast} />;
           break;
         default:
           data = null;
@@ -243,7 +241,7 @@ class DetailsCard extends Component {
         <div className="DetailsCard__posterBG">
           <div className="DetailsCard__backdropBG"></div>
           {this.props.generalState.loadingFromDetails && window.innerWidth < 1025 ?
-            <img className="DetailsCard__poster" src={"https://image.tmdb.org/t/p/w342" + posterFromDetails}/>
+            <img className="DetailsCard__poster" src={"https://image.tmdb.org/t/p/w342" + posterFromDetails} alt={this.state.data.title + ' backdrop'} />
             : null}
         </div>
         {this.props.dataState.fetchingDetails ? (
