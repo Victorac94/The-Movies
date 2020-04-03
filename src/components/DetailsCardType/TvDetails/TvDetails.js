@@ -28,7 +28,7 @@ const tvDetails = (props) => {
             </span>
           </span>
         </div>
-        <Tags tags={props.data.genres}/>
+        <Tags tags={props.data.genres} />
         <div className="DetailsCard__body__main_secondary">
           <p>Last air date: <span>{props.data.last_air_date}</span></p>
           <p>Seasons: <span>{props.data.number_of_seasons}</span></p>
@@ -64,19 +64,19 @@ const tvDetails = (props) => {
             allow="accelerometer; encrypted-media; gyroscope; picture-in-picture"
             allowFullScreen></iframe>
         )
-        : <div className="iframeTrailer"><span>No Trailer available</span></div>
-      }
+          : <div className="iframeTrailer"><span>No Trailer available</span></div>
+        }
       </div>
       <div className="DetailsCard__body__recommend">
-        <p className="DetailsCard__body__header">Recommended {this.props.recommendations ? `(${this.props.recommendations.length})` : null}</p>
+        <p className="DetailsCard__body__header">Recommended {props.recommendations ? `(${props.recommendations.length})` : null}</p>
         <div className="DetailsCard__body__recommend__list">
-          {this.props.recommendations ? this.props.recommendations : "No Recommendations Available"}
+          {props.recommendations ? props.recommendations : "No Recommendations Available"}
         </div>
       </div>
       <div className="DetailsCard__body__similar">
-        <p className="DetailsCard__body__header">Similar {this.props.similar ? `(${this.props.similar.length})` : null}</p>
+        <p className="DetailsCard__body__header">Similar {props.similar ? `(${props.similar.length})` : null}</p>
         <div className="DetailsCard__body__similar__list">
-          {this.props.similar ? this.props.similar : "No Similarities Available"}
+          {props.similar ? props.similar : "No Similarities Available"}
         </div>
       </div>
     </div>

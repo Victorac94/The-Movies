@@ -1,14 +1,16 @@
 import React from 'react';
 
+import './ErrorBoundary.css';
+
 class ErrorBoundary extends React.Component {
     constructor(props) {
         super(props);
-        this.state = {hasError: false}
+        this.state = { hasError: false }
     }
-    
+
     static getDerivedStateFromError(error) {
         // Actualiza el estado para que el siguiente renderizado muestre la interfaz de repuesto
-        this.setState({hasError: true})
+        return { hasError: true };
     }
 
     componentDidCatch(error, errorInfo) {
@@ -19,7 +21,7 @@ class ErrorBoundary extends React.Component {
 
     render() {
         if (this.state.hasError) {
-            return <h4 style={{"color": "red"}}>Algo ha ido mal...</h4>
+            return <h4 class="error">Something went wrong...</h4>
         }
         return this.props.children;
     }

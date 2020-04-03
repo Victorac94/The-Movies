@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import fastdom from 'fastdom';
+import ErrorBoundary from '../ErrorBoundary/ErrorBoundary';
 
 import './DetailsCard.css';
 import * as fetchData from '../../store/actions/fetchDataAction';
@@ -237,18 +238,20 @@ class DetailsCard extends Component {
     }
 
     return (
-      <div className="DetailsCard">
-        <div className="DetailsCard__posterBG">
-          <div className="DetailsCard__backdropBG"></div>
-          {this.props.generalState.loadingFromDetails && window.innerWidth < 1025 ?
-            <img className="DetailsCard__poster" src={"https://image.tmdb.org/t/p/w342" + posterFromDetails} alt={this.state.data.title + ' backdrop'} />
-            : null}
+      <ErrorBoundary>
+        <div className="DetailsCard">
+          <div className="DetailsCard__posterBG">
+            <div className="DetailsCard__backdropBG"></div>
+            {this.props.generalState.loadingFromDetails && window.innerWidth < 1025 && this.state.data ?
+              <img className="DetailsCard__poster" src={"https://image.tmdb.org/t/p/w342" + posterFromDetails} alt={this.state.data.title || this.state.data.name + ' backdrop'} />
+              : null}
+          </div>
+          {this.props.dataState.fetchingDetails ? (
+            <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
+          ) : null}
+          {data}
         </div>
-        {this.props.dataState.fetchingDetails ? (
-          <div className="lds-ellipsis"><div></div><div></div><div></div><div></div></div>
-        ) : null}
-        {data}
-      </div>
+      </ErrorBoundary>
     )
   }
 }
