@@ -1,13 +1,14 @@
 {
-  "main.css": "/The-Movies/static/css/main.a54fc432.chunk.css",
-  "main.js": "/The-Movies/static/js/main.f78eaa27.chunk.js",
-  "main.js.map": "/The-Movies/static/js/main.f78eaa27.chunk.js.map",
-  "static/js/1.4be75a8b.chunk.js": "/The-Movies/static/js/1.4be75a8b.chunk.js",
-  "static/js/1.4be75a8b.chunk.js.map": "/The-Movies/static/js/1.4be75a8b.chunk.js.map",
+  "main.css": "/The-Movies/static/css/main.552ac27f.chunk.css",
+  "main.js": "/The-Movies/static/js/main.4b2d9f99.chunk.js",
+  "main.js.map": "/The-Movies/static/js/main.4b2d9f99.chunk.js.map",
+  "static/js/1.bd43dbf2.chunk.js": "/The-Movies/static/js/1.bd43dbf2.chunk.js",
+  "static/js/1.bd43dbf2.chunk.js.map": "/The-Movies/static/js/1.bd43dbf2.chunk.js.map",
   "runtime~main.js": "/The-Movies/static/js/runtime~main.c6516ac6.js",
   "runtime~main.js.map": "/The-Movies/static/js/runtime~main.c6516ac6.js.map",
-  "static/css/main.a54fc432.chunk.css.map": "/The-Movies/static/css/main.a54fc432.chunk.css.map",
+  "static/media/image-not-available.jpg": "/The-Movies/static/media/image-not-available.d834c624.jpg",
+  "static/css/main.552ac27f.chunk.css.map": "/The-Movies/static/css/main.552ac27f.chunk.css.map",
   "index.html": "/The-Movies/index.html",
-  "precache-manifest.a72599bee037a67cb8b21fddebd7d2ed.js": "/The-Movies/precache-manifest.a72599bee037a67cb8b21fddebd7d2ed.js",
+  "precache-manifest.7452e81d3392f159663348c82d9795bc.js": "/The-Movies/precache-manifest.7452e81d3392f159663348c82d9795bc.js",
   "service-worker.js": "/The-Movies/service-worker.js"
 }
