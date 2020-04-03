@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 
 // this styles.css imports all the icons of the webpage
-import '../../assets/icons/styles.css';
+// import '../../assets/icons/styles.css';
 
 import './Grid.css';
 import * as fetchData from '../../store/actions/fetchDataAction';
