@@ -1,0 +1,145 @@
+.menu {
+  width: 100%;
+  height: 100vh;
+  padding: 1em;
+  padding-bottom: 60px;
+  position: fixed;
+  top: 0;
+  left: 100%;
+  opacity: 0;
+  overflow-y: auto;
+  color: #e7f1f8;
+  background-color: #0D1116;
+  z-index: 100;
+}
+
+.menu.show {
+  left: 0;
+  opacity: 1;
+  transition: left 0.25s linear, opacity 0.2s linear;
+}
+
+.tmdb__logo {
+  width: 30%;
+}
+
+.tmdb__logo img {
+  width: 100%;
+  display: block;
+}
+
+.region {
+  border: 1px solid #2e374e;
+  border-radius: 4px;
+  overflow: hidden;
+  position: absolute;
+  top: 1em;
+  right: 1em;
+}
+
+.region button {
+  padding: 0.3em 0.6em;
+  background-color: transparent;
+  border: none;
+  color: #e7f1f8;
+  cursor: pointer;
+}
+
+.region button.active {
+  background-color: #1a45a1;
+  cursor: default;
+}
+
+h1 {
+  font-size: 2.5em;
+  margin: 0.75em 0;
+}
+
+.search__wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 5px;
+  overflow: hidden;
+}
+
+.movie__genres,
+.tv__genres {
+  margin: 2.5em 3em;
+}
+
+.genres > article {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.genres > article > header {
+  width: 100%;
+  font-size: 1.6em;
+  align-self: center;
+  padding-bottom: 0.4em;
+  margin-bottom: 0.6em;
+  border-bottom: 2px solid #F16D2D;
+}
+
+.genres > article a {
+  display: block;
+  font-size: 1.05em;
+  margin: 0.4em 0;
+}
+
+.genres > article a span {
+  color: #F16D2D;
+}
+
+.genre__dropdown {
+  align-self: center;
+}
+
+.genre__dropdown header {
+  font-size: 1.2em;
+  margin: 0.6em 0;
+}
+
+.genre__dropdown select {
+  font-size: 0.9em;
+  padding: 0.3em 0.5em;
+  border: 1px solid #242a35;
+  border-radius: 2px;
+  color: #e7f1f8;
+  background-color: #191f28;
+}
+
+@media (min-width: 1025px) {
+  .menu {
+    width: 20vw;
+    min-width: 300px;
+    left: 0;
+    padding-bottom: 1em;
+    opacity: 1;
+  }
+  
+  .tmdb__logo {
+    width: 40%;
+  }
+  
+  h1 {
+    font-size: 2.2em;
+  }
+
+  .movie__genres,
+  .tv__genres {
+    margin: 3em 1em 3.5em 1em;
+  }
+
+  .genres > article > header {
+    font-size: 1.3em;
+    width: 80%;
+  }
+
+  .genre__dropdown header {
+    font-size: 1.05em;
+  }
+
+}

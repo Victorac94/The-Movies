@@ -1,40 +1,54 @@
-import React from 'react';
-import { Link } from 'react-router-dom';
+import React, { useEffect, useState, useContext } from 'react';
 
-import './Header.css';
-import Menu from '../../containers/Menu/Menu';
+import '../../assets/styles-icons.css'
+import getUrlSections from '../../shared/getUrlSections';
+import classes from './Header.module.css';
+import genres from '../../shared/decodeGenre';
+import { appContext } from '../../context/AppContext';
 
-const header = (props) => {
-    return (
-      <div className="Header">
-        {props.menuIsShowing ? (
-          <div className="Backdrop" onClick={props.toggleMenu}></div>
-        )
-        : null }
-        {props.inDetails ? (
-          <span
-          className={props.inDetails ? "Header__goBack icon-angle-left" : "Header__goBack icon-angle-left hidden"}
-          onClick={() => {
-            props.goBack();
-          }}></span>
-        )
-        : <Link to="/" style={{textDecoration: "none"}}><span className="icon-home"></span></Link>
-        }
-        <p className="Header__title">{props.title}</p>
-        <div
-        className={props.menuIsShowing ? "menu__button close-button" : "menu__button"}
-        onClick={props.toggleMenu}>
-          <span></span>
-          <span></span>
-          <span></span>
-        </div>
-        <Menu
-          toggleMenu={props.toggleMenu}
-          menuIsShowing={props.menuIsShowing}
-          goBack={props.goBack}
-          />
+const Header = (props) => {
+  const [title, setTitle] = useState(null);
+  const app = useContext(appContext);
+
+  // Set header title
+  useEffect(() => {
+    let [mode, headerTitle, details] = getUrlSections(props.path);
+
+    if (!mode) return;
+
+    if (details) {
+      headerTitle = 'Details';
+    } else {
+      headerTitle = genres[mode][headerTitle];
+    }
+    setTitle(headerTitle);
+  }, [props.path]);
+
+  const toggleMenu = event => {
+    if (app.isMenuShowing) {
+      app.hideMenu();
+
+    } else {
+      app.showMenu();
+    }
+  }
+
+  const menuClasses = app.isMenuShowing ? [classes.menu, classes.show].join(' ') : classes.menu;
+
+  return (
+    <header className={classes.header}>
+      <button className={classes.go__back} onClick={() => props.history.goBack()}>
+        <i className="icon-angle-left"></i>
+        {app.language === 'en' ? 'Back' : 'Atrás'}
+      </button>
+      <h2>{title}</h2>
+      <div className={menuClasses} onClick={e => toggleMenu(e)}>
+        <div></div>
+        <div></div>
+        <div></div>
       </div>
-    )
+    </header>
+  )
 }
 
-export default header;
+export default Header;

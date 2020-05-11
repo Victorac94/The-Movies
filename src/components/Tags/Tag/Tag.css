@@ -4,6 +4,7 @@
   padding: 4px 15px;
   background-color: #00D474;
   /* background-color: #54db67; */
+  box-shadow: 0 0 3px #181c29;
   color: #323232;
   border-radius: 6px;
 }

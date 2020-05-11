@@ -2,23 +2,23 @@ import React from 'react';
 
 import './Thumbnail.css';
 import imgNotAvailable from "../../assets/images/image-not-available.jpg";
+import { Link } from 'react-router-dom';
 
 const thumbnail = (props) => {
   return (
-    <div className="Thumbnail__wrapper">
-      <img
-        className="Thumbnail"
-        onClick={props.searchDetails}
-        data-mode={props.mode}
-        data-id={props.id}
-        src={props.pic ? "https://image.tmdb.org/t/p/w185" + props.pic : imgNotAvailable}
-        alt={props.name}
-        title={props.name} />
+    <article className="Thumbnail__wrapper">
+      <Link to={`/${props.mode}/${props.id}/details`}>
+        <img
+          className="Thumbnail"
+          src={props.pic ? "https://image.tmdb.org/t/p/w185" + props.pic : imgNotAvailable}
+          alt={props.name}
+          title={props.name} />
+      </Link>
       <p className="Thumbnail__name" title={props.name}>
         {props.name}
       </p>
       {props.job ? props.job : null}
-    </div>
+    </article>
   )
 }
 

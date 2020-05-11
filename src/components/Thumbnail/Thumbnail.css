@@ -1,3 +1,7 @@
+a {
+  color: inherit;
+}
+
 .Thumbnail__wrapper {
   display: inline-block;
   border-radius: 3px;

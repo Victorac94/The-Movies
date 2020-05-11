@@ -1,0 +1,8 @@
+.carousel {
+    width: 100%;
+    margin-bottom: 3em;
+    padding: 1em;
+    overflow: auto;
+    background-color: #252C3C;
+    display: flex;
+}

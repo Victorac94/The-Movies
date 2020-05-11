@@ -21,7 +21,7 @@ export function* fetchTrending(payload) {
 
 export function* fetchData(payload) {
   try {
-    const response = yield axios.get(`https://api.themoviedb.org/3/${payload.mode}/${payload.genre}?api_key=6095dab7d845691ab95df77d0a908452&page=${payload.page}`);
+    const response = yield axios.get(`https://api.themoviedb.org/3/${payload.mode}/${payload.genre}?api_key=6095dab7d845691ab95df77d0a908452&language=es-ES&page=${payload.page}&region=ES`);
     yield put(fetchDataActions.fetchDataSucceed(response.data.results));
     yield put(generalActions.nextPage(payload.page));
     yield put(generalActions.loadTitle(payload.genre));

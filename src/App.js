@@ -1,166 +1,89 @@
-import React, { Component } from 'react';
-import { connect } from 'react-redux';
+import React, { useState, useEffect } from 'react';
+// import { connect } from 'react-redux';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
+import Axios from 'axios';
 
 import './App.css';
 import Header from './components/Header/Header';
-import Home from './containers/Home/Home';
 import Grid from './containers/Grid/Grid';
-import DesktopMenu from './containers/DesktopMenu/DesktopMenu';
-import DetailsCard from './containers/DetailsCard/DetailsCard';
-import { calculateCardPosition } from './shared/calculateCardPosition';
-import { resetCardPosition } from './shared/resetCardPosition';
-import * as generalActions from './store/actions/generalActions';
-import * as fetchData from './store/actions/fetchDataAction';
+import Details from './containers/Details/Details';
 import ErrorBoundary from './containers/ErrorBoundary/ErrorBoundary';
+import Main from './containers/Main/Main';
+import Menu from './components/Menu/Menu';
+import AppContextProvider from './context/AppContext';
 
-class App extends Component {
-  constructor() {
-    super();
-    this.state = {
-      menuIsShowing: false
-    };
-    this.winWidth = null;
-  }
+const App = props => {
+  const [movieGenres, setMovieGenres] = useState(null);
+  const [tvGenres, setTvGenres] = useState(null);
 
-  toggleMenu = () => {
-    // If we want to show the menu
-    if (!this.state.menuIsShowing) {
-      this.props.history.push("#menu");
-    }
-    // If we want to hide the menu
-    else {
-      let inDetails = this.props.generalState.inDetails;
+  // Load genres from localStorage or API call
+  useEffect(() => {
+    let movieGen = localStorage.getItem('movie-genres');
+    let tvGen = localStorage.getItem('tv-genres');
 
-      if (inDetails) {
-        // This has to be 'replace', because if we use 'push' there'll be
-        // two '#details' in a row in the history array, thus making the
-        // user to press the back button twice to hide Details if the user
-        // opened the 'menu' while in 'details' view.
-        this.props.history.replace("#details");
-      } else {
-        this.props.history.push("#");
-      }
+    if (!movieGen) {
+      Axios.get('https://api.themoviedb.org/3/genre/movie/list?api_key=6095dab7d845691ab95df77d0a908452&language=en-US')
+        .then(response => {
+          movieGen = response.data.genres;
+
+          setMovieGenres(movieGen);
+          localStorage.setItem('movie-genres', JSON.stringify(movieGen));
+        })
+
+    } else {
+      movieGen = JSON.parse(movieGen)
+      setMovieGenres(movieGen);
     }
 
-    this.setState(prevState => {
-      return { menuIsShowing: !prevState.menuIsShowing }
-    })
-  };
+    if (!tvGen) {
+      Axios.get('https://api.themoviedb.org/3/genre/tv/list?api_key=6095dab7d845691ab95df77d0a908452&language=en-US')
+        .then(response => {
+          tvGen = response.data.genres;
 
-  showDetails = (e, mode) => {
-    if (e.currentTarget.classList.contains("currentCard")) return;
+          setTvGenres(tvGen);
+          localStorage.setItem('tv-genres', JSON.stringify(tvGen));
+        })
 
-    const currCard = e.currentTarget;
-    const dataState = this.props.dataState;
-
-    // Only fetch movie details if user is clicking
-    // in a new movie or if it's the first time since page loaded
-    if (dataState.details === null || Number(currCard.dataset.id) !== dataState.details.id) {
-      this.props.onFetchDetails(mode, currCard.dataset.id);
+    } else {
+      tvGen = JSON.parse(tvGen)
+      setTvGenres(tvGen);
     }
+  }, []);
 
-    currCard.classList.add("currentCard");
-    this.props.history.push("#details");
-
-    this.props.onShowDetails(mode);
-    calculateCardPosition();
-  }
-
-  hideDetails = (e) => {
-    const currCard = document.querySelector(".currentCard");
-    if (currCard) {
-      const poster = currCard.querySelector("img");
-      const cardInfo = currCard.querySelector(".Card__Info");
-
-      resetCardPosition(poster, cardInfo);
-      currCard.classList.remove("currentCard");
-      this.props.history.push("#");
-      this.props.onHideDetails();
-    }
-  }
-
-  onHashChange = (e) => {
-    if (e.oldURL) {
-      //We can only have one # in the URL (either 'details' or 'menu')
-      var oldURL = e.oldURL.split('#')[1];
-
-      if (oldURL === 'details') {
-        this.hideDetails();
-      } else if (oldURL === 'menu') {
-        this.toggleMenu();
-      }
-    }
-  }
-
-  componentDidMount() {
-    window.addEventListener("hashchange", (e) => this.onHashChange(e), false);
-    window.addEventListener("resize", () => {
-      if (this.props.generalState.inDetails) {
-        calculateCardPosition(true);
-      }
-    })
-    const params = this.props.location.pathname.split("/");
-    params.shift();
-    this.props.onSetPath(params);
-  }
-
-  render() {
-    return (
-      <ErrorBoundary>
+  return (
+    <ErrorBoundary>
+      <AppContextProvider>
         <div className="App">
-          <Header
-            title={this.props.generalState.title}
-            menuIsShowing={this.state.menuIsShowing}
-            toggleMenu={this.toggleMenu}
-            goBack={this.hideDetails}
-            inDetails={this.props.generalState.inDetails} />
-          <DesktopMenu />
-          <DetailsCard />
-          <Switch>
-            <Route path="/" exact render={() => (
-              <Home {...this.props}
-                showDetails={(e, mode) => this.showDetails(e, mode)}
-                menuIsShowing={this.state.menuIsShowing}
-                toggleMenu={this.toggleMenu} />
-            )} />
-            <Route path="/:mode/:genre?" render={() => (
-              <Grid {...this.props}
-                showDetails={(e, mode) => this.showDetails(e, mode)}
-                menuIsShowing={this.state.menuIsShowing}
-                toggleMenu={this.toggleMenu} />
-            )} />
-            <Redirect to="/" />
-          </Switch>
-          {this.props.generalState.inDetails ? (
-            <div className="Backdrop_desktop" onClick={this.hideDetails}>
-              <div className="Backdrop_desktop_close">
-                <span></span>
-                <span></span>
-              </div>
-            </div>
-          )
-            : null}
+          {movieGenres && tvGenres
+            && <Menu movieGenres={movieGenres} tvGenres={tvGenres} />}
+          <Main>
+            <Header path={props.location.pathname} history={props.history} />
+            <Switch>
+              <Route path="/:mode/:id/details" component={Details} />
+              <Route path="/:mode/:genre/:discover?" component={Grid} />
+              <Redirect to="/movie/now_playing" />
+            </Switch>
+          </Main>
         </div>
-      </ErrorBoundary>
-    )
-  }
-}
+      </AppContextProvider>
+    </ErrorBoundary>
+  )
 
-const mapStateToProps = state => {
-  return {
-    dataState: state.dataReducer,
-    generalState: state.generalReducer
-  }
-}
+  // const mapStateToProps = state => {
+  //   return {
+  //     dataState: state.dataReducer,
+  //     generalState: state.generalReducer
+  //   }
+  // }
 
-const mapDispatchToProps = dispatch => {
-  return {
-    onFetchDetails: (mode, id) => dispatch(fetchData.fetchDetails(mode, id)),
-    onShowDetails: (media) => dispatch(generalActions.showDetails(media)),
-    onHideDetails: () => dispatch(generalActions.goBack()),
-    onSetPath: (params) => dispatch(generalActions.setPath(params))
-  }
+  // const mapDispatchToProps = dispatch => {
+  //   return {
+  //     onFetchDetails: (mode, id) => dispatch(fetchData.fetchDetails(mode, id)),
+  //     onShowDetails: (media) => dispatch(generalActions.showDetails(media)),
+  //     onHideDetails: () => dispatch(generalActions.goBack()),
+  //     onSetPath: (params) => dispatch(generalActions.setPath(params))
+  //   }
+  // }
 }
-
-export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));
+export default withRouter(App);
+// export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

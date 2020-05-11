@@ -1,5 +1,6 @@
 import React from 'react';
 
+import '../../assets/styles-icons.css';
 import './Rate.css';
 
 const rate = (props) => {
@@ -16,7 +17,7 @@ const rate = (props) => {
     const star = <span key={stars.length} className="icon-star"></span>;
     stars.push(star);
   }
-  else if (rate % 1 >= 0.35){
+  else if (rate % 1 >= 0.35) {
     const star = <span key={stars.length} className="icon-star-half-o"></span>;
     stars.push(star);
   }

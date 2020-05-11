@@ -1,69 +1,20 @@
 .App {
+  display: grid;
+  grid-template-rows: 1fr 50px;
+  grid-template-areas: 'main' 'header';
   text-align: center;
   overflow-x: hidden;
   position: relative;
+  width: 100%;
   min-height: 100vh;
   background-color: #1B1F2B;
 }
 
-.Backdrop_desktop {
-  width: 100vw;
-  height: 100vh;
-  position: fixed;
-  top: 0;
-  left: 0;
-  background: rgba(0, 0, 0, 0.9);
-  opacity: 0;
-  animation: animateBD 0.3s forwards;
-  z-index: 10;
-}
-
-@keyframes animateBD {
-  from {
-    opacity: 0;
-  }
-  to {
-    opacity: 1;
+@media (min-width: 1025px) {
+  .App {
+    grid-template-columns: minmax(300px, 20vw) 1fr;
+    grid-template-rows: 50px 1fr;
+    grid-template-areas: 'menu header''menu main';
   }
 }
 
-.Backdrop_desktop_close {
-  position: absolute;
-  top: 15px;
-  right: 15px;
-}
-
-.Backdrop_desktop_close:hover {
-  cursor: pointer;
-}
-
-.Backdrop_desktop_close span {
-  display: block;
-  border: 2px solid white;
-  border-radius: 2px;
-  background-color: white;
-  width: 32px;
-  transform-origin: left;
-  transform: rotateZ(-45deg);
-}
-
-.Backdrop_desktop_close span:first-child {
-  transform: rotateZ(45deg);
-  margin-bottom: 18px;
-}
-
-/* 4k resolutions */
-@media (min-width: 3840px) {
-  .Backdrop_desktop_close {
-    top: 30px;
-    right: 30px;
-  }
-  .Backdrop_desktop_close span {
-    border-width: 3px;
-    border-radius: 3px;
-    width: 48px;
-  }
-  .Backdrop_desktop_close span:first-child {
-    margin-bottom: 27px;
-  }
-}

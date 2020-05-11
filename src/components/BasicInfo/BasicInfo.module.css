@@ -1,0 +1,107 @@
+.basic {
+    grid-area: basic;
+    padding: 1em;
+    padding-top: 2em;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: relative;
+    overflow: hidden;
+    z-index: 10;
+}
+
+h2 {
+    margin: 1em 0 0.5em 0;
+}
+
+.poster__wrapper {
+    width: 30%;
+    min-width: 220px;
+    border-radius: 5px;
+    overflow: hidden;
+    box-shadow: 0 0 3px #181c29;
+}
+
+.poster__wrapper img {
+    display: block;
+    width: 100%;
+}
+
+.person__details,
+.primary__details {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    align-items: center;
+}
+
+.person__details p,
+.primary__details,
+.social {
+    margin: 1em;
+    color: #e7f1f8;
+}
+
+.person__details i,
+.primary__details i {
+    margin-right: .5em;
+}
+
+.social {
+    text-overflow: hidden;
+}
+
+.social i {
+    font-size: 1.1em;
+    display: inline-block;
+    transform: translateY(3px);
+}
+
+.webpage {
+    color: #e7f1f8;
+}
+
+.imdb {
+    color: #E2B616;
+}
+
+.instagram {
+    color: #c1359e;
+}
+
+.twitter {
+    color: #1DA1F2;
+}
+
+.facebook {
+    color: #4267B2;
+}
+
+.facebook i,
+.twitter i {
+    font-size: 1.2rem;
+}
+
+.runtime__release {
+    display: flex;
+}
+
+.runtime__release div {
+    margin: 1em 0;
+}
+
+.runtime__release div:first-child {
+    margin-right: 1.5em;
+}
+
+.runtime__release i {
+    display: inline-block;
+    margin-right: 0.5em;
+    transform: translateY(1.5px);
+}
+
+@media (min-width: 1025px) {
+    .poster__wrapper {
+        width: 80%;
+    }
+}

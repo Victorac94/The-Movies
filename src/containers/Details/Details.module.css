@@ -1,0 +1,80 @@
+.container {
+  width: 100vw;
+  color: #e7f1f8;
+  opacity: 0;
+  animation: loadAnimation 0.2s linear forwards;
+}
+
+@keyframes loadAnimation {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+.main {
+  grid-area: main;
+  padding: 1em;
+}
+
+.overview p {
+  text-align: left;
+}
+
+.overview,
+.trailer {
+  margin-bottom: 3em;
+}
+
+.background__poster {
+  grid-area: backgroundImg;
+  width: 100%;
+  height: 200px;
+  background-color: #171c29;
+  background-repeat: no-repeat;
+  background-size: auto;
+  background-position: top center;
+  background-attachment: fixed;
+  filter: brightness(0.7);
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+h3 {
+  text-align: left;
+}
+
+.iframe {
+  width: 100%;
+  height: 51.5vw;
+}
+
+@media (min-width: 1025px) {
+  .container {
+    width: initial;
+    display: grid;
+    grid-template-areas: 'backgroundImg backgroundImg''basic main';
+    /* In minmax(0, 1fr) we have to set min to 0 because by default every grid or flex element has a min-width of auto */
+    /* which makes the element overflow it's parent if it's too big */
+    grid-template-columns: minmax(300px, 20%) minmax(0, 1fr);
+  }
+  
+  .background__poster {
+    position: static;
+    height: 350px;
+    background-size: 80%;
+    background-position: top right;
+  }
+  .main {
+    padding-right: 1.7em;
+    top: 0;
+  }
+
+  .iframe {
+    width: 100%;
+    height: 33vw;
+  }
+}
