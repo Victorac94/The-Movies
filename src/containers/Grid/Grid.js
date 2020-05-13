@@ -1,17 +1,18 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation, useHistory } from 'react-router-dom';
 import axios from 'axios';
 
 import Card from '../../components/Card/Card';
-// import Loading from '../../components/Loading/Loading';
 import classes from './Grid.module.css';
 import Loading from '../../components/Loading/Loading';
 import { appContext } from '../../context/AppContext';
 
 const Grid = props => {
   const [info, setInfo] = useState(null);
-  const { mode, genre, discover } = useParams();
   const app = useContext(appContext);
+  const { mode, genre, discover } = useParams();
+  const location = useLocation();
+  const history = useHistory();
 
   useEffect(() => {
     let url = '';
@@ -28,7 +29,16 @@ const Grid = props => {
 
     setInfo(null);
 
-    if (discover !== undefined) {
+    if (history.action === 'PUSH') {
+      window.scrollTo(0, 0);
+    }
+
+    if (location.pathname === '/search') {
+      // Get query string
+      const query = encodeURIComponent(location.search.slice(7).trim());
+      url = `https://api.themoviedb.org/3/search/multi?api_key=6095dab7d845691ab95df77d0a908452&query=${query}&page=1&language=${language}&region=${region}`;
+
+    } else if (discover !== undefined) {
       url = `https://api.themoviedb.org/3/discover/${mode}/?api_key=6095dab7d845691ab95df77d0a908452&language=${language}&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${genre}&region=${region}`;
 
     } else {
@@ -47,19 +57,14 @@ const Grid = props => {
         throw new Error(err);
       })
 
-  }, [props.location.pathname, mode, genre, discover, app.language]);
+  }, [location, history, mode, genre, discover, app.language]);
 
 
   return (
     <div className={classes.grid}>
-      {info && mode ? info.map((el, i) => {
+      {info ? info.map((el, i) => {
         return (
-          <Card
-            key={i}
-            info={el}
-            mode={mode}
-            id={el.id}
-          />
+          <Card key={el.id} info={el} />
         )
       })
         : <Loading />}

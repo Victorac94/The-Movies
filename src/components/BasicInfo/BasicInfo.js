@@ -4,6 +4,7 @@ import Tags from '../Tags/Tags';
 
 import '../../assets/styles-icons.css'
 import classes from './BasicInfo.module.css';
+import imgNotAvailable from '../../assets/images/image-not-available.jpg';
 
 const BasicInfo = props => {
     let info;
@@ -40,11 +41,11 @@ const BasicInfo = props => {
 
 
     // It's a person
-    if (props.data.biography) {
+    if (props.data.also_known_as) {
         info = (
             <aside className={classes.basic}>
                 <div className={classes.poster__wrapper}>
-                    <img src={"https://image.tmdb.org/t/p/w342" + props.data.profile_path} alt={'Poster of ' + props.data.name} />
+                    <img src={props.data.profile_path ? "https://image.tmdb.org/t/p/w342" + props.data.profile_path : imgNotAvailable} alt={'Poster of ' + props.data.name} />
                 </div>
                 <h2>{props.data.name}</h2>
                 <div className={classes.person__details}>
@@ -76,14 +77,14 @@ const BasicInfo = props => {
         info = (
             <aside className={classes.basic}>
                 <div className={classes.poster__wrapper}>
-                    <img src={"https://image.tmdb.org/t/p/w342" + props.data.poster_path} alt={'Poster of ' + props.data.title || props.data.name} />
+                    <img src={props.data.poster_path ? "https://image.tmdb.org/t/p/w342" + props.data.poster_path : imgNotAvailable} alt={'Poster of ' + props.data.title || props.data.name} />
                 </div>
                 <h2>{props.data.title || props.data.name}</h2>
                 <Rate rate={props.data.vote_average} />
                 <div className={classes.runtime__release}>
                     <div>
                         <i className="icon-clock"></i>
-                        <span>{props.data.runtime || props.data.episode_run_time} min</span>
+                        <span>{props.data.runtime || props.data.episode_run_time[0]} min</span>
                     </div>
                     <div>
                         <i className="icon-calendar"></i>

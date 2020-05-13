@@ -2,11 +2,22 @@
     position: absolute;
     top: 50%;
     left: 50%;
-    transform: translate(-50%, -50%);
+	transform: translate(-50%, -50%);
+	opacity: 0;
     font-size: 1.2em;
     color: white;
     z-index: 10;
-    text-shadow: 1.5px 1.5px 2px rgb(42, 48, 82);
+	text-shadow: 1.5px 1.5px 2px rgb(42, 48, 82);
+	animation: showUpAnimation 0.1s linear forwards;
+}
+
+@keyframes showUpAnimation {
+	from {
+		opacity: 0;
+	}
+	to {
+		opacity: 1;
+	}
 }
 
 .centered{

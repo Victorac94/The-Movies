@@ -11,10 +11,12 @@ import ErrorBoundary from './containers/ErrorBoundary/ErrorBoundary';
 import Main from './containers/Main/Main';
 import Menu from './components/Menu/Menu';
 import AppContextProvider from './context/AppContext';
+// import UseHttpRequest from './hooks/UseHttpRequest';
 
 const App = props => {
   const [movieGenres, setMovieGenres] = useState(null);
   const [tvGenres, setTvGenres] = useState(null);
+  // const { data, fetchData, error, isLoading } = UseHttpRequest();
 
   // Load genres from localStorage or API call
   useEffect(() => {
@@ -28,7 +30,9 @@ const App = props => {
 
           setMovieGenres(movieGen);
           localStorage.setItem('movie-genres', JSON.stringify(movieGen));
-        })
+        }).catch(err => {
+          throw new Error(err);
+        });
 
     } else {
       movieGen = JSON.parse(movieGen)
@@ -42,7 +46,9 @@ const App = props => {
 
           setTvGenres(tvGen);
           localStorage.setItem('tv-genres', JSON.stringify(tvGen));
-        })
+        }).catch(err => {
+          throw new Error(err);
+        });
 
     } else {
       tvGen = JSON.parse(tvGen)
@@ -59,6 +65,7 @@ const App = props => {
           <Main>
             <Header path={props.location.pathname} history={props.history} />
             <Switch>
+              <Route path="/search" component={Grid} />
               <Route path="/:mode/:id/details" component={Details} />
               <Route path="/:mode/:genre/:discover?" component={Grid} />
               <Redirect to="/movie/now_playing" />

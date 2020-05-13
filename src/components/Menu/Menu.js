@@ -4,19 +4,23 @@ import tmdbLogo from '../../assets/images/The movie database logo.png';
 import classes from './Menu.module.css';
 import { Link, useHistory, useLocation } from 'react-router-dom';
 import { appContext } from '../../context/AppContext';
+import Search from '../Search/Search';
 
 const Menu = props => {
+  const location = useLocation();
+  const history = useHistory();
   const [movieGenres, setMovieGenres] = useState(null);
   const [tvGenres, setTvGenres] = useState(null);
-  const history = useHistory();
-  const location = useLocation();
+  const [lastLocation, setLastLocation] = useState(location.pathname);
   const app = useContext(appContext);
 
   useEffect(() => {
-    if (app.isMenuShowing) {
+    // Close menu if we go to another path
+    if (lastLocation !== location.pathname && app.isMenuShowing) {
       app.hideMenu();
+      setLastLocation(location.pathname);
     }
-  }, [location.pathname])
+  }, [app, location.pathname, lastLocation])
 
   useEffect(() => {
     const movieGen = [];
@@ -58,10 +62,7 @@ const Menu = props => {
       <Link to="/movie/now_playing">
         <h1>The Movies</h1>
       </Link>
-      <div className={classes.search__wrapper}>
-        <input type="text" />
-        <button type="submit">search</button>
-      </div>
+      <Search />
       <section className={classes.genres}>
         <article className={classes.movie__genres}>
           <header>Movies</header>

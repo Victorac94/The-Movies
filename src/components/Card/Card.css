@@ -2,7 +2,7 @@ a {
   text-decoration: none;
 }
 
-.Card {
+.card {
   color: white;
   background-color: #272a3b;
   border-radius: 5px;
@@ -10,6 +10,7 @@ a {
   position: relative;
   overflow: hidden;
   animation: loadAnimation 0.2s linear forwards;
+  cursor: pointer;
 }
 
 @keyframes loadAnimation {
@@ -26,35 +27,23 @@ a {
   overflow: hidden;
 }
 
-.Card__Poster {
+.poster__wrapper img {
   width: 100%;
-  display: inline-block;
+  height: auto;
+  display: block;
   margin: 0;
-  border-top-left-radius: 5px;
-  border-top-right-radius: 5px;
-  position: relative;
+  /* border-top-left-radius: 5px;
+  border-top-right-radius: 5px; */
+  /* position: relative; */
 }
 
-.Card__Poster:hover {
+.poster__wrapper img:hover {
   transform: scale(1.01);
   transform-origin: bottom;
   transition: transform 0.3s ease-out;
 }
 
-.currentCard .Card__Poster {
-  max-width: 50vw;
-}
-
-.Card:hover {
-  cursor: pointer;
-}
-
-.transition {
-  will-change: transform;
-  transition: transform 0.4s ease-out;
-}
-
-.Card__Info {
+.info {
   margin: 0;
   display: flex;
   flex-direction: column;
@@ -65,7 +54,7 @@ a {
   padding: 5px 10px;
 }
 
-.Card__Info__title {
+.info__title {
   position: relative;
   font-family: "Roboto", sans-serif;
   font-weight: 500;
@@ -76,7 +65,15 @@ a {
   z-index: 10;
 }
 
-.Card_Person {
+.movie {
+  background-color: #112741;
+}
+
+.tv {
+  background-color: #0e4110;
+}
+
+.person {
   background-color: #c6a131;
 }
 
@@ -88,7 +85,7 @@ a {
 }
 
 @media (min-width: 1920px) {
-  .Card__Info {
+  .info {
     height: 110px;
     padding: 10px 15px;
     font-size: 22px;
@@ -96,10 +93,10 @@ a {
 }
 
 @media (min-width: 3840px) {
-  .Card {
+  .card {
     border-radius: 20px;
   }
-  .Card__Info {
+  .info {
     font-size: 43px;
     height: 180px;
   }

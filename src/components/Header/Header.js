@@ -16,7 +16,9 @@ const Header = (props) => {
 
     if (!mode) return;
 
-    if (details) {
+    if (mode === 'search') {
+      headerTitle = 'Search';
+    } else if (details) {
       headerTitle = 'Details';
     } else {
       headerTitle = genres[mode][headerTitle];

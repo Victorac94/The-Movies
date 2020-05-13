@@ -40,13 +40,15 @@
 
 .icon-star:before {
   content: "\61";
-  color: #FFDD00;
+  font-size: 1.1em;
 }
 .icon-star-half-o:before {
   content: "\62";
+  font-size: 1.1em;
 }
 .icon-star-o:before {
   content: "\63";
+  font-size: 1.1em;
 }
 .icon-calendar:before {
   content: "\64";
@@ -62,4 +64,28 @@
 }
 .icon-home:before {
   content: "\68";
+}
+.icon-birthday-cake:before {
+  content: "\69";
+}
+.icon-danger-death-delete-destroy-skull-stream:before {
+  content: "\6a";
+}
+.icon-map-marker:before {
+  content: "\6b";
+}
+.icon-ticket:before {
+  content: "\6c";
+}
+.icon-social-twitter:before {
+  content: "\6d";
+}
+.icon-social-facebook:before {
+  content: "\6e";
+}
+.icon-instagram:before {
+  content: "\6f";
+}
+.icon-globe:before {
+  content: "\70";
 }
