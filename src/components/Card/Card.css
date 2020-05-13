@@ -66,22 +66,21 @@ a {
 }
 
 .movie {
-  background-color: #112741;
+  background-color: hsl(213, 51%, 17%);
 }
 
 .tv {
-  background-color: #0e4110;
+  background-color: hsl(123, 48%, 15%);
 }
 
 .person {
-  background-color: #c6a131;
+  background-color: hsl(57, 48%, 15%);
 }
 
-.Card_Person_Name {
+.person__footer {
   font-family: "Open Sans", sans-serif;
   font-weight: 400;
   font-size: 20px;
-  color: #10161B;
 }
 
 @media (min-width: 1920px) {

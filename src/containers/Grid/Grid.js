@@ -64,7 +64,7 @@ const Grid = props => {
     <div className={classes.grid}>
       {info ? info.map((el, i) => {
         return (
-          <Card key={el.id} info={el} />
+          <Card key={el.id} info={el} mode={mode} />
         )
       })
         : <Loading />}

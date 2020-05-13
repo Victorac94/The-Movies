@@ -78,16 +78,16 @@
 }
 
 .movie {
-    background-color: #112741;
-}
-
-.tv {
-    background-color: #0e4110;
-}
-
-.person {
-    background-color: #44410f;
-}
+    background-color: hsl(213, 51%, 17%);
+  }
+  
+  .tv {
+    background-color: hsl(123, 48%, 15%);
+  }
+  
+  .person {
+    background-color: hsl(57, 48%, 15%);
+  }
 
 @media (min-width: 1025px) {
     .container {
