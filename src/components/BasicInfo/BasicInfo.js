@@ -84,14 +84,14 @@ const BasicInfo = props => {
                 <div className={classes.runtime__release}>
                     <div>
                         <i className="icon-clock"></i>
-                        <span>{props.data.runtime || props.data.episode_run_time[0]} min</span>
+                        <span>{props.data.hasOwnProperty('runtime') ? props.data.runtime : props.data.episode_run_time[0]} min</span>
                     </div>
                     <div>
                         <i className="icon-calendar"></i>
                         <span>{props.data.release_date || props.data.first_air_date}</span>
                     </div>
                 </div>
-                <Tags tags={props.data.genres} mode={props.mode} />
+                <Tags tags={props.data.genre} mode={props.mode} />
                 <div className={classes.primary__details}>
                     {props.data.homepage && webpage}
                     {props.data.external_ids.imdb_id && imdb}

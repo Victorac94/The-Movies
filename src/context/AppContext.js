@@ -3,14 +3,20 @@ import React, { useState, useEffect } from 'react';
 export const appContext = React.createContext({
     isMenuShowing: false,
     language: 'en',
+    movie: null,
+    tv: null,
     showMenu: () => { },
     hideMenu: () => { },
-    toggleLanguage: () => { }
+    toggleLanguage: () => { },
+    setMovie: () => { },
+    setTv: () => { }
 });
 
 const AppContextProvider = props => {
     const [menuState, setMenuState] = useState(false);
     const [language, setLanguage] = useState('en');
+    const [movie, setMovie] = useState(null);
+    const [tv, setTv] = useState(null);
 
     // Set initial language
     useEffect(() => {
@@ -38,6 +44,7 @@ const AppContextProvider = props => {
         }
     }
 
+    // Menu
     const showMenu = () => {
         setMenuState(true);
     }
@@ -46,8 +53,25 @@ const AppContextProvider = props => {
         setMenuState(false);
     }
 
+    // Genres
+    const setMovieGenres = movieGenres => {
+        const englishOptions = [{ 'top_rated': 'Top rated' }, { 'now_playing': 'Now playing' }, { 'popular': 'Popular' }];
+        const spanishOptions = [{ 'top_rated': 'Mejor valoradas' }, { 'now_playing': 'En cines' }, { 'popular': 'Popular' }];
+        const options = language === 'en' ? englishOptions : spanishOptions;
+
+        setMovie([...options, ...movieGenres]);
+    }
+
+    const setTvGenres = tvGenres => {
+        const englishOptions = [{ 'top_rated': 'Top rated' }, { 'on_the_air': 'On Air' }, { 'popular': 'Popular' }];
+        const spanishOptions = [{ 'top_rated': 'Mejor valoradas' }, { 'on_the_air': 'En emisión' }, { 'popular': 'Popular' }];
+        const options = language === 'en' ? englishOptions : spanishOptions;
+
+        setTv([...options, ...tvGenres]);
+    }
+
     return (
-        <appContext.Provider value={{ isMenuShowing: menuState, showMenu: showMenu, hideMenu: hideMenu, language: language, toggleLanguage: toggleLanguage }}>
+        <appContext.Provider value={{ isMenuShowing: menuState, showMenu: showMenu, hideMenu: hideMenu, language: language, toggleLanguage: toggleLanguage, movie: movie, tv: tv, setMovie: setMovieGenres, setTv: setTvGenres }}>
             {props.children}
         </appContext.Provider>
     )

@@ -71,14 +71,18 @@ const Search = props => {
     }
 
     const executeSearch = () => {
-        history.push(`/search?query=${inputRef.current.value}`);
+        const value = inputRef.current.value;
+
+        if (value.trim() === '') return;
+
+        history.push(`/search?query=${value}`);
     }
 
     // Render
     return (
         <div className={classes.container}>
             <div className={classes.search__container}>
-                <input type="text" value={inputValue} ref={inputRef} onKeyPress={e => e.key === 'Enter' && executeSearch()} onChange={e => setInputValue(e.target.value)} onBlur={onBlurHandler} placeholder="Search..." />
+                <input type="text" value={inputValue} ref={inputRef} onKeyPress={e => e.key === 'Enter' && executeSearch()} onChange={e => setInputValue(e.target.value)} onBlur={onBlurHandler} placeholder={app.language === 'en' ? 'Search...' : 'Buscar...'} />
                 <button type="submit" onClick={executeSearch}>{app.language === 'en' ? 'Search' : 'Buscar'}</button>
             </div>
             <section className={classes.search__results}>

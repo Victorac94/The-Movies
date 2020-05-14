@@ -5,27 +5,31 @@ import getUrlSections from '../../shared/getUrlSections';
 import classes from './Header.module.css';
 import genres from '../../shared/decodeGenre';
 import { appContext } from '../../context/AppContext';
+import { useLocation, useHistory } from 'react-router-dom';
 
 const Header = (props) => {
   const [title, setTitle] = useState(null);
   const app = useContext(appContext);
+  const location = useLocation();
+  const history = useHistory();
 
   // Set header title
   useEffect(() => {
-    let [mode, headerTitle, details] = getUrlSections(props.path);
+    let [mode, headerTitle, optional] = getUrlSections(location.pathname);
 
     if (!mode) return;
 
     if (mode === 'search') {
       headerTitle = 'Search';
-    } else if (details) {
+    } else if (optional === 'details') {
       headerTitle = 'Details';
     } else {
       headerTitle = genres[mode][headerTitle];
     }
     setTitle(headerTitle);
-  }, [props.path]);
+  }, [location.pathname]);
 
+  // Show / hide menu
   const toggleMenu = event => {
     if (app.isMenuShowing) {
       app.hideMenu();
@@ -35,11 +39,12 @@ const Header = (props) => {
     }
   }
 
+  // These classes make menu show / hide
   const menuClasses = app.isMenuShowing ? [classes.menu, classes.show].join(' ') : classes.menu;
 
   return (
     <header className={classes.header}>
-      <button className={classes.go__back} onClick={() => props.history.goBack()}>
+      <button className={classes.go__back} onClick={() => history.goBack()}>
         <i className="icon-angle-left"></i>
         {app.language === 'en' ? 'Back' : 'Atrás'}
       </button>

@@ -103,6 +103,10 @@ h1 {
   background-color: #191f28;
 }
 
+.tmdb__message {
+  font-size: 0.8em;
+}
+
 @media (min-width: 1025px) {
   .menu {
     width: 20vw;
