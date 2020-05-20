@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 
 export const appContext = React.createContext({
     isMenuShowing: false,
@@ -42,16 +42,16 @@ const AppContextProvider = props => {
             localStorage.setItem('language', 'en');
             setLanguage('en');
         }
-    }
+    };
 
     // Menu
     const showMenu = () => {
         setMenuState(true);
-    }
+    };
 
     const hideMenu = () => {
         setMenuState(false);
-    }
+    };
 
     // Genres
     const setMovieGenres = movieGenres => {
@@ -60,7 +60,7 @@ const AppContextProvider = props => {
         const options = language === 'en' ? englishOptions : spanishOptions;
 
         setMovie([...options, ...movieGenres]);
-    }
+    };
 
     const setTvGenres = tvGenres => {
         const englishOptions = [{ 'top_rated': 'Top rated' }, { 'on_the_air': 'On Air' }, { 'popular': 'Popular' }];
@@ -68,7 +68,7 @@ const AppContextProvider = props => {
         const options = language === 'en' ? englishOptions : spanishOptions;
 
         setTv([...options, ...tvGenres]);
-    }
+    };
 
     return (
         <appContext.Provider value={{ isMenuShowing: menuState, showMenu: showMenu, hideMenu: hideMenu, language: language, toggleLanguage: toggleLanguage, movie: movie, tv: tv, setMovie: setMovieGenres, setTv: setTvGenres }}>

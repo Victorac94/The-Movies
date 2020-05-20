@@ -10,29 +10,26 @@ import ErrorBoundary from './containers/ErrorBoundary/ErrorBoundary';
 import Main from './containers/Main/Main';
 import Menu from './components/Menu/Menu';
 import AppContextProvider from './context/AppContext';
-// import UseHttpRequest from './hooks/UseHttpRequest';
 
 const App = props => {
 
   return (
-    <AppContextProvider>
-      <div className="App">
-        <ErrorBoundary>
+    <ErrorBoundary>
+      <AppContextProvider>
+        <div className="App">
           <Menu />
-        </ErrorBoundary>
-        <Main>
-          <ErrorBoundary>
+          <Main>
             <Header />
-          </ErrorBoundary>
-          <Switch>
-            <Route path="/search" component={Grid} />
-            <Route path="/:mode/:id/details" component={Details} />
-            <Route path="/:mode/:genre/:discover?" component={Grid} />
-            <Redirect to="/movie/now_playing" />
-          </Switch>
-        </Main>
-      </div>
-    </AppContextProvider>
+            <Switch>
+              <Route path="/search" component={Grid} />
+              <Route path="/:mode/:id/details" component={Details} />
+              <Route path="/:mode/:genre/:discover?" component={Grid} />
+              <Redirect to="/movie/now_playing" />
+            </Switch>
+          </Main>
+        </div>
+      </AppContextProvider>
+    </ErrorBoundary>
   )
 
   // const mapStateToProps = state => {

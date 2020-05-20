@@ -1,7 +1,7 @@
 import React, { useContext } from 'react'
 import classes from './Loading.module.css';
 
-import AppContextProvider, { appContext } from '../../context/AppContext';
+import { appContext } from '../../context/AppContext';
 
 const Loading = props => {
     const app = useContext(appContext);

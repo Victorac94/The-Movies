@@ -7,7 +7,7 @@ import genres from '../../shared/decodeGenre';
 import { appContext } from '../../context/AppContext';
 import { useLocation, useHistory } from 'react-router-dom';
 
-const Header = (props) => {
+const Header = React.memo((props) => {
   const [title, setTitle] = useState(null);
   const app = useContext(appContext);
   const location = useLocation();
@@ -56,6 +56,6 @@ const Header = (props) => {
       </div>
     </header>
   )
-}
+});
 
 export default Header;

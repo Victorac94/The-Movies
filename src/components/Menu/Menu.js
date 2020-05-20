@@ -21,7 +21,7 @@ const Menu = props => {
       app.hideMenu();
       setLastLocation(location.pathname);
     }
-  }, [app, location.pathname, lastLocation])
+  }, [app.isMenuShowing, location.pathname, lastLocation])
 
 
   // Load genres depending on the selected language
