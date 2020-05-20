@@ -5,7 +5,6 @@ import { connect } from 'react-redux';
 import '../../assets/styles-icons.css'
 import getUrlSections from '../../shared/getUrlSections';
 import classes from './Header.module.css';
-import genres from '../../shared/decodeGenre';
 import { appContext } from '../../context/AppContext';
 import * as actions from '../../store/actions/actionTypes';
 
@@ -17,19 +16,45 @@ const Header = React.memo((props) => {
 
   // Set header title
   useEffect(() => {
-    let [mode, headerTitle, optional] = getUrlSections(location.pathname);
+    if (props.dataReducer.movieGenres && props.dataReducer.tvGenres) {
 
-    if (!mode) return;
+      let [mode, headerTitle, optional] = getUrlSections(location.pathname);
+      let id;
 
-    if (mode === 'search') {
-      headerTitle = 'Search';
-    } else if (optional === 'details') {
-      headerTitle = 'Details';
-    } else {
-      headerTitle = genres[mode][headerTitle];
+      if (mode === 'search') {
+        id = app.language === 'en' ? 'Search' : 'Búsqueda';
+
+      } else if (optional === 'details') {
+        id = app.language === 'en' ? 'Details' : 'Detalles';
+
+      } else if (optional === 'discover') {
+        // Get genre name from the store
+        id = props.dataReducer[mode + 'Genres'].find(el => el.id === parseInt(headerTitle)).name;
+
+      } else {
+        switch (headerTitle) {
+          case 'top_rated':
+            id = app.language === 'en' ? 'Top rated' : 'Mejor valoradas';
+            break;
+          case 'now_playing':
+            id = app.language === 'en' ? 'Now playing' : 'En cines';
+            break;
+          case 'popular':
+            id = 'Popular';
+            break;
+          case 'on_the_air':
+            id = app.language === 'en' ? 'On air' : 'En emisión';
+            break;
+          default:
+            id = 'The Movies';
+        }
+      }
+
+      setTitle(id);
     }
-    setTitle(headerTitle);
-  }, [location.pathname]);
+  }, [location.pathname, app.language, props.dataReducer]);
+
+  console.log('Header');
 
   // Show / hide menu
   const toggleMenu = () => {
@@ -62,7 +87,8 @@ const Header = React.memo((props) => {
 
 const mapStateToProps = state => {
   return {
-    appReducer: state.appReducer
+    appReducer: state.appReducer,
+    dataReducer: state.dataReducer
   }
 };
 

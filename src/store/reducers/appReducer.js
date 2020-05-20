@@ -1,10 +1,8 @@
 import * as actionTypes from '../actions/actionTypes';
 import { updateObject } from '../../shared/utility';
-// import { decodeGenre } from '../../shared/decodeGenre';
 
 const initialState = {
   isMenuShowing: false,
-
 };
 
 const showMenu = (state, action) => {

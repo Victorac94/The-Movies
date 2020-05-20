@@ -2,17 +2,11 @@ import React, { useState, useEffect } from 'react';
 
 export const appContext = React.createContext({
     language: 'en',
-    // movie: null,
-    // tv: null,
     toggleLanguage: () => { },
-    // setMovie: () => { },
-    // setTv: () => { }
 });
 
 const AppContextProvider = props => {
     const [language, setLanguage] = useState('en');
-    // const [movie, setMovie] = useState(null);
-    // const [tv, setTv] = useState(null);
 
     // Set initial language
     useEffect(() => {
@@ -58,7 +52,7 @@ const AppContextProvider = props => {
     // };
 
     return (
-        <appContext.Provider value={{ language: language, toggleLanguage: toggleLanguage, /* movie: movie, tv: tv, setMovie: setMovieGenres, setTv: setTvGenres */ }}>
+        <appContext.Provider value={{ language: language, toggleLanguage: toggleLanguage }}>
             {props.children}
         </appContext.Provider>
     )

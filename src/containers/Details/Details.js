@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 // import axios from 'axios';
 
@@ -13,6 +13,7 @@ import * as dataActions from '../../store/actions/fetchDataAction';
 const Details = props => {
     const [details, setDetails] = useState(null);
     const { mode, id } = useParams();
+    const location = useLocation();
     const app = useContext(appContext);
 
     // Load movie/tv-show/people information depending on URL
@@ -25,7 +26,7 @@ const Details = props => {
 
         props.fetchDetailsData(url);
 
-    }, [props.location.pathname, mode, id, app.language]);
+    }, [location.pathname, mode, id, app.language]);
 
     // On new details render them
     useEffect(() => {
