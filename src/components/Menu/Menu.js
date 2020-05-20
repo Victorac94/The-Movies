@@ -1,56 +1,35 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { Link, useHistory, useLocation } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import tmdbLogo from '../../assets/images/The movie database logo.png';
 import classes from './Menu.module.css';
-import { Link, useHistory, useLocation } from 'react-router-dom';
 import { appContext } from '../../context/AppContext';
 import Search from '../Search/Search';
-import Axios from 'axios';
+import * as actions from '../../store/actions/actionTypes';
+import * as dataActions from '../../store/actions/fetchDataAction';
 
 const Menu = props => {
   const location = useLocation();
   const history = useHistory();
-  const [movieGenres, setMovieGenres] = useState(null);
-  const [tvGenres, setTvGenres] = useState(null);
   const [lastLocation, setLastLocation] = useState(location.pathname);
   const app = useContext(appContext);
 
   // Hide menu if we go to another path (mobile)
   useEffect(() => {
-    if (lastLocation !== location.pathname && app.isMenuShowing) {
-      app.hideMenu();
+    if (lastLocation !== location.pathname && props.appReducer.isMenuShowing) {
+      props.hideMenu();
       setLastLocation(location.pathname);
     }
-  }, [app.isMenuShowing, location.pathname, lastLocation])
+  }, [props, location.pathname, lastLocation])
 
 
   // Load genres depending on the selected language
   useEffect(() => {
     const lang = app.language === 'en' ? 'en-US' : 'es-ES';
 
-    // Fetch movie  genres
-    Axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=6095dab7d845691ab95df77d0a908452&language=${lang}`)
-      .then(response => {
-        if (response.status === 200) {
-          setMovieGenres(response.data.genres);
-          app.setMovie(response.data.genres);
+    props.fetchGenresList(lang);
 
-        } else {
-          throw new Error('Error while fetching genres');
-        }
-      }).catch(err => {
-        throw new Error(err);
-      });
-
-    // Fetch tv genres
-    Axios.get(`https://api.themoviedb.org/3/genre/tv/list?api_key=6095dab7d845691ab95df77d0a908452&language=${lang}`)
-      .then(response => {
-        setTvGenres(response.data.genres);
-        app.setTv(response.data.genres);
-
-      }).catch(err => {
-        throw new Error(err);
-      });
   }, [app.language]);
 
 
@@ -59,7 +38,7 @@ const Menu = props => {
     history.push(`/${mode}/${genre}/discover`);
   }
 
-  const menuClasses = app.isMenuShowing ?
+  const menuClasses = props.appReducer.isMenuShowing ?
     [classes.menu, classes.show].join(' ') :
     classes.menu;
 
@@ -86,7 +65,7 @@ const Menu = props => {
             <header>{app.language === 'en' ? 'Genres' : 'Géneros'}</header>
             <select onChange={(e) => goTo('movie', e.target.value)}>
               <option>{app.language === 'en' ? 'Select' : 'Seleccionar'}</option>
-              {movieGenres && movieGenres.map(gen => {
+              {props.dataReducer.movieGenres && props.dataReducer.movieGenres.map(gen => {
                 return <option key={gen.id + gen.name} value={gen.id}>{gen.name}</option>
               })}
             </select>
@@ -101,7 +80,7 @@ const Menu = props => {
             <header>{app.language === 'en' ? 'Genres' : 'Géneros'}</header>
             <select onChange={(e) => goTo('tv', e.target.value)}>
               <option>{app.language === 'en' ? 'Select' : 'Seleccionar'}</option>
-              {tvGenres && tvGenres.map(gen => {
+              {props.dataReducer.tvGenres && props.dataReducer.tvGenres.map(gen => {
                 return <option key={gen.id + gen.name} value={gen.id}>{gen.name}</option>;
               })}
             </select>
@@ -111,6 +90,20 @@ const Menu = props => {
       <p className={classes.tmdb__message}>{app.language === 'en' ? 'This product uses the TMDb API but is not endorsed or certified by TMDb.' : 'Esta página utiliza la API de TMDb pero no está avalada ni certificada por TMDb.'}</p>
     </aside>
   )
+};
+
+const mapStateToProps = state => {
+  return {
+    appReducer: state.appReducer,
+    dataReducer: state.dataReducer
+  }
 }
 
-export default Menu;
+const mapDispatchToProps = dispatch => {
+  return {
+    hideMenu: () => dispatch({ type: actions.HIDE_MENU }),
+    fetchGenresList: lang => dispatch(dataActions.fetchGenres(lang))
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Menu);

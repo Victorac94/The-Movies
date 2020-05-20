@@ -2,70 +2,78 @@ import axios from 'axios';
 import { put } from 'redux-saga/effects';
 
 import * as fetchDataActions from '../actions/fetchDataAction';
-import * as generalActions from '../actions/generalActions';
+// import * as generalActions from '../actions/generalActions';
 
-// TRENDING
-
-export function* fetchTrending(payload) {
+// GENRES
+export function* fetchGenres(payload) {
   try {
-    const response = yield axios.get(`https://api.themoviedb.org/3/trending/movie/day?api_key=6095dab7d845691ab95df77d0a908452&page=${payload.page}`);
-    yield put(fetchDataActions.fetchTrendingSucceed(response.data.results));
-    yield put(generalActions.nextPage(payload.page));
-    yield put(generalActions.loadTitle("Home"));
-  } catch {
-    yield put(fetchDataActions.fetchTrendingFailed());
+    // Fetch movie genres
+    const movieResponse = yield axios.get(`https://api.themoviedb.org/3/genre/movie/list?api_key=6095dab7d845691ab95df77d0a908452&language=${payload.lang}`);
+    // Fetch tv genres
+    const tvResponse = yield axios.get(`https://api.themoviedb.org/3/genre/tv/list?api_key=6095dab7d845691ab95df77d0a908452&language=${payload.lang}`);
+
+    if (movieResponse.status === 200 && tvResponse.status === 200) {
+      console.log('Success fetching genres!');
+      yield put(fetchDataActions.fetchGenresSuccess(movieResponse.data.genres, tvResponse.data.genres));
+
+    } else {
+      yield put(fetchDataActions.fetchGenresFail());
+    }
+  } catch (err) {
+    throw new Error(err);
   }
 }
 
-// DATA
-
-export function* fetchData(payload) {
+// GRID DATA
+export function* fetchGridData(payload) {
   try {
-    const response = yield axios.get(`https://api.themoviedb.org/3/${payload.mode}/${payload.genre}?api_key=6095dab7d845691ab95df77d0a908452&language=es-ES&page=${payload.page}&region=ES`);
-    yield put(fetchDataActions.fetchDataSucceed(response.data.results));
-    yield put(generalActions.nextPage(payload.page));
-    yield put(generalActions.loadTitle(payload.genre));
-  }
-  catch {
-    yield put(fetchDataActions.fetchDataFailed());
+    const response = yield axios.get(payload.url);
+
+    if (response.status === 200) {
+      console.log('Success fetching GRID data!');
+      yield put(fetchDataActions.fetchGridDataSuccess(response.data.results));
+
+    } else {
+      throw new Error('Error while fetching grid data');
+    }
+  } catch (err) {
+    throw new Error(err);
   }
 }
 
-// DETAILS
-
-export function* fetchDetails(payload) {
+// DETAILS DATA
+export function* fetchDetailsData(payload) {
   try {
-    const response = yield axios.get(`https://api.themoviedb.org/3/${payload.mode}/${payload.id}?api_key=6095dab7d845691ab95df77d0a908452&append_to_response=videos,credits,recommendations,similar`);
-    yield put(fetchDataActions.fetchDetailsSucceed(response.data))
-  }
-  catch {
-    yield put(fetchDataActions.fetchDetailsFailed());
+    const response = yield axios.get(payload.url);
+
+    if (response.status === 200) {
+      console.log('Success fetching DETAILS data!');
+      yield put(fetchDataActions.fetchDetailsDataSuccess(response.data));
+
+    } else {
+      yield put(fetchDataActions.fetchDetailsDataFail());
+    }
+
+  } catch (err) {
+    throw new Error(err);
+    // yield put(fetchDataActions.fetchDetailsDataFail());
   }
 }
 
-// SEARCH
-
-export function* fetchSearch(payload) {
+// SEARCH DATA
+export function* fetchSearchData(payload) {
   try {
-    const response = yield axios.get(`https://api.themoviedb.org/3/search/multi?api_key=6095dab7d845691ab95df77d0a908452&query=${payload.data}&include_adult=false`);
-    yield put(fetchDataActions.fetchSearchSucceed(response.data.results));
-    yield put(generalActions.loadTitle("search"))
-  }
-  catch {
-    yield put(fetchDataActions.fetchSearchFailed());
-  }
-}
+    console.log(payload);
+    const response = yield axios.get(payload.url);
 
-// DISCOVER
+    if (response.status === 200) {
+      console.log('Success fetching SEARCH data', response.data.results);
+      yield put(fetchDataActions.fetchSearchDataSuccess(response.data.results));
 
-export function* fetchDiscover(payload) {
-  try {
-    const response = yield axios.get(`https://api.themoviedb.org/3/discover/${payload.mode}?api_key=6095dab7d845691ab95df77d0a908452&with_genres=${payload.genre}&sort_by=vote_average.desc&vote_count.gte=10&page=${payload.page}&include_adult=false`)
-    yield put(fetchDataActions.fetchDiscoverSucceed(response.data.results));
-    yield put(generalActions.nextPage(payload.page));
-    yield put(generalActions.loadTitle(payload.genre));
-  }
-  catch {
-    yield put(fetchDataActions.fetchDiscoverFailed());
+    } else {
+      throw new Error('Error while fetching search data');
+    }
+  } catch (err) {
+    throw new Error(err);
   }
 }

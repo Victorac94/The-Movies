@@ -1,11 +1,13 @@
 import React, { useState, useContext, useRef, useEffect } from 'react';
-import Axios from 'axios';
+// import Axios from 'axios';
 import { Link, useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import classes from './Search.module.css';
 import '../../assets/fonts/the-movies.svg';
 import imgNotAvailable from '../../assets/images/image-not-available.jpg';
 import { appContext } from '../../context/AppContext';
+import * as dataActions from '../../store/actions/fetchDataAction';
 
 const Search = props => {
     const [inputValue, setInputValue] = useState('');
@@ -22,18 +24,11 @@ const Search = props => {
                 const language = app.language === 'en' ? 'en-US' : 'es-ES';
                 const region = app.language === 'en' ? 'US' : 'ES';
                 const query = encodeURIComponent(inputValue);
+                const url = `https://api.themoviedb.org/3/search/multi?api_key=6095dab7d845691ab95df77d0a908452&language=${language}&query=${query}&page=1&include_adult=false&region=${region}`
 
-                Axios.get(`https://api.themoviedb.org/3/search/multi?api_key=6095dab7d845691ab95df77d0a908452&language=${language}&query=${query}&page=1&include_adult=false&region=${region}`)
-                    .then(response => {
-                        if (response.status === 200) {
-                            console.log(response.data.results);
-                            setSearchResults(response.data.results);
-                        } else {
-                            throw new Error('Error while fetching search data')
-                        }
-                    }).catch(err => {
-                        throw new Error(err);
-                    })
+                // Fetch search data
+                props.fetchSearchData(url);
+
             } else if (inputRef.current.value.trim() === '') {
                 setSearchResults(null);
             }
@@ -41,6 +36,12 @@ const Search = props => {
 
         return () => clearTimeout(myTimeout);
     }, [inputValue, app.language, inputRef]);
+
+    // On new search data
+    useEffect(() => {
+        setSearchResults(props.dataReducer.searchData);
+
+    }, [props.dataReducer.searchData]);
 
     // Build results list
     let results = searchResults ?
@@ -70,7 +71,7 @@ const Search = props => {
         }, 300);
     }
 
-    const executeSearch = () => {
+    const goToSearchUrl = () => {
         const value = inputRef.current.value;
 
         if (value.trim() === '') return;
@@ -82,8 +83,8 @@ const Search = props => {
     return (
         <div className={classes.container}>
             <div className={classes.search__container}>
-                <input type="text" value={inputValue} ref={inputRef} onKeyPress={e => e.key === 'Enter' && executeSearch()} onChange={e => setInputValue(e.target.value)} onBlur={onBlurHandler} placeholder={app.language === 'en' ? 'Search...' : 'Buscar...'} />
-                <button type="submit" onClick={executeSearch}>{app.language === 'en' ? 'Search' : 'Buscar'}</button>
+                <input type="text" value={inputValue} ref={inputRef} onKeyPress={e => e.key === 'Enter' && goToSearchUrl()} onChange={e => setInputValue(e.target.value)} onBlur={onBlurHandler} placeholder={app.language === 'en' ? 'Search...' : 'Buscar...'} />
+                <button type="submit" onClick={goToSearchUrl}>{app.language === 'en' ? 'Search' : 'Buscar'}</button>
             </div>
             <section className={classes.search__results}>
                 {results}
@@ -92,4 +93,16 @@ const Search = props => {
     )
 }
 
-export default Search;
+const mapStateToProps = state => {
+    return {
+        dataReducer: state.dataReducer
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchSearchData: url => dispatch(dataActions.fetchSearchData(url))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Search);

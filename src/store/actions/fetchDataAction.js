@@ -1,113 +1,93 @@
 import * as actionTypes from './actionTypes';
 
-// TRENDING
-export const fetchTrending = (page) => {
-  return {
-    type: actionTypes.FETCH_TRENDING,
-    page: page
-  }
+// GENRES
+
+export const fetchGenres = lang => {
+    return {
+        type: actionTypes.FETCH_GENRES,
+        lang: lang
+    }
 }
 
-export const fetchTrendingSucceed = (data) => {
-  return {
-    type: actionTypes.FETCH_TRENDING_SUCCEED,
-    data: data
-  }
+export const fetchGenresSuccess = (movie, tv) => {
+    return {
+        type: actionTypes.FETCH_GENRES_SUCCESS,
+        movieGenres: movie,
+        tvGenres: tv
+    }
 }
 
-export const fetchTrendingFailed = () => {
-  return {
-    type: actionTypes.FETCH_TRENDING_SUCCEED
-  }
+export const fetchGenresFail = () => {
+    return {
+        type: actionTypes.FETCH_GENRES_FAIL
+    }
 }
 
-// NOW PLAYING - TOP RATED - POPULAR
-export const fetchData = (mode, genre, page) => {
-  return {
-    type: actionTypes.FETCH_DATA,
-    mode: mode,
-    genre: genre,
-    page: page
-  }
+
+// GRID DATA
+
+export const fetchGridData = url => {
+    return {
+        type: actionTypes.FETCH_GRID_DATA,
+        url: url
+    }
 }
 
-export const fetchDataSucceed = (data) => {
-  return {
-    type: actionTypes.FETCH_DATA_SUCCEED,
-    data: data
-  }
+export const fetchGridDataSuccess = data => {
+    return {
+        type: actionTypes.FETCH_GRID_DATA_SUCCESS,
+        data: data
+    }
 }
 
-export const fetchDataFailed = () => {
-  return {
-    type: actionTypes.FETCH_DATA_FAILED
-  }
+export const fetchGridDataFail = () => {
+    return {
+        type: actionTypes.FETCH_GRID_DATA_FAIL,
+    }
 }
 
-// MOVIE DETAILS
-export const fetchDetails = (mode, id) => {
-  return {
-    type: actionTypes.FETCH_DETAILS,
-    mode: mode,
-    id: id
-  }
+
+// DETAILS DATA
+
+export const fetchDetailsData = url => {
+    return {
+        type: actionTypes.FETCH_DETAILS_DATA,
+        url: url
+    }
 }
 
-export const fetchDetailsSucceed = (data) => {
-  return {
-    type: actionTypes.FETCH_DETAILS_SUCCEED,
-    data: data
-  }
+export const fetchDetailsDataSuccess = data => {
+    return {
+        type: actionTypes.FETCH_DETAILS_DATA_SUCCESS,
+        data: data
+    }
 }
 
-export const fetchDetailsFailed = () => {
-  return {
-    type: actionTypes.FETCH_DETAILS_FAILED
-  }
+export const fetchDetailsDataFail = () => {
+    return {
+        type: actionTypes.FETCH_DETAILS_DATA_FAIL,
+    }
 }
 
-// SEARCH
 
-export const fetchSearch = (data) => {
-  return {
-    type: actionTypes.FETCH_SEARCH,
-    data: data
-  }
+// SEARCH DATA
+
+export const fetchSearchData = url => {
+    return {
+        type: actionTypes.FETCH_SEARCH_DATA,
+        url: url
+    }
 }
 
-export const fetchSearchSucceed = (data) => {
-  return {
-    type: actionTypes.FETCH_SEARCH_SUCCEED,
-    data: data
-  }
+export const fetchSearchDataSuccess = data => {
+    return {
+        type: actionTypes.FETCH_SEARCH_DATA_SUCCESS,
+        data: data
+    }
 }
 
-export const fetchSearchFailed = () => {
-  return {
-    type: actionTypes.FETCH_SEARCH_FAILED
-  }
-}
-
-// DISCOVER
-
-export const fetchDiscover = (mode, genre, page) => {
-  return {
-    type: actionTypes.FETCH_DISCOVER,
-    mode: mode,
-    genre: genre,
-    page: page
-  }
-}
-
-export const fetchDiscoverSucceed = (data) => {
-  return {
-    type: actionTypes.FETCH_DISCOVER_SUCCEED,
-    data: data
-  }
-}
-
-export const fetchDiscoverFailed = (mode, genre) => {
-  return {
-    type: actionTypes.FETCH_DISCOVER_FAILED
-  }
+export const fetchSearchDataFail = () => {
+    return {
+        type: actionTypes.FETCH_SEARCH_DATA_FAIL,
+    }
 }

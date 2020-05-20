@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams, useLocation, useHistory } from 'react-router-dom';
-import axios from 'axios';
+import { connect } from 'react-redux';
+// import axios from 'axios';
 
 import Card from '../../components/Card/Card';
 import classes from './Grid.module.css';
 import Loading from '../../components/Loading/Loading';
 import { appContext } from '../../context/AppContext';
+import * as dataActions from '../../store/actions/fetchDataAction';
 
 const Grid = props => {
   const [info, setInfo] = useState(null);
@@ -14,10 +16,9 @@ const Grid = props => {
   const location = useLocation();
   const history = useHistory();
 
+  // Load Grid data
   useEffect(() => {
-    let url = '';
-    let language;
-    let region;
+    let url, language, region;
 
     if (app.language === 'en') {
       language = 'en-US';
@@ -27,8 +28,10 @@ const Grid = props => {
       region = 'ES';
     }
 
+    // Clean grid while fetching new data
     setInfo(null);
 
+    // If we navigate forward scroll the next view to the top
     if (history.action === 'PUSH') {
       window.scrollTo(0, 0);
     }
@@ -36,29 +39,33 @@ const Grid = props => {
     if (location.pathname === '/search') {
       // Get query string
       const query = encodeURIComponent(location.search.slice(7).trim());
+
       url = `https://api.themoviedb.org/3/search/multi?api_key=6095dab7d845691ab95df77d0a908452&query=${query}&page=1&language=${language}&region=${region}`;
 
     } else if (discover !== undefined) {
+      // Fetch Discover data (a specific movie or tv genre)
       url = `https://api.themoviedb.org/3/discover/${mode}/?api_key=6095dab7d845691ab95df77d0a908452&language=${language}&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${genre}&region=${region}`;
 
     } else {
+      // Fetch 'top rated', 'now playing', 'popular' 'on air' data
       url = `https://api.themoviedb.org/3/${mode}/${genre}?api_key=6095dab7d845691ab95df77d0a908452&language=${language}&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&region=${region}`;
     }
 
-    axios.get(url)
-      .then(response => {
-        if (response.status === 200) {
-          setInfo(response.data.results);
-
-        } else {
-          throw new Error('Error while getting details')
-        }
-      }).catch(err => {
-        throw new Error(err);
-      })
+    // Dispatch the call to fetch the data given the url
+    props.fetchGridData(url);
 
   }, [location, history, mode, genre, discover, app.language]);
 
+  // On new data, update the state and render the new data
+  useEffect(() => {
+    setInfo(props.dataReducer.gridData);
+
+  }, [props.dataReducer.gridData]);
+
+  // On mounting the component set info state to null
+  useEffect(() => {
+    setInfo(null);
+  }, []);
 
   return (
     <div className={classes.grid}>
@@ -72,22 +79,16 @@ const Grid = props => {
   )
 }
 
-export default Grid;
+const mapStateToProps = state => {
+  return {
+    dataReducer: state.dataReducer
+  }
+}
 
-// const mapStateToProps = state => {
-//   return {
-//     dataState: state.dataReducer,
-//     generalState: state.generalReducer
-//   }
-// }
+const mapDispatchToProps = dispatch => {
+  return {
+    fetchGridData: url => dispatch(dataActions.fetchGridData(url))
+  }
+}
 
-// const mapDispatchToProps = dispatch => {
-//   return {
-//     onFetchTrending: (page) => dispatch(fetchData.fetchTrending(page)),
-//     onFetchData: (mode, genre, page) => dispatch(fetchData.fetchData(mode, genre, page)),
-//     onFetchSearch: (query) => dispatch(fetchData.fetchSearch(query)),
-//     onFetchDiscover: (mode, genre, page) => dispatch(fetchData.fetchDiscover(mode, genre, page))
-//   }
-// }
-
-// export default withRouter(connect(mapStateToProps, mapDispatchToProps)(Grid));
+export default connect(mapStateToProps, mapDispatchToProps)(Grid);

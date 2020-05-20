@@ -1,5 +1,4 @@
 import React from 'react';
-// import { connect } from 'react-redux';
 import { Route, Switch, withRouter, Redirect } from 'react-router-dom';
 
 import './App.css';
@@ -31,22 +30,5 @@ const App = props => {
       </AppContextProvider>
     </ErrorBoundary>
   )
-
-  // const mapStateToProps = state => {
-  //   return {
-  //     dataState: state.dataReducer,
-  //     generalState: state.generalReducer
-  //   }
-  // }
-
-  // const mapDispatchToProps = dispatch => {
-  //   return {
-  //     onFetchDetails: (mode, id) => dispatch(fetchData.fetchDetails(mode, id)),
-  //     onShowDetails: (media) => dispatch(generalActions.showDetails(media)),
-  //     onHideDetails: () => dispatch(generalActions.goBack()),
-  //     onSetPath: (params) => dispatch(generalActions.setPath(params))
-  //   }
-  // }
 }
 export default withRouter(App);
-// export default withRouter(connect(mapStateToProps, mapDispatchToProps)(App));

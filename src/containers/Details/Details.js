@@ -1,12 +1,14 @@
 import React, { useEffect, useState, useContext } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
+import { connect } from 'react-redux';
+// import axios from 'axios';
 
 import ThumbnailCarousel from '../ThumbnailCarousel/ThumbnailCarousel';
 import classes from './Details.module.css';
 import BasicInfo from '../../components/BasicInfo/BasicInfo';
 import Loading from '../../components/Loading/Loading';
 import { appContext } from '../../context/AppContext';
+import * as dataActions from '../../store/actions/fetchDataAction';
 
 const Details = props => {
     const [details, setDetails] = useState(null);
@@ -16,25 +18,25 @@ const Details = props => {
     // Load movie/tv-show/people information depending on URL
     useEffect(() => {
         setDetails(null);
-        let language;
 
-        language = app.language === 'en' ? 'en-US' : 'es-ES';
+        let language = app.language === 'en' ? 'en-US' : 'es-ES';
+        let url = `https://api.themoviedb.org/3/${mode}/${id}?api_key=6095dab7d845691ab95df77d0a908452&language=${language}&append_to_response=videos,credits,recommendations,similar,external_ids`;
 
 
-        axios.get(`https://api.themoviedb.org/3/${mode}/${id}?api_key=6095dab7d845691ab95df77d0a908452&language=${language}&append_to_response=videos,credits,recommendations,similar,external_ids`)
-            .then(response => {
-                if (response.status === 200) {
-                    console.log(response.data);
-                    setDetails(response.data);
-
-                } else {
-                    throw new Error('Error while getting details')
-                }
-            }).catch(err => {
-                throw new Error(err);
-            })
+        props.fetchDetailsData(url);
 
     }, [props.location.pathname, mode, id, app.language]);
+
+    // On new details render them
+    useEffect(() => {
+        setDetails(props.dataReducer.detailsData);
+
+    }, [props.dataReducer.detailsData]);
+
+    // On mounting the component set details state to null
+    useEffect(() => {
+        setDetails(null);
+    }, []);
 
     return mode && details ? (
         <main className={classes.container}>
@@ -84,4 +86,16 @@ const Details = props => {
         : <Loading />
 }
 
-export default Details;
+const mapStateToProps = state => {
+    return {
+        dataReducer: state.dataReducer
+    }
+}
+
+const mapDispatchToProps = dispatch => {
+    return {
+        fetchDetailsData: url => dispatch(dataActions.fetchDetailsData(url))
+    }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Details);

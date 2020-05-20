@@ -1,11 +1,13 @@
 import React, { useEffect, useState, useContext } from 'react';
+import { useLocation, useHistory } from 'react-router-dom';
+import { connect } from 'react-redux';
 
 import '../../assets/styles-icons.css'
 import getUrlSections from '../../shared/getUrlSections';
 import classes from './Header.module.css';
 import genres from '../../shared/decodeGenre';
 import { appContext } from '../../context/AppContext';
-import { useLocation, useHistory } from 'react-router-dom';
+import * as actions from '../../store/actions/actionTypes';
 
 const Header = React.memo((props) => {
   const [title, setTitle] = useState(null);
@@ -30,17 +32,17 @@ const Header = React.memo((props) => {
   }, [location.pathname]);
 
   // Show / hide menu
-  const toggleMenu = event => {
-    if (app.isMenuShowing) {
-      app.hideMenu();
+  const toggleMenu = () => {
+    if (props.appReducer.isMenuShowing) {
+      props.hideMenu();
 
     } else {
-      app.showMenu();
+      props.showMenu();
     }
   }
 
   // These classes make menu show / hide
-  const menuClasses = app.isMenuShowing ? [classes.menu, classes.show].join(' ') : classes.menu;
+  const menuClasses = props.appReducer.isMenuShowing ? [classes.menu, classes.show].join(' ') : classes.menu;
 
   return (
     <header className={classes.header}>
@@ -49,7 +51,7 @@ const Header = React.memo((props) => {
         {app.language === 'en' ? 'Back' : 'Atrás'}
       </button>
       <h2>{title}</h2>
-      <div className={menuClasses} onClick={e => toggleMenu(e)}>
+      <div className={menuClasses} onClick={toggleMenu}>
         <div></div>
         <div></div>
         <div></div>
@@ -58,4 +60,17 @@ const Header = React.memo((props) => {
   )
 });
 
-export default Header;
+const mapStateToProps = state => {
+  return {
+    appReducer: state.appReducer
+  }
+};
+
+const mapDispatchToProps = dispatch => {
+  return {
+    showMenu: () => dispatch({ type: actions.SHOW_MENU }),
+    hideMenu: () => dispatch({ type: actions.HIDE_MENU })
+  }
+}
+
+export default connect(mapStateToProps, mapDispatchToProps)(Header);
