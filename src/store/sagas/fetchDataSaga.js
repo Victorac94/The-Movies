@@ -20,14 +20,18 @@ export function* fetchGenres(payload) {
       yield put(fetchDataActions.fetchGenresFail());
     }
   } catch (err) {
-    throw new Error(err);
+    console.log(err);
+    // throw new Error(err);
   }
 }
 
 // GRID DATA
 export function* fetchGridData(payload) {
   try {
-    const response = yield axios.get(payload.url);
+    // const axiosInstance = axios.create({baseURL:})
+    const response = yield axios.get(payload.url, {
+      baseURL: 'https://api.themovied.org'
+    });
 
     if (response.status === 200) {
       console.log('fetchGridData');
@@ -37,7 +41,8 @@ export function* fetchGridData(payload) {
       throw new Error('Error while fetching grid data');
     }
   } catch (err) {
-    throw new Error(err);
+    console.log(err);
+    // throw new Error(err);
   }
 }
 
@@ -55,7 +60,8 @@ export function* fetchDetailsData(payload) {
     }
 
   } catch (err) {
-    throw new Error(err);
+    console.log(err);
+    // throw new Error(err);
     // yield put(fetchDataActions.fetchDetailsDataFail());
   }
 }
@@ -73,6 +79,7 @@ export function* fetchSearchData(payload) {
       throw new Error('Error while fetching search data');
     }
   } catch (err) {
-    throw new Error(err);
+    console.log(err);
+    // throw new Error(err);
   }
 }
