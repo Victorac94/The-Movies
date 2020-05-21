@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 
 export const appContext = React.createContext({
     language: 'en',
@@ -6,21 +6,10 @@ export const appContext = React.createContext({
 });
 
 const AppContextProvider = props => {
-    const [language, setLanguage] = useState('en');
+    const [language, setLanguage] = useState(localStorage.getItem('language') || 'en');
 
-    // Set initial language
-    useEffect(() => {
-        const lsLanguage = localStorage.getItem('language');
 
-        if (lsLanguage) {
-            setLanguage(lsLanguage);
-        } else {
-            localStorage.setItem('language', 'en');
-        }
-
-    }, []);
-
-    // Change application language
+    // Change application language and save to local storage
     const toggleLanguage = () => {
         // Change to Spanish
         if (language === 'en') {
@@ -33,23 +22,6 @@ const AppContextProvider = props => {
             setLanguage('en');
         }
     };
-
-    // // Genres
-    // const setMovieGenres = movieGenres => {
-    //     const englishOptions = [{ 'top_rated': 'Top rated' }, { 'now_playing': 'Now playing' }, { 'popular': 'Popular' }];
-    //     const spanishOptions = [{ 'top_rated': 'Mejor valoradas' }, { 'now_playing': 'En cines' }, { 'popular': 'Popular' }];
-    //     const options = language === 'en' ? englishOptions : spanishOptions;
-
-    //     setMovie([...options, ...movieGenres]);
-    // };
-
-    // const setTvGenres = tvGenres => {
-    //     const englishOptions = [{ 'top_rated': 'Top rated' }, { 'on_the_air': 'On Air' }, { 'popular': 'Popular' }];
-    //     const spanishOptions = [{ 'top_rated': 'Mejor valoradas' }, { 'on_the_air': 'En emisión' }, { 'popular': 'Popular' }];
-    //     const options = language === 'en' ? englishOptions : spanishOptions;
-
-    //     setTv([...options, ...tvGenres]);
-    // };
 
     return (
         <appContext.Provider value={{ language: language, toggleLanguage: toggleLanguage }}>

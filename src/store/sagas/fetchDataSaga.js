@@ -28,20 +28,33 @@ export function* fetchGenres(payload) {
 // GRID DATA
 export function* fetchGridData(payload) {
   try {
+    // axios.interceptors.response.use(request => {
+    //   console.log('my request', request);
+    // }, error => {
+    //   console.log('errorrrr', error);
+    // })
+
     // const axiosInstance = axios.create({baseURL:})
-    const response = yield axios.get(payload.url, {
-      baseURL: 'https://api.themoviedb.org'
-    });
+    const response = yield axios.get(payload.url);
 
     if (response.status === 200) {
       console.log('fetchGridData');
       yield put(fetchDataActions.fetchGridDataSuccess(response.data.results));
 
-    } else {
+    } else if (response.status === 307) {
+      console.log('Status 307 redirect', response);
+    }
+    else {
       throw new Error('Error while fetching grid data');
     }
   } catch (err) {
-    console.log(err);
+    if (err.response) {
+      console.log('error.response', err.response);
+    } else if (err.request) {
+      console.log('error.request', err.request);
+    } else {
+      console.log('else error', err);
+    }
     // throw new Error(err);
   }
 }

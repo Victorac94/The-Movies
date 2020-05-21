@@ -40,15 +40,15 @@ const Grid = React.memo(props => {
       // Get query string
       const query = encodeURIComponent(location.search.slice(7).trim());
 
-      url = `/3/search/multi?api_key=6095dab7d845691ab95df77d0a908452&query=${query}&page=1&language=${language}&region=${region}`;
+      url = `https://api.themoviedb.org/3/search/multi?api_key=6095dab7d845691ab95df77d0a908452&query=${query}&page=1&language=${language}&region=${region}`;
 
     } else if (discover !== undefined) {
       // Fetch Discover data (a specific movie or tv genre)
-      url = `/3/discover/${mode}/?api_key=6095dab7d845691ab95df77d0a908452&language=${language}&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${genre}&region=${region}`;
+      url = `https://api.themoviedb.org/3/discover/${mode}?api_key=6095dab7d845691ab95df77d0a908452&language=${language}&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${genre}&region=${region}`;
 
     } else {
       // Fetch 'top rated', 'now playing', 'popular' 'on air' data
-      url = `/3/${mode}/${genre}?api_key=6095dab7d845691ab95df77d0a908452&language=${language}&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&region=${region}`;
+      url = `https://api.themoviedb.org/3/${mode}/${genre}?api_key=6095dab7d845691ab95df77d0a908452&language=${language}&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&region=${region}`;
     }
 
     // Dispatch the call to fetch the data given the url
