@@ -13,7 +13,6 @@ export function* fetchGenres(payload) {
     const tvResponse = yield axios.get(`https://api.themoviedb.org/3/genre/tv/list?api_key=6095dab7d845691ab95df77d0a908452&language=${payload.lang}`);
 
     if (movieResponse.status === 200 && tvResponse.status === 200) {
-      console.log('Success fetching genres!');
       yield put(fetchDataActions.fetchGenresSuccess(movieResponse.data.genres, tvResponse.data.genres));
 
     } else {
@@ -30,7 +29,6 @@ export function* fetchGridData(payload) {
     const response = yield axios.get(payload.url);
 
     if (response.status === 200) {
-      console.log('Success fetching GRID data!');
       yield put(fetchDataActions.fetchGridDataSuccess(response.data.results));
 
     } else {
@@ -47,7 +45,6 @@ export function* fetchDetailsData(payload) {
     const response = yield axios.get(payload.url);
 
     if (response.status === 200) {
-      console.log('Success fetching DETAILS data!');
       yield put(fetchDataActions.fetchDetailsDataSuccess(response.data));
 
     } else {
@@ -63,11 +60,9 @@ export function* fetchDetailsData(payload) {
 // SEARCH DATA
 export function* fetchSearchData(payload) {
   try {
-    console.log(payload);
     const response = yield axios.get(payload.url);
 
     if (response.status === 200) {
-      console.log('Success fetching SEARCH data', response.data.results);
       yield put(fetchDataActions.fetchSearchDataSuccess(response.data.results));
 
     } else {

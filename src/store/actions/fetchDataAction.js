@@ -1,5 +1,15 @@
 import * as actionTypes from './actionTypes';
 
+// HEADER
+
+export const setHeaderTitle = title => {
+    return {
+        type: actionTypes.SET_HEADER_TITLE,
+        title: title
+    }
+}
+
+
 // GENRES
 
 export const fetchGenres = lang => {

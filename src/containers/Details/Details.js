@@ -23,7 +23,7 @@ const Details = props => {
         let language = app.language === 'en' ? 'en-US' : 'es-ES';
         let url = `https://api.themoviedb.org/3/${mode}/${id}?api_key=6095dab7d845691ab95df77d0a908452&language=${language}&append_to_response=videos,credits,recommendations,similar,external_ids`;
 
-
+        props.setHeaderTitle('');
         props.fetchDetailsData(url);
 
     }, [location.pathname, mode, id, app.language]);
@@ -95,7 +95,8 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
     return {
-        fetchDetailsData: url => dispatch(dataActions.fetchDetailsData(url))
+        fetchDetailsData: url => dispatch(dataActions.fetchDetailsData(url)),
+        setHeaderTitle: title => dispatch(dataActions.setHeaderTitle(title))
     }
 }
 

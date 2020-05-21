@@ -12,7 +12,6 @@ const Header = React.memo((props) => {
   const [title, setTitle] = useState(null);
   const app = useContext(appContext);
   const location = useLocation();
-  const history = useHistory();
 
   // Set header title
   useEffect(() => {
@@ -25,7 +24,7 @@ const Header = React.memo((props) => {
         id = app.language === 'en' ? 'Search' : 'Búsqueda';
 
       } else if (optional === 'details') {
-        id = app.language === 'en' ? 'Details' : 'Detalles';
+        id = props.dataReducer.headerTitle;
 
       } else if (optional === 'discover') {
         // Get genre name from the store
@@ -54,8 +53,6 @@ const Header = React.memo((props) => {
     }
   }, [location.pathname, app.language, props.dataReducer]);
 
-  console.log('Header');
-
   // Show / hide menu
   const toggleMenu = () => {
     if (props.appReducer.isMenuShowing) {
@@ -71,10 +68,6 @@ const Header = React.memo((props) => {
 
   return (
     <header className={classes.header}>
-      <button className={classes.go__back} onClick={() => history.goBack()}>
-        <i className="icon-angle-left"></i>
-        {app.language === 'en' ? 'Back' : 'Atrás'}
-      </button>
       <h2>{title}</h2>
       <div className={menuClasses} onClick={toggleMenu}>
         <div></div>
@@ -83,6 +76,16 @@ const Header = React.memo((props) => {
       </div>
     </header>
   )
+}, (prevProps, nextProps) => {
+
+  // Only re-render if we get new movie/tv genres or header's title changes
+  if ((prevProps.dataReducer.movieGenres === null && nextProps.dataReducer.movieGenres) ||
+    (prevProps.dataReducer.tvGenres === null) && nextProps.dataReducer.tvGenres) {
+    return false;
+  }
+  if (prevProps.dataReducer.headerTitle !== nextProps.dataReducer.headerTitle) return false;
+
+  return true;
 });
 
 const mapStateToProps = state => {

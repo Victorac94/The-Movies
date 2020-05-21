@@ -6,7 +6,14 @@ const initialState = {
     tvGenres: null,
     gridData: null,
     detailsData: null,
-    searchData: null
+    searchData: null,
+    headerTitle: '',
+}
+
+// HEADER
+
+const setHeaderTitle = (state, action) => {
+    return updateObject(state, { headerTitle: action.title });
 }
 
 // GENRES
@@ -24,7 +31,9 @@ const fetchGridDataSuccess = (state, action) => {
 // DETAILS DATA
 
 const fetchDetailsDataSuccess = (state, action) => {
-    return updateObject(state, { detailsData: action.data });
+    const title = action.data.title || action.data.name;
+
+    return updateObject(state, { detailsData: action.data, headerTitle: title });
 }
 
 // SEARCH DATA
@@ -37,6 +46,7 @@ const fetchSearchDataSuccess = (state, action) => {
 
 const reducer = (state = initialState, action) => {
     switch (action.type) {
+        case actionTypes.SET_HEADER_TITLE: return setHeaderTitle(state, action);
         case actionTypes.FETCH_GENRES_SUCCESS: return fetchGenresSuccess(state, action);
         case actionTypes.FETCH_GRID_DATA_SUCCESS: return fetchGridDataSuccess(state, action);
         case actionTypes.FETCH_DETAILS_DATA_SUCCESS: return fetchDetailsDataSuccess(state, action);
