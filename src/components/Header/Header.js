@@ -68,7 +68,6 @@ const Header = React.memo((props) => {
 
   return (
     <header className={classes.header}>
-      {console.log('Header.js')}
       <h2>{title}</h2>
       <div className={menuClasses} onClick={toggleMenu}>
         <div></div>

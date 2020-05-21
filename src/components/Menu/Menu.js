@@ -46,7 +46,6 @@ const Menu = props => {
 
   return (
     <aside className={menuClasses}>
-      {console.log('Menu.js')}
       <div className={classes.tmdb__logo}>
         <img src={tmdbLogo} alt="The Movie Database's logo" />
       </div>

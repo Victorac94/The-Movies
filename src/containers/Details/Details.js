@@ -41,7 +41,6 @@ const Details = props => {
 
     return mode && details ? (
         <main className={classes.container}>
-            {console.log('Details.js')}
             {mode === 'person' ? null
                 : (<div className={classes.background__poster} style={{ 'backgroundImage': `url("https://image.tmdb.org/t/p/w1280${details.backdrop_path}")` }}></div>)
             }

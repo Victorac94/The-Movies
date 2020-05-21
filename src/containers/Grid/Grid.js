@@ -69,7 +69,6 @@ const Grid = React.memo(props => {
 
   return (
     <div className={classes.grid}>
-      {console.log('Grid.js')}
       {info ? info.map((el, i) => {
         return (
           <Card key={el.id} info={el} mode={mode} />
