@@ -30,7 +30,7 @@ export function* fetchGridData(payload) {
   try {
     // const axiosInstance = axios.create({baseURL:})
     const response = yield axios.get(payload.url, {
-      baseURL: 'https://api.themovied.org'
+      baseURL: 'https://api.themoviedb.org'
     });
 
     if (response.status === 200) {
