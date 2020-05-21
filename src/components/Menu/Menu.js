@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { Link, useHistory, useLocation } from 'react-router-dom';
+import { Link, useHistory, useLocation, NavLink } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import tmdbLogo from '../../assets/images/The movie database logo.png';
@@ -8,12 +8,14 @@ import { appContext } from '../../context/AppContext';
 import Search from '../Search/Search';
 import * as actions from '../../store/actions/actionTypes';
 import * as dataActions from '../../store/actions/fetchDataAction';
+import getUrlSections from '../../shared/getUrlSections';
 
 const Menu = props => {
   const location = useLocation();
   const history = useHistory();
   const [lastLocation, setLastLocation] = useState(location.pathname);
   const app = useContext(appContext);
+  const [mode, genreId, optional] = getUrlSections(location.pathname);
 
   // Hide menu if we go to another path (mobile)
   useEffect(() => {
@@ -44,6 +46,7 @@ const Menu = props => {
 
   return (
     <aside className={menuClasses}>
+      {console.log('Menu.js')}
       <div className={classes.tmdb__logo}>
         <img src={tmdbLogo} alt="The Movie Database's logo" />
       </div>
@@ -58,30 +61,30 @@ const Menu = props => {
       <section className={classes.genres}>
         <article className={classes.movie__genres}>
           <header>{app.language === 'en' ? 'Movies' : 'Películas'}</header>
-          <Link to="/movie/top_rated"><span>-</span> {app.language === 'en' ? 'Top rated' : 'Mejor valoradas'}</Link>
-          <Link to="/movie/now_playing"><span>-</span> {app.language === 'en' ? 'Now playing' : 'En cines'}</Link>
-          <Link to="/movie/popular"><span>-</span> Popular</Link>
+          <NavLink to="/movie/top_rated" activeClassName={classes.active__link}><span>-</span> {app.language === 'en' ? 'Top rated' : 'Mejor valoradas'}</NavLink>
+          <NavLink to="/movie/now_playing" activeClassName={classes.active__link}><span>-</span> {app.language === 'en' ? 'Now playing' : 'En cines'}</NavLink>
+          <NavLink to="/movie/popular" activeClassName={classes.active__link}><span>-</span> Popular</NavLink>
           <div className={classes.genre__dropdown}>
             <header>{app.language === 'en' ? 'Genres' : 'Géneros'}</header>
-            <select onChange={(e) => goTo('movie', e.target.value)}>
+            <select className={mode === 'movie' && genreId > 0 && optional === 'discover' ? classes.select__active : ''} onChange={(e) => goTo('movie', e.target.value)}>
               <option>{app.language === 'en' ? 'Select' : 'Seleccionar'}</option>
               {props.dataReducer.movieGenres && props.dataReducer.movieGenres.map(gen => {
-                return <option key={gen.id + gen.name} value={gen.id}>{gen.name}</option>
+                return <option key={gen.id + gen.name} value={gen.id} selected={mode === 'movie' && gen.id === genreId ? true : false}>{gen.name}</option>
               })}
             </select>
           </div>
         </article>
         <article className={classes.tv__genres}>
           <header>{app.language === 'en' ? 'Tv shows' : 'Series'}</header>
-          <Link to="/tv/top_rated"><span>-</span> {app.language === 'en' ? 'Top rated' : 'Mejor valoradas'}</Link>
-          <Link to="/tv/on_the_air"><span>-</span> {app.language === 'en' ? 'On air' : 'En emisión'}</Link>
-          <Link to="/tv/popular"><span>-</span> Popular</Link>
+          <NavLink to="/tv/top_rated" activeClassName={classes.active__link}><span>-</span> {app.language === 'en' ? 'Top rated' : 'Mejor valoradas'}</NavLink>
+          <NavLink to="/tv/on_the_air" activeClassName={classes.active__link}><span>-</span> {app.language === 'en' ? 'On air' : 'En emisión'}</NavLink>
+          <NavLink to="/tv/popular" activeClassName={classes.active__link}><span>-</span> Popular</NavLink>
           <div className={classes.genre__dropdown}>
             <header>{app.language === 'en' ? 'Genres' : 'Géneros'}</header>
-            <select onChange={(e) => goTo('tv', e.target.value)}>
+            <select className={mode === 'tv' && genreId > 0 && optional === 'discover' ? classes.select__active : ''} onChange={(e) => goTo('tv', e.target.value)}>
               <option>{app.language === 'en' ? 'Select' : 'Seleccionar'}</option>
               {props.dataReducer.tvGenres && props.dataReducer.tvGenres.map(gen => {
-                return <option key={gen.id + gen.name} value={gen.id}>{gen.name}</option>;
+                return <option key={gen.id + gen.name} value={gen.id} selected={mode === 'tv' && gen.id === genreId ? true : false}>{gen.name}</option>;
               })}
             </select>
           </div>

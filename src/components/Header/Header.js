@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useContext } from 'react';
-import { useLocation, useHistory } from 'react-router-dom';
+import { useLocation } from 'react-router-dom';
 import { connect } from 'react-redux';
 
 import '../../assets/styles-icons.css'
@@ -28,7 +28,7 @@ const Header = React.memo((props) => {
 
       } else if (optional === 'discover') {
         // Get genre name from the store
-        id = props.dataReducer[mode + 'Genres'].find(el => el.id === parseInt(headerTitle)).name;
+        id = props.dataReducer[mode + 'Genres'].find(el => el.id === headerTitle).name;
 
       } else {
         switch (headerTitle) {
@@ -68,6 +68,7 @@ const Header = React.memo((props) => {
 
   return (
     <header className={classes.header}>
+      {console.log('Header.js')}
       <h2>{title}</h2>
       <div className={menuClasses} onClick={toggleMenu}>
         <div></div>
@@ -76,16 +77,6 @@ const Header = React.memo((props) => {
       </div>
     </header>
   )
-}, (prevProps, nextProps) => {
-
-  // Only re-render if we get new movie/tv genres or header's title changes
-  if ((prevProps.dataReducer.movieGenres === null && nextProps.dataReducer.movieGenres) ||
-    (prevProps.dataReducer.tvGenres === null) && nextProps.dataReducer.tvGenres) {
-    return false;
-  }
-  if (prevProps.dataReducer.headerTitle !== nextProps.dataReducer.headerTitle) return false;
-
-  return true;
 });
 
 const mapStateToProps = state => {

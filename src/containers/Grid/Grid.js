@@ -9,7 +9,7 @@ import Loading from '../../components/Loading/Loading';
 import { appContext } from '../../context/AppContext';
 import * as dataActions from '../../store/actions/fetchDataAction';
 
-const Grid = props => {
+const Grid = React.memo(props => {
   const [info, setInfo] = useState(null);
   const app = useContext(appContext);
   const { mode, genre, discover } = useParams();
@@ -69,6 +69,7 @@ const Grid = props => {
 
   return (
     <div className={classes.grid}>
+      {console.log('Grid.js')}
       {info ? info.map((el, i) => {
         return (
           <Card key={el.id} info={el} mode={mode} />
@@ -77,7 +78,12 @@ const Grid = props => {
         : <Loading />}
     </div>
   )
-}
+}, (prevProps, nextProps) => {
+  if (prevProps.dataReducer.gridData !== nextProps.dataReducer.gridData) {
+    return false;
+  }
+  return true;
+});
 
 const mapStateToProps = state => {
   return {
