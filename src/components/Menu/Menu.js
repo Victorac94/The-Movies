@@ -37,7 +37,18 @@ const Menu = props => {
 
   // Go to a discover route path
   const goTo = (mode, genre) => {
-    history.push(`/${mode}/${genre}/discover`);
+    history.push(`/${mode}/${genre}/discover/page/1`);
+  }
+
+  const shouldBeActive = (location, url) => {
+    // Get url location path without the '/page/1' part
+    const baseLocation = location.pathname.split("/").slice(0, -2).join("/");
+
+    if (url === baseLocation) {
+      return true;
+    }
+
+    return false;
   }
 
   const menuClasses = props.appReducer.isMenuShowing ?
@@ -53,16 +64,16 @@ const Menu = props => {
         <button onClick={() => app.toggleLanguage()} className={app.language === 'en' ? classes.active : ''}>EN</button>
         <button onClick={() => app.toggleLanguage()} className={app.language === 'es' ? classes.active : ''}>ES</button>
       </div>
-      <Link to="/movie/now_playing">
+      <Link to="/movie/now_playing/page/1">
         <h1>The Movies</h1>
       </Link>
       <Search />
       <section className={classes.genres}>
         <article className={classes.movie__genres}>
           <header>{app.language === 'en' ? 'Movies' : 'Películas'}</header>
-          <NavLink to="/movie/top_rated" activeClassName={classes.active__link}><span>-</span> {app.language === 'en' ? 'Top rated' : 'Mejor valoradas'}</NavLink>
-          <NavLink to="/movie/now_playing" activeClassName={classes.active__link}><span>-</span> {app.language === 'en' ? 'Now playing' : 'En cines'}</NavLink>
-          <NavLink to="/movie/popular" activeClassName={classes.active__link}><span>-</span> Popular</NavLink>
+          <NavLink to="/movie/top_rated/page/1" activeClassName={classes.active__link} isActive={() => shouldBeActive(location, '/movie/top_rated')}><span>-</span> {app.language === 'en' ? 'Top rated' : 'Mejor valoradas'}</NavLink>
+          <NavLink to="/movie/now_playing/page/1" activeClassName={classes.active__link} isActive={() => shouldBeActive(location, '/movie/now_playing')}><span>-</span> {app.language === 'en' ? 'Now playing' : 'En cines'}</NavLink>
+          <NavLink to="/movie/popular/page/1" activeClassName={classes.active__link} isActive={() => shouldBeActive(location, '/movie/popular')}><span>-</span> Popular</NavLink>
           <div className={classes.genre__dropdown}>
             <header>{app.language === 'en' ? 'Genres' : 'Géneros'}</header>
             <select className={mode === 'movie' && genreId > 0 && optional === 'discover' ? classes.select__active : ''} onChange={(e) => goTo('movie', e.target.value)}>
@@ -75,9 +86,9 @@ const Menu = props => {
         </article>
         <article className={classes.tv__genres}>
           <header>{app.language === 'en' ? 'Tv shows' : 'Series'}</header>
-          <NavLink to="/tv/top_rated" activeClassName={classes.active__link}><span>-</span> {app.language === 'en' ? 'Top rated' : 'Mejor valoradas'}</NavLink>
-          <NavLink to="/tv/on_the_air" activeClassName={classes.active__link}><span>-</span> {app.language === 'en' ? 'On air' : 'En emisión'}</NavLink>
-          <NavLink to="/tv/popular" activeClassName={classes.active__link}><span>-</span> Popular</NavLink>
+          <NavLink to="/tv/top_rated/page/1" activeClassName={classes.active__link} isActive={() => shouldBeActive(location, '/tv/top_rated')}><span>-</span> {app.language === 'en' ? 'Top rated' : 'Mejor valoradas'}</NavLink>
+          <NavLink to="/tv/on_the_air/page/1" activeClassName={classes.active__link} isActive={() => shouldBeActive(location, '/tv/on_the_air')}><span>-</span> {app.language === 'en' ? 'On air' : 'En emisión'}</NavLink>
+          <NavLink to="/tv/popular/page/1" activeClassName={classes.active__link} isActive={() => shouldBeActive(location, '/tv/popular')}><span>-</span> Popular</NavLink>
           <div className={classes.genre__dropdown}>
             <header>{app.language === 'en' ? 'Genres' : 'Géneros'}</header>
             <select className={mode === 'tv' && genreId > 0 && optional === 'discover' ? classes.select__active : ''} onChange={(e) => goTo('tv', e.target.value)}>

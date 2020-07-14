@@ -8,6 +8,7 @@ const initialState = {
     detailsData: null,
     searchData: null,
     headerTitle: '',
+    totalPages: null
 }
 
 // HEADER
@@ -25,7 +26,7 @@ const fetchGenresSuccess = (state, action) => {
 // GRID DATA
 
 const fetchGridDataSuccess = (state, action) => {
-    return updateObject(state, { gridData: action.data });
+    return updateObject(state, { gridData: action.data, totalPages: action.totalPages });
 }
 
 // DETAILS DATA
@@ -39,7 +40,7 @@ const fetchDetailsDataSuccess = (state, action) => {
 // SEARCH DATA
 
 const fetchSearchDataSuccess = (state, action) => {
-    return updateObject(state, { searchData: action.data });
+    return updateObject(state, { searchData: action.data, totalPages: action.totalPages });
 }
 
 // REDUCER

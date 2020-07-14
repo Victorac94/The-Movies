@@ -43,10 +43,11 @@ export const fetchGridData = url => {
     }
 }
 
-export const fetchGridDataSuccess = data => {
+export const fetchGridDataSuccess = (data, totalPages) => {
     return {
         type: actionTypes.FETCH_GRID_DATA_SUCCESS,
-        data: data
+        data: data,
+        totalPages: totalPages
     }
 }
 
@@ -89,10 +90,11 @@ export const fetchSearchData = url => {
     }
 }
 
-export const fetchSearchDataSuccess = data => {
+export const fetchSearchDataSuccess = (data, totalPages) => {
     return {
         type: actionTypes.FETCH_SEARCH_DATA_SUCCESS,
-        data: data
+        data: data,
+        totalPages: totalPages
     }
 }
 

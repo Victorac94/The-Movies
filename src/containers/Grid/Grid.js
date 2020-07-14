@@ -4,6 +4,7 @@ import { connect } from 'react-redux';
 // import axios from 'axios';
 
 import Card from '../../components/Card/Card';
+import Paginator from '../../components/Paginator/Paginator';
 import classes from './Grid.module.css';
 import Loading from '../../components/Loading/Loading';
 import { appContext } from '../../context/AppContext';
@@ -12,7 +13,7 @@ import * as dataActions from '../../store/actions/fetchDataAction';
 const Grid = React.memo(props => {
   const [info, setInfo] = useState(null);
   const app = useContext(appContext);
-  const { mode, genre, discover } = useParams();
+  const { mode, genre, discover, page } = useParams();
   const location = useLocation();
   const history = useHistory();
 
@@ -40,21 +41,21 @@ const Grid = React.memo(props => {
       // Get query string
       const query = encodeURIComponent(location.search.slice(7).trim());
 
-      url = `https://api.themoviedb.org/3/search/multi?api_key=6095dab7d845691ab95df77d0a908452&query=${query}&page=1&language=${language}&region=${region}`;
+      url = `https://api.themoviedb.org/3/search/multi?api_key=6095dab7d845691ab95df77d0a908452&query=${query}&page=${page}&language=${language}&region=${region}`;
 
     } else if (discover !== undefined) {
       // Fetch Discover data (a specific movie or tv genre)
-      url = `https://api.themoviedb.org/3/discover/${mode}?api_key=6095dab7d845691ab95df77d0a908452&language=${language}&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&with_genres=${genre}&region=${region}`;
+      url = `https://api.themoviedb.org/3/discover/${mode}?api_key=6095dab7d845691ab95df77d0a908452&language=${language}&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&with_genres=${genre}&region=${region}`;
 
     } else {
       // Fetch 'top rated', 'now playing', 'popular' 'on air' data
-      url = `https://api.themoviedb.org/3/${mode}/${genre}?api_key=6095dab7d845691ab95df77d0a908452&language=${language}&sort_by=popularity.desc&include_adult=false&include_video=false&page=1&region=${region}`;
+      url = `https://api.themoviedb.org/3/${mode}/${genre}?api_key=6095dab7d845691ab95df77d0a908452&language=${language}&sort_by=popularity.desc&include_adult=false&include_video=false&page=${page}&region=${region}`;
     }
 
     // Dispatch the call to fetch the data given the url
     props.fetchGridData(url);
 
-  }, [location, history, mode, genre, discover, app.language]);
+  }, [location, history, mode, genre, discover, page, app.language]);
 
   // On new data, update the state and render the new data
   useEffect(() => {
@@ -68,14 +69,18 @@ const Grid = React.memo(props => {
   }, []);
 
   return (
-    <div className={classes.grid}>
-      {info ? info.map((el, i) => {
-        return (
-          <Card key={el.id} info={el} mode={mode} />
-        )
-      })
-        : <Loading />}
-    </div>
+    <React.Fragment>
+      <Paginator page={parseInt(page)} totalPages={props.dataReducer.totalPages} path={location.pathname} />
+      <div className={classes.grid}>
+        {info ? info.map((el, i) => {
+          return (
+            <Card key={el.id} info={el} mode={mode} />
+          )
+        })
+          : <Loading />}
+      </div>
+      <Paginator page={parseInt(page)} totalPages={props.dataReducer.totalPages} path={location.pathname} />
+    </React.Fragment>
   )
 }, (prevProps, nextProps) => {
   if (prevProps.dataReducer.gridData !== nextProps.dataReducer.gridData) {
