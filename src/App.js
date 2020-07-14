@@ -22,8 +22,8 @@ const App = props => {
             <Switch>
               <Route path="/search" component={Grid} />
               <Route path="/:mode/:id/details" component={Details} />
-              <Route path="/:mode/:genre/:discover?" component={Grid} />
-              <Redirect to="/movie/now_playing" />
+              <Route path="/:mode/:genre/:discover?/page/:page" component={Grid} />
+              <Redirect to="/movie/now_playing/page/1" />
             </Switch>
           </Main>
         </div>

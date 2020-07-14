@@ -1,0 +1,16 @@
+.paginator {
+    color: white;
+    padding: 1em 0;
+}
+
+.currentPage {
+    margin: 0 1em;
+}
+
+.button {
+    color: #d1e9ff;
+    border-bottom: 1.5px solid #d1e9ff;
+    font-size: 0.95em;
+    padding-bottom: 0.25em;
+    cursor: pointer;
+}

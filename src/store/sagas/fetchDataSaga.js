@@ -37,9 +37,11 @@ export function* fetchGridData(payload) {
     // const axiosInstance = axios.create({baseURL:})
     const response = yield axios.get(payload.url);
 
+    console.log(response);
+
     if (response.status === 200) {
       console.log('fetchGridData');
-      yield put(fetchDataActions.fetchGridDataSuccess(response.data.results));
+      yield put(fetchDataActions.fetchGridDataSuccess(response.data.results, response.data.total_pages));
 
     } else if (response.status === 307) {
       console.log('Status 307 redirect', response);
@@ -86,7 +88,7 @@ export function* fetchSearchData(payload) {
 
     if (response.status === 200) {
       console.log('fetchSearchData');
-      yield put(fetchDataActions.fetchSearchDataSuccess(response.data.results));
+      yield put(fetchDataActions.fetchSearchDataSuccess(response.data.results, response.data.total_pages));
 
     } else {
       throw new Error('Error while fetching search data');

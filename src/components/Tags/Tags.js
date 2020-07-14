@@ -11,7 +11,7 @@ const Tags = (props) => {
   if (props.tags) {
     for (const tag of props.tags) {
       const elem = (
-        <Link key={tag.id} to={`/${mode}/${tag.id}/discover`}>
+        <Link key={tag.id} to={`/${mode}/${tag.id}/discover/page/1`}>
           <Tag name={tag.name} />
         </Link>
       );
