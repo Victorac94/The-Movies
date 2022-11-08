@@ -58,7 +58,7 @@ const Details = props => {
                 {mode === 'person' ? null
                     : (<div className={classes.trailer}>
                         <h3>Trailer</h3>
-                        {details.videos.results && details.videos.results[0] ? (
+                        {details.videos?.results && details.videos.results[0] ? (
                             <iframe
                                 className={classes.iframe}
                                 width="300"
@@ -75,10 +75,10 @@ const Details = props => {
                         }
                     </div>)
                 }
-                {details.recommendations.results &&
+                {mode !== 'person' && details.recommendations?.results &&
                     <ThumbnailCarousel data={details.recommendations.results} title={app.language === 'en' ? 'Recommended' : 'Recomendado'} isPeople={false} />
                 }
-                {details.similar.results &&
+                {mode !== 'person' && details.similar?.results &&
                     <ThumbnailCarousel data={details.similar.results} title="Similar" isPeople={false} />
                 }
             </main>

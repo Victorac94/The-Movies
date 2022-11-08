@@ -37,8 +37,6 @@ export function* fetchGridData(payload) {
     // const axiosInstance = axios.create({baseURL:})
     const response = yield axios.get(payload.url);
 
-    console.log(response);
-
     if (response.status === 200) {
       console.log('fetchGridData');
       yield put(fetchDataActions.fetchGridDataSuccess(response.data.results, response.data.total_pages));

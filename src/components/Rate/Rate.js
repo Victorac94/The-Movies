@@ -30,7 +30,7 @@ const rate = (props) => {
   return (
     <div>
       {stars}
-      <span className="rate">{props.rate}</span>
+      <span className="rate">{props.rate.toFixed(1)}</span>
     </div>
   )
 }
