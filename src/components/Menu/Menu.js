@@ -15,7 +15,9 @@ const Menu = props => {
   const history = useHistory();
   const [lastLocation, setLastLocation] = useState(location.pathname);
   const app = useContext(appContext);
-  const [mode, genreId, optional] = getUrlSections(location.pathname);
+  const [mode, urlGenreId, optional] = getUrlSections(location.pathname);
+  const [selectedGenreMovie, setSelectedGenreMovie] = useState(urlGenreId);
+  const [selectedGenreTv, setSelectedGenreTv] = useState(urlGenreId);
 
   // Hide menu if we go to another path (mobile)
   useEffect(() => {
@@ -34,9 +36,32 @@ const Menu = props => {
 
   }, [app.language]);
 
+  // Set the selected genre of Movie/Tv-show <option> based on the genre URL
+  useEffect(() => {
+    // For movies
+    if (mode === 'movie' && props.dataReducer.movieGenres) {
+      if (props.dataReducer.movieGenres.some(gen => gen.id === urlGenreId)) {
+        setSelectedGenreMovie(urlGenreId);
+      } else {
+        setSelectedGenreMovie('');
+      }
+
+      // For Tv shows
+    } else if (mode === 'tv' && props.dataReducer.tvGenres) {
+      if (props.dataReducer.tvGenres.some(gen => gen.id === urlGenreId)) {
+        setSelectedGenreTv(urlGenreId);
+      } else {
+        setSelectedGenreTv('');
+      }
+    }
+  })
+
 
   // Go to a discover route path
   const goTo = (mode, genre) => {
+    // Do not try to fetch any data when selecting the default <option>
+    if (genre === '' || genre === 'Select' || genre === 'Seleccionar') return;
+
     history.push(`/${mode}/${genre}/discover/page/1`);
   }
 
@@ -76,10 +101,11 @@ const Menu = props => {
           <NavLink to="/movie/popular/page/1" activeClassName={classes.active__link} isActive={() => shouldBeActive(location, '/movie/popular')}><span>-</span> Popular</NavLink>
           <div className={classes.genre__dropdown}>
             <header>{app.language === 'en' ? 'Genres' : 'Géneros'}</header>
-            <select className={mode === 'movie' && genreId > 0 && optional === 'discover' ? classes.select__active : ''} onChange={(e) => goTo('movie', e.target.value)}>
-              <option>{app.language === 'en' ? 'Select' : 'Seleccionar'}</option>
+            <select value={mode === 'movie' ? selectedGenreMovie : ''} className={mode === 'movie' && urlGenreId > 0 && optional === 'discover' ? classes.select__active : ''} onChange={(e) => goTo('movie', e.target.value)}>
+              <option value=''>{app.language === 'en' ? 'Select' : 'Seleccionar'}</option>
               {props.dataReducer.movieGenres && props.dataReducer.movieGenres.map(gen => {
-                return <option key={gen.id + gen.name} value={gen.id} selected={mode === 'movie' && gen.id === genreId ? true : false}>{gen.name}</option>
+                return <option key={gen.id + gen.name} value={gen.id}>{gen.name}</option>
+                // return <option key={gen.id + gen.name} value={gen.id} selected={mode === 'movie' && gen.id === urlGenreId ? true : false}>{gen.name}</option>
               })}
             </select>
           </div>
@@ -91,10 +117,10 @@ const Menu = props => {
           <NavLink to="/tv/popular/page/1" activeClassName={classes.active__link} isActive={() => shouldBeActive(location, '/tv/popular')}><span>-</span> Popular</NavLink>
           <div className={classes.genre__dropdown}>
             <header>{app.language === 'en' ? 'Genres' : 'Géneros'}</header>
-            <select className={mode === 'tv' && genreId > 0 && optional === 'discover' ? classes.select__active : ''} onChange={(e) => goTo('tv', e.target.value)}>
-              <option>{app.language === 'en' ? 'Select' : 'Seleccionar'}</option>
+            <select value={mode === 'tv' ? selectedGenreTv : ''} className={mode === 'tv' && urlGenreId > 0 && optional === 'discover' ? classes.select__active : ''} onChange={(e) => goTo('tv', e.target.value)}>
+              <option value=''>{app.language === 'en' ? 'Select' : 'Seleccionar'}</option>
               {props.dataReducer.tvGenres && props.dataReducer.tvGenres.map(gen => {
-                return <option key={gen.id + gen.name} value={gen.id} selected={mode === 'tv' && gen.id === genreId ? true : false}>{gen.name}</option>;
+                return <option key={gen.id + gen.name} value={gen.id}>{gen.name}</option>;
               })}
             </select>
           </div>
