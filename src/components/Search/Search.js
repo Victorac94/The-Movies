@@ -77,6 +77,9 @@ const Search = props => {
         if (value.trim() === '') return;
 
         history.push(`/search?query=${value}`);
+
+        // Hide results list dropdown
+        setSearchResults(null);
     }
 
     // Render
