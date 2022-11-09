@@ -70,7 +70,7 @@ const Grid = React.memo(props => {
 
   return (
     <React.Fragment>
-      <Paginator page={parseInt(page)} totalPages={props.dataReducer.totalPages} path={location.pathname} />
+      {page && <Paginator page={parseInt(page)} totalPages={props.dataReducer.totalPages} path={location.pathname} />}
       <div className={classes.grid}>
         {info ? info.map((el, i) => {
           return (
@@ -79,7 +79,7 @@ const Grid = React.memo(props => {
         })
           : <Loading />}
       </div>
-      <Paginator page={parseInt(page)} totalPages={props.dataReducer.totalPages} path={location.pathname} />
+      {page && <Paginator page={parseInt(page)} totalPages={props.dataReducer.totalPages} path={location.pathname} />}
     </React.Fragment>
   )
 }, (prevProps, nextProps) => {
